@@ -1,2 +1,2 @@
-name = "MJB Heads";
-author = "SuperJam";
+name = "MJB Config Tweaks";
+author = "Camelith & SuperJam";
