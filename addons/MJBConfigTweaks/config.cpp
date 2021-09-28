@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class Beagle_People_Adjustments
+	class MJBConfigTweaks
 	{
 		units[]={};
 		weapons[]={};
@@ -20,7 +20,7 @@ class CfgVehicles
 	{
 		class HitPoints
 		{
-					class HitFace
+			class HitFace
 			{
 				armor=5;
 				material=-1;
