@@ -1,8 +1,8 @@
 class CfgPatches
 {
-	class MJBHeads
+	class Faces
 	{
-        author = "SuperJam (jdcaperon)";
+        author = "SuperJam";
         hideName=0;
 		units[]={};
 		weapons[]={};

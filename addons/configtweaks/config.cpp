@@ -1,12 +1,12 @@
 class CfgPatches
 {
-	class MJBConfigTweaks
+	class ConfigTweaks
 	{
 		units[]={};
 		weapons[]={};
 		requiredVersion=0.1;
-		author="Camelith & SuperJam";
-		name="MJB ConfigTweaks";
+		author="SuperJam & Camelith";
+		name="Config Tweaks";
 		requiredAddons[]=
 		{
 			"A3_Characters_F",
