@@ -42,13 +42,13 @@ class CfgFaces
             displayname="Beagle (Troska)";
             author="SuperJam (jdcaperon)";
             head="DefaultHead_A3";
-            texture="MJBHeads\data\beagle_troska.paa";
+            texture="z\mjb\addons\faces\data\beagle_troska.paa";
         };
 		class Westonsammy: WhiteHead_01 {
             displayname="Westonsammy";
             author="SuperJam (jdcaperon)";
             head="DefaultHead_A3";
-            texture="MJBHeads\data\westonsammy.paa";
+            texture="z\mjb\addons\faces\data\westonsammy.paa";
         };
 	};
 };
