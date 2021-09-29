@@ -1,0 +1,12 @@
+name = "MJBConfigTweaks"
+version = "0.1.0"
+prefix = "mjb"
+author = "SuperJam"
+template = "cba"
+files = [
+    "mod.cpp",
+    "LICENSE",
+    "readme.md"
+]
+folder_optionals = true
+sig_version = 3
