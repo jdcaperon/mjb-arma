@@ -3,12 +3,12 @@
 This mod contains addons for MJB Arma including:
 
 - Config Tweaks
-  - To improve bullet resistance of all infantry Based on Camelith's [Bullet Resistant Human](https://steamcommunity.com/sharedfiles/filedetails/?id=2260739003) mod
+  - Improve bullet resistance of infantry (Based on Camelith's [Bullet Resistant Human](https://steamcommunity.com/sharedfiles/filedetails/?id=2260739003) mod)
 - Custom faces for players
 
-Built with:
+## Contributing
 
-- [HEMTT](https://github.com/BrettMayson/HEMTT/tree/51deaa66b3a376e07442cbd914ef300ad469dadf): download [here](https://github.com/BrettMayson/HEMTT/releases/tag/v0.7.6).
+Built with [HEMTT](https://github.com/BrettMayson/HEMTT/tree/51deaa66b3a376e07442cbd914ef300ad469dadf) which you can download [here](https://github.com/BrettMayson/HEMTT/releases/tag/v0.7.6).
 
 ## Licensing
 
