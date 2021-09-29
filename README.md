@@ -1,13 +1,14 @@
-# MJBConfigTweaks
-Core Arma config tweaks for MJB Arma.
+# MJB Arma
 
-## Usage
+This mod contains addons for MJB Arma including:
 
-To use this mod:
+- Config Tweaks
+  - To improve bullet resistance of all infantry Based on Camelith's [Bullet Resistant Human](https://steamcommunity.com/sharedfiles/filedetails/?id=2260739003) mod
+- Custom faces for players
 
-1. Clone the repository
-2. Pack the `addons/MJBConfigTweaks` directory into a PBO.
-3. Add it as a local mod to Arma 3.
+Built with:
+
+- [HEMTT](https://github.com/BrettMayson/HEMTT/tree/51deaa66b3a376e07442cbd914ef300ad469dadf): download [here](https://github.com/BrettMayson/HEMTT/releases/tag/v0.7.6).
 
 ## Licensing
 

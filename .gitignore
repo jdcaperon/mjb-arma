@@ -1,1 +1,8 @@
+*.biprivatekey
+hemtt\.exe
+.hemtt/local
+keys/*
+releases/*
 *.pbo
+*.bisign
+.vscode/
