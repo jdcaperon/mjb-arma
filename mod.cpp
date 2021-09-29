@@ -1,2 +1,2 @@
-name = "MJB Config Tweaks";
-author = "Camelith & SuperJam";
+name = "MJB Arma Addons";
+author = "SuperJam";
