@@ -50,5 +50,23 @@ class CfgFaces
             head="DefaultHead_A3";
             texture="z\mjb\addons\faces\data\westonsammy.paa";
         };
+		class Banzer: WhiteHead_01 {
+            displayname="Banzer";
+            author="SuperJam (jdcaperon)";
+            head="DefaultHead_A3";
+            texture="z\mjb\addons\faces\data\banzer.paa";
+        };
+		class FaceThink: WhiteHead_01 {
+            displayname="FaceThink";
+            author="SuperJam (jdcaperon)";
+            head="DefaultHead_A3";
+            texture="z\mjb\addons\faces\data\facethink.paa";
+        };
+		class HankHill: WhiteHead_01 {
+            displayname="HankHill";
+            author="SuperJam (jdcaperon)";
+            head="DefaultHead_A3";
+            texture="z\mjb\addons\faces\data\hank.paa";
+        };
 	};
 };
