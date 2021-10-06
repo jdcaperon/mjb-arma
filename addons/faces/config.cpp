@@ -68,5 +68,11 @@ class CfgFaces
             head="DefaultHead_A3";
             texture="z\mjb\addons\faces\data\hank.paa";
         };
+        class Ocelot: WhiteHead_01 {
+            displayname="Ocelot";
+            author="SuperJam (jdcaperon)";
+            head="DefaultHead_A3";
+            texture="z\mjb\addons\faces\data\ocelot.paa";
+        };
 	};
 };
