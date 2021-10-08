@@ -20,9 +20,9 @@ class CfgVehicles {
     // divides all damage taken to total hit point, either directly or through
     // hit point passThrough coefficient. must be adjusted for each model to
     // achieve consistent total damage results
-    armorStructural = 0.4;
+    armorStructural = 3;
     // for consistent explosive damage after adjusting = (armorStructural / 10)
-    explosionShielding = 0.04;
+    explosionShielding = 0.3;
     // minimalHit for total damage
     minTotalDamageThreshold = 0.001;
     // multiplier for falling damage
