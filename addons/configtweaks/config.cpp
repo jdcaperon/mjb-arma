@@ -10,6 +10,8 @@ class CfgPatches {
     };
   };
 };
+
+// Bullet Resistance Tweaks
 class CfgVehicles {
   class Man;
   class CAManBase : Man {
@@ -177,5 +179,62 @@ class CfgVehicles {
             "+ ((HitBody - 0.25) max 0)) * 2";
       };
     };
+  };
+};
+
+// AI Turrets Dispersion Config Tweaks
+
+class CfgBrains {
+  class DefaultSoldierBrain {
+    class Components {
+      class AIBrainAimingErrorComponent {
+        maxAngularErrorTurrets =
+            0.1308;  // half of the error cone in radians, used for turrets
+      };
+    };
+  };
+};
+
+class CfgWeapons {
+  class MGun;
+  class LMG_RCWS : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+    class manual : MGun {};
+    class close : manual {
+      aiBurstTerminable = 0;
+    };
+    class short : close {
+      aiBurstTerminable = 0;
+    };
+    class medium : close {
+      aiBurstTerminable = 0;
+    };
+    class far : close {
+      aiBurstTerminable = 0;
+    };
+  };
+  class HMG_01;
+  class HMG_M2 : HMG_01 {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+    class manual : MGun {};
+    class close : manual {
+      aiBurstTerminable = 0;
+    };
+    class short : close {
+      aiBurstTerminable = 0;
+    };
+    class medium : close {
+      aiBurstTerminable = 0;
+    };
+    class far : close {
+      aiBurstTerminable = 0;
+    };
+  };
+  class CannonCore;
+  class autocannon_Base_F : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
   };
 };
