@@ -214,6 +214,8 @@ class CfgWeapons {
       aiBurstTerminable = 0;
     };
   };
+  // HMG_M2 Explicitly overrides aiDispersionCoef in vanilla configs
+  // so we can't take advantage of inheritance. Must explicitly override here.
   class HMG_01;
   class HMG_M2 : HMG_01 {
     aiDispersionCoefX = 40.0;
