@@ -182,7 +182,7 @@ class CfgVehicles {
   };
 };
 
-// AI Turrets Dispersion Config Tweaks
+// AI Turrets Dispersion Config Tweaks (Built on nkenny's @LAMBS_Turrets)
 
 class CfgBrains {
   class DefaultSoldierBrain {
