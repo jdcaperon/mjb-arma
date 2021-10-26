@@ -238,10 +238,3 @@ class CfgWeapons {
     aiDispersionCoefY = 30;
   };
 };
-
-class CfgAmmo {
-  class BulletBase;
-  class B_127x99_Ball : BulletBase {
-    hit = 15;
-  };
-};
