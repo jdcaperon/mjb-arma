@@ -15,7 +15,7 @@ Built with [HEMTT](https://github.com/BrettMayson/HEMTT/tree/51deaa66b3a376e0744
 
 1. Download HEMTT and move the `.exe` to the directory which you've cloned the repository.
 2. To build the mod run `.\hemtt.exe build` in Powershell or CLI of your choice.
-  - Make sure Arma is not running, it will not build correctly, even if it says it did.
+    - Make sure Arma is not running, it will not build correctly, even if it says it did.
 3. Point Arma to the repository as a local mod.
 4. Launch Arma!
 
