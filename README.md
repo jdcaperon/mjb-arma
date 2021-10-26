@@ -3,13 +3,13 @@
 This mod contains addons for MJB Arma including:
 
 - Config Tweaks
-  - Improve bullet resistance of infantry (Based on Camelith's [Bullet Resistant Human](https://steamcommunity.com/sharedfiles/filedetails/?id=2260739003) mod)
+  - Improve bullet resistance of infantry
+  - Increase AI dispersion when using HMG's
 - Custom faces for players
 
 ## Contributing
 
 Built with [HEMTT](https://github.com/BrettMayson/HEMTT/tree/51deaa66b3a376e07442cbd914ef300ad469dadf) which you can download [here](https://github.com/BrettMayson/HEMTT/releases/tag/v0.7.6).
-
 
 ### Instructions
 
@@ -18,6 +18,12 @@ Built with [HEMTT](https://github.com/BrettMayson/HEMTT/tree/51deaa66b3a376e0744
     - Make sure Arma is not running, it will not build correctly, even if it says it did.
 3. Point Arma to the repository as a local mod.
 4. Launch Arma!
+
+## Acknowledgements
+
+- Camelith (Author of [Bullet Resistant Human](https://steamcommunity.com/sharedfiles/filedetails/?id=2260739003))
+- Diwako (Author of [Armor Plates System](https://github.com/diwako/armor_plates_system)
+- nkenny (Author of [LAMBS_Turrets](https://steamcommunity.com/sharedfiles/filedetails/?id=1862208264) and [LAMBS_Danger](https://steamcommunity.com/sharedfiles/filedetails/?id=1858075458))
 
 ## Licensing
 
