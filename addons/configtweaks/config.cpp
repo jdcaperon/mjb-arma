@@ -240,3 +240,23 @@ class CfgWeapons {
     aiDispersionCoefY = 30;
   };
 };
+
+
+// Custom Greenmag Config
+class CfgMagazines {
+    class CUP_30Rnd_Sa58_M
+    {
+        greenmag_ammo = "greenmag_ammo_762x39_basic_1Rnd";
+        greenmag_basicammo = "greenmag_ammo_762x39_basic_1Rnd";
+        greenmag_canSpeedload = 1;
+        greenmag_needBelt = 0;
+    };
+    
+    class CUP_30Rnd_Sa58_M_TracerY
+    {
+        greenmag_ammo = "greenmag_ammo_762x39_basic_1Rnd";
+        greenmag_basicammo = "greenmag_ammo_762x39_basic_1Rnd";
+        greenmag_canSpeedload = 1;
+        greenmag_needBelt = 0;
+    };
+};
