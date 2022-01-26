@@ -663,7 +663,7 @@ class CfgAmmo
 	};
 
 	// RHS 12gauge
-	rhs_ammo_12g_slug: B_12Gauge_Slug
+	class rhs_ammo_12g_slug: B_12Gauge_Slug
 	{
 		airFriction = -0.002042; // RHS slugs do their own thing
 		caliber = 0.54; // for each of these, 
