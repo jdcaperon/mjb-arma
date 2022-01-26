@@ -7,15 +7,15 @@ class CfgPatches {
     name = "Config Tweaks";
     requiredAddons[] = {
         "A3_Characters_F",
-			  "CUP_Weapons_Ammunition",
-			  "rhsusf_c_troops",
-		  	"rhs_weapons2",
-	  		"rhs_weapons3",
-	  		"rhsgref_weapons",
-	  		"rhsgref_weapons2",
-	  		"rhsgref_weapons3",
-	  		"rhsusf_weapons2",
-	  		"rhsusf_weapons3"
+	"CUP_Weapons_Ammunition",
+	"rhsusf_c_troops",
+	"rhs_weapons2",
+	"rhs_weapons3",
+	"rhsgref_weapons",
+	"rhsgref_weapons2",
+	"rhsgref_weapons3",
+	"rhsusf_weapons2",
+	"rhsusf_weapons3"
     };
   };
 };
@@ -656,7 +656,7 @@ class CfgAmmo
 		typicalSpeed = 475.49; // slower
 	};
   
-  // CUP
+        // CUP
 	class CUP_12Gauge_Slug: B_12Gauge_Slug
 	{
 		caliber = 0.54; // inherits everything except caliber
