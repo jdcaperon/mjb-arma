@@ -3,7 +3,7 @@ class CfgPatches {
     units[] = {};
     weapons[] = {};
     requiredVersion = 0.1;
-    author = "SuperJam & Camelith";
+    author = "SuperJam, Camelith, Alien314";
     name = "Config Tweaks";
     requiredAddons[] = {
         "A3_Characters_F",
