@@ -188,20 +188,6 @@ class CfgVehicles {
     };
   };
 };
-class CfgWeapons
-{
-	class Default {};
-	class ItemCore: Default {};
-	class vest_camo_base: ItemCore {};
-	class rhsusf_iotv_ocp_base: vest_camo_base {
-		class ItemInfo 
-		{
-			armor = "5*0";  // Disable RHS USAF Vests' forcefield?
-			                // CUP does this for Vanilla items, CUP and other RHS vests inherit this from vanilla
-					// But RHS USF has this vest set to 20 and it applies to all RHS USF vests
-		};
-	};
-};
 
 
 // AI Turrets Dispersion Config Tweaks (Built on nkenny's @LAMBS_Turrets)
@@ -261,6 +247,19 @@ class CfgWeapons {
     aiDispersionCoefX = 40;
     aiDispersionCoefY = 30;
   };
+  
+  
+	class Default {};
+	class ItemCore: Default {};
+	class vest_camo_base: ItemCore {};
+	class rhsusf_iotv_ocp_base: vest_camo_base {
+		class ItemInfo 
+		{
+			armor = "5*0";  // Disable RHS USAF Vests' forcefield?
+			                // CUP does this for Vanilla items, CUP and other RHS vests inherit this from vanilla
+					// But RHS USF has this vest set to 20 and it applies to all RHS USF vests
+		};
+	};
 };
 
 
