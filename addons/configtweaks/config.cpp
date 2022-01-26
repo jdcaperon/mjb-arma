@@ -183,7 +183,7 @@ class CfgVehicles {
         explosionShielding = 1;
         visual = "";
         minimalHit = 0;
-				depends="""(((Total - 0.25) max 0) + ((HitHead - 0.25) max 0)""" \n """+ ((HitBody - 0.25) max 0)) * 2""";
+	depends="""(((Total - 0.25) max 0) + ((HitHead - 0.25) max 0)""" \n """+ ((HitBody - 0.25) max 0)) * 2""";
       };
     };
   };
@@ -196,9 +196,9 @@ class CfgWeapons
 	class rhsusf_iotv_ocp_base: vest_camo_base {
 		class ItemInfo 
 		{
-			armor = "5*0"; // Disable RHS USAF Vests' forcefield?
-			               // CUP does this for Vanilla items, CUP and other RHS vests inherit this from vanilla
-						         // But RHS USF has this vest set to 20 and it applies to all RHS USF vests
+			armor = "5*0";  // Disable RHS USAF Vests' forcefield?
+			                // CUP does this for Vanilla items, CUP and other RHS vests inherit this from vanilla
+					// But RHS USF has this vest set to 20 and it applies to all RHS USF vests
 		};
 	};
 };
