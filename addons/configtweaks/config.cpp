@@ -183,7 +183,7 @@ class CfgVehicles {
         explosionShielding = 1;
         visual = "";
         minimalHit = 0;
-	depends="""(((Total - 0.25) max 0) + ((HitHead - 0.25) max 0)""" \n """+ ((HitBody - 0.25) max 0)) * 2""";
+	depends="(((Total - 0.25) max 0) + ((HitHead - 0.25) max 0) + ((HitBody - 0.25) max 0)) * 2";
       };
     };
   };
