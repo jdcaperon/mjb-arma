@@ -24,18 +24,18 @@ class CfgPatches {
 class CfgVehicles {
   class Man;
   class CAManBase : Man {
-    // total hit points (meaning global "health") of the object keep constant
+    // chamatal hit points (meaning global "health") of the object keep constant
     // among various soldiers so that the hit points armor coefficients remains
     // on the same scale
     armor = 2;
-    // divides all damage taken to total hit point, either directly or through
+    // divides all damage taken to chamatal hit point, either directly or through
     // hit point passThrough coefficient. must be adjusted for each model to
-    // achieve consistent total damage results
+    // achieve consistent chamatal damage results
     armorStructural = 3;
     // for consistent explosive damage after adjusting = (armorStructural / 10)
     explosionShielding = 0.3;
-    // minimalHit for total damage
-    minTotalDamageThreshold = 0.001;
+    // minimalHit for chamatal damage
+    minChamatalDamageThreshold = 0.001;
     // multiplier for falling damage
     impactDamageMultiplier = 0.5;
 
@@ -243,7 +243,7 @@ class CfgWeapons {
     };
   };
   class CannonCore;
-  class autocannon_Base_F : CannonCore {
+  class auchamacannon_Base_F : CannonCore {
     aiDispersionCoefX = 40;
     aiDispersionCoefY = 30;
   };
@@ -637,7 +637,14 @@ class CfgMagazines
 	};
 };
 
-// Ammo Balance, normalizes 12G slugs across mods, example of what can be done with this
+/*
+// Ammo Balance, spreadsheet with changes: https://docs.google.com/spreadsheets/d/1hBv11wZy6fM9IIj6Qh0-j3qezPhqOBt0XZLNUT1HfvQ/edit#gid=0
+// RHS has very different stats for ammo, causing their factions' damage to vary wildly in comparison to Vanilla
+// These configs change them to closer match ACE/Vanilla and balance ammos in general
+// airFriction: affects bullet drop and damage falloff, 0 is no drop/falloff, -0.001 is ~average
+// caliber: how well a bullet penetrates, higher is more penetrative
+// hit: base damage of a bullet
+// Initial bullet speed is set on magazines with a possible override on weapons, will be much more difficult to change
 class CfgAmmo
 {
 	class Default {};
@@ -649,24 +656,179 @@ class CfgAmmo
 	// Vanilla
 	class B_12Gauge_Slug: BulletBase
 	{
-		airFriction = -0.002042; // loses energy faster
+		airFriction = -0.002042; // faster bullet drop/damage falloff
 		caliber = 0.54; // less pen, easily destroyed cars before, can still brick engines
 		hit = 34.51; // less damage than vanilla
-		typicalSpeed = 475.49; // slower
 	};
-  
-        // CUP
+	class B_65x39_Caseless: BulletBase 
+	{
+		hit = 9.5; // Slight reduction to 6.5, still much stronger than other rifle calibers at range	
+	};
+	
+	
+	// CUP	
+	class CUP_B_46x30_Ball: BulletBase // MP7 toward RHS values
+	{
+		caliber = 0.52;
+		airFriction = -0.002155;
+	};
+	
+	class CUP_B_545x39_Ball: BulletBase {};
+	class CUP_B_545x39_Ball_Subsonic: CUP_B_545x39_Ball // 5.45 subsonic toward RHS
+	{
+		caliber = 0.34;
+		hit = 4;
+	};
+	class CUP_B_762x39_Ball: BulletBase {};
+	class CUP_B_762x39_Ball_Subsonic: CUP_B_762x39_Ball // 7.62x39 subsonic toward RHS
+	{
+		caliber = 0.455063;
+		hit = 5.79;
+	};
+	class CUP_680x43_Ball_Tracer_Red: B_762x51_Ball
+	{
+		hit = 10;
+	};
 	class CUP_12Gauge_Slug: B_12Gauge_Slug
 	{
 		caliber = 0.54; // inherits everything except caliber
 	};
-
+	
+	
+	// RHS 5.56
+	class rhs_ammo_556x45_M193_Ball: B_556x45_Ball
+	{
+		airFriction = -0.001325;
+	};
+	class rhs_ammo_556x45_M855_Ball: B_556x45_Ball
+	{
+		airFriction = -0.001354;
+	};
+	class rhs_ammo_556x45_M855A1_Ball: B_556x45_Ball
+	{
+		airFriction = -0.00130094;
+	};
+	class rhs_ammo_556x45_M995_AP: B_556x45_Ball
+	{
+		airFriction = -0.00126182;
+		caliber = 1.6;
+	};
+	class rhs_ammo_556x45_Mk262_Ball: B_556x45_Ball
+	{
+		airFriction = -0.00111805;
+		caliber = 0.869;
+		hit = 9;
+	};
+	class rhs_ammo_556x45_Mk318_Ball: B_556x45_Ball
+	{
+		airFriction = -0.0012588;
+		caliber = 0.869;
+		hit = 9;
+	};	
+	
+	//RHS Sub/Pistol
+	class rhs_ammo_46x30_FMJ: rhs_ammo_556x45_M855A1_Ball
+	{
+		airFriction = -0.001865;
+	};
+	class rhs_ammo_46x30_AP: rhs_ammo_46x30_FMJ
+	{
+		airFriction = -0.002155;
+	};
+	class rhs_ammo_rhs_ammo_46x30_JHP: rhs_ammo_46x30_FMJ
+	{
+		airFriction = -0.002635;
+	};
+	
+	// RHS 5.45
+	class rhs_B_545x39_Ball: B_556x45_Ball
+	{
+		hit = 8;
+		airFriction = -0.00129458;
+		caliber = 0.34;
+	};
+	class rhs_B_545x39_7N10_Ball: rhs_B_545x39_Ball
+	{
+		airFriction = -0.00119458;
+		hit = 8.5;
+	};
+	class rhs_B_545x39_7N22_Ball: rhs_B_545x39_Ball
+	{
+		airFriction = -0.00095;
+		hit = 8.8;
+	};
+	class rhs_B_545x39_7N24_Ball: rhs_B_545x39_Ball
+	{
+		airFriction = -0.00095;
+		hit = 7;
+	};
+	class rhs_B_545x39_7N6_Ball: rhs_B_545x39_Ball
+	{
+		airFriction = -0.00119458;
+		caliber = 0.54;
+		hit = 8.3;
+	};
+	class rhs_B_545x39_7U1_Ball: rhs_B_545x39_Ball
+	{
+		caliber = 0.34;
+		hit = 4;
+	};
+	
+	// RHS 7.62x39
+	class rhs_B_762x39_Ball: B_762x51_Ball
+	{
+		airFriction = -0.00150173;
+		caliber = 0.928;
+		hit = 9.8;
+	};
+	class rhs_B_762x39_Ball_89: rhs_B_762x39_Ball
+	{
+		caliber = 1.2;
+		hit = 11;
+	};
+	class rhs_B_762x39_U_Ball: rhs_B_762x39_Ball
+	{
+		airFriction = -0.0007324;
+	};
+	
+	// RHS 7.62x51
+	class rhs_ammo_762x51_M80_Ball: BulletBase
+	{
+		airFriction = -0.00103711;
+		caliber = 1;
+	};
+	class rhs_ammo_762x51_M118_Special_Ball: rhs_ammo_762x51_M80_Ball
+	{
+		airFriction = -0.00085147;
+		caliber = 1.8;
+		hit = 16;
+	};
+	class rhs_ammo_762x51_M61_AP: rhs_ammo_762x51_M80_Ball
+	{
+		caliber = 1.9;
+	};
+	class rhs_ammo_762x51_M80A1EPR_Ball: rhs_ammo_762x51_M80_Ball
+	{
+		airFriction = -0.00118711;
+		caliber = 1.2;
+	};
+	class rhs_ammo_762x51_M993_Ball: rhs_ammo_762x51_M80_Ball
+	{
+		airFriction = -0.0010939;
+		caliber = 2.2;
+		hit = 11;
+	};
+	class rhs_ammo_762x51_Mk316_Special_Ball: rhs_ammo_762x51_M118_Special_Ball
+	{
+		airFriction = -0.00084311;
+	};
+	
 	// RHS 12gauge
 	class rhs_ammo_12g_slug: B_12Gauge_Slug
 	{
 		airFriction = -0.002042; // RHS slugs do their own thing
-		caliber = 0.54; // for each of these, 
-		hit = 34.51; // I kept everything but caliber and
-		typicalSpeed = 475.49; // applied it to vanilla/CUP
+		caliber = 0.54; // for each of these, I kept everything but 
+		hit = 34.51; // caliber and applied it to vanilla/CUP
 	};	
 };
+*/
