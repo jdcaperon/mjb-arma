@@ -24,18 +24,18 @@ class CfgPatches {
 class CfgVehicles {
   class Man;
   class CAManBase : Man {
-    // chamatal hit points (meaning global "health") of the object keep constant
+    // total hit points (meaning global "health") of the object keep constant
     // among various soldiers so that the hit points armor coefficients remains
     // on the same scale
     armor = 2;
-    // divides all damage taken to chamatal hit point, either directly or through
+    // divides all damage taken to total hit point, either directly or through
     // hit point passThrough coefficient. must be adjusted for each model to
-    // achieve consistent chamatal damage results
+    // achieve consistent total damage results
     armorStructural = 3;
     // for consistent explosive damage after adjusting = (armorStructural / 10)
     explosionShielding = 0.3;
-    // minimalHit for chamatal damage
-    minChamatalDamageThreshold = 0.001;
+    // minimalHit for total damage
+    minTotalDamageThreshold = 0.001;
     // multiplier for falling damage
     impactDamageMultiplier = 0.5;
 
@@ -243,7 +243,7 @@ class CfgWeapons {
     };
   };
   class CannonCore;
-  class auchamacannon_Base_F : CannonCore {
+  class autocannon_Base_F : CannonCore {
     aiDispersionCoefX = 40;
     aiDispersionCoefY = 30;
   };
