@@ -1524,7 +1524,7 @@ class CfgWeapons {
     aiDispersionCoefY = 30;
   };
     
-// Disable RHS USAF Vests' forcefield?
+  // Disable RHS USAF Vests' forcefield?
 	class Default {};
 	class ItemCore: Default {};
 	class vest_camo_base: ItemCore {};
