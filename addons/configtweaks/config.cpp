@@ -1465,9 +1465,66 @@ class CfgVehicles {
     };
   };
 };
+
+// AI Turrets Dispersion Config Tweaks (Built on nkenny's @LAMBS_Turrets)
+
+class CfgBrains {
+  class DefaultSoldierBrain {
+    class Components {
+      class AIBrainAimingErrorComponent {
+        maxAngularErrorTurrets =
+            0.1308;  // half of the error cone in radians, used for turrets
+      };
+    };
+  };
+};
+
+class CfgWeapons {
+  class MGun;
+  class LMG_RCWS : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+    class manual : MGun {};
+    class close : manual {
+      aiBurstTerminable = 0;
+    };
+    class short : close {
+      aiBurstTerminable = 0;
+    };
+    class medium : close {
+      aiBurstTerminable = 0;
+    };
+    class far : close {
+      aiBurstTerminable = 0;
+    };
+  };
+  // HMG_M2 Explicitly overrides aiDispersionCoef in vanilla configs
+  // so we can't take advantage of inheritance. Must explicitly override here.
+  class HMG_01;
+  class HMG_M2 : HMG_01 {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+    class manual : MGun {};
+    class close : manual {
+      aiBurstTerminable = 0;
+    };
+    class short : close {
+      aiBurstTerminable = 0;
+    };
+    class medium : close {
+      aiBurstTerminable = 0;
+    };
+    class far : close {
+      aiBurstTerminable = 0;
+    };
+  };
+  class CannonCore;
+  class autocannon_Base_F : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+    
 // Disable RHS USAF Vests' forcefield?
-class CfgWeapons
-{
 	class Default {};
 	class ItemCore: Default {};
 	class vest_camo_base: ItemCore {};
