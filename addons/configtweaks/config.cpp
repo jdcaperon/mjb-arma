@@ -7,6 +7,7 @@ class CfgPatches {
     name = "Config Tweaks";
    requiredAddons[]=
 		{
+	   		"ace_ballistics",
 			"CUP_Creatures_People_LoadOrder",
 			"CUP_Weapons_Ammunition",
 			"rhsusf_c_troops",
