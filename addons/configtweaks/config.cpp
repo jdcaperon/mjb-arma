@@ -1538,13 +1538,56 @@ class CfgWeapons {
 	};
 };
 
-// Quick and dirty Basic only Greenmag compatibility for CUP and RHS
 class CfgMagazines
 {
 	class Default {};
 	class CA_Magazine: Default {};
 	class 30Rnd_556x45_Stanag: CA_Magazine {};
+
+	// MMG Tracer magazines rounds, need to test these
+	/*class 130Rnd_338_Mag {};
+	class mjb_130Rnd_338_Mag_tracer: 130Rnd_338_Mag {  
+		author = "Alien314";
+		tracersEvery = 1;
+		displayName = ".338 Norma Magnum 130Rnd Red Tracer Belt";
+        	displayNameShort = ".338 NM 130Rnd (Tracer/Red)";
+        	descriptionShort = "Caliber: .338 Norma Magnum Rounds: 130 Used in: SPMG";
+	};
+	class mjb_130Rnd 338_Mag_trc_gr: mjb_130Rnd_338_Mag_tracer {
+		ammo = "mjb_338_NM_trc_gr";
+		displayName = ".338 Norma Magnum 130Rnd Green Tracer Belt";
+        	displayNameShort = ".338 NM 130Rnd (Tracer/Green)";
+        	descriptionShort = "Caliber: .338 Norma Magnum Rounds: 130 Used in: SPMG";
+	};
+	class mjb_130Rnd 338_Mag_trc_ylw: mjb_130Rnd_338_Mag_tracer {
+		ammo = "mjb_338_NM_trc_ylw";
+		displayName = ".338 Norma Magnum 130Rnd Yellow Tracer Belt";
+        	displayNameShort = ".338 NM 130Rnd (Tracer/Yellow)";
+        	descriptionShort = "Caliber: .338 Norma Magnum Rounds: 130 Used in: SPMG";
+	};
 	
+	class 150Rnd_93x64_Mag {};
+	class mjb_150Rnd_93x64_Mag_tracer: 150Rnd_93x64_Mag {  
+		author = "Alien314";
+		tracersEvery = 1;
+		displayName = "9.3mm 150Rnd Red Tracer Belt";
+        	displayNameShort = "9.3mm 150Rnd 130Rnd (Tracer/Red)";
+        	descriptionShort = "Caliber: 9.3x64mm Rounds: 150 Used in: Navid";
+	};
+	class mjb_150Rnd_93x64_Mag_trc_gr: mjb_150Rnd_93x64_Mag_tracer {
+		ammo = "mjb_93x64_trc_gr";
+		displayName = "9.3mm 150Rnd Green Tracer Belt";
+        	displayNameShort = "9.3mm 150Rnd (Tracer/Green)";
+        	descriptionShort = "Caliber: 9.3x64mm Rounds: 150 Used in: Navid";
+	};
+	class mjb_150Rnd_93x64_Mag_trc_ylw: mjb_150Rnd_93x64_Mag_tracer {
+		ammo = "mjb_93x64_trc_ylw";
+		displayName = "9.3mm 150Rnd Yellow Tracer Belt";
+        	displayNameShort = "9.3mm 150Rnd (Tracer/Yellow)";
+        	descriptionShort = "Caliber: 9.3x64mm Rounds: 150 Used in: Navid";
+	}; */
+	
+// Quick and dirty Basic only Greenmag compatibility for CUP and RHS
 	class CUP_30Rnd_556x45_Stanag: CA_Magazine
 	{
 		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
@@ -1912,21 +1955,34 @@ class CfgMagazines
 	};
 };
 
-// Ammo Balance, spreadsheet with changes: https://docs.google.com/spreadsheets/d/1hBv11wZy6fM9IIj6Qh0-j3qezPhqOBt0XZLNUT1HfvQ/edit#gid=0
-// RHS has very different stats for ammo, resulting in stronger or weaker than expected performance.
-// These configs change them to closer match ACE/Vanilla and balance ammos in general
-// airFriction: affects bullet drop and damage falloff, 0 is no drop/falloff, -0.001 is ~average
-// caliber: how well a bullet penetrates, higher is more penetrative
-// hit: base damage of a bullet
-// Initial bullet speed is set on magazines with a possible override on weapons, will be much more difficult to change
-/*class CfgAmmo
+class CfgAmmo
 {
 	class Default {};
 	class BulletCore: Default {};
 	class BulletBase: BulletCore {};
 	class B_556x45_Ball: BulletBase	{};
 	class B_762x51_Ball: BulletBase	{};
+
+	// MMG Tracer ammo, need to look at other configs/test to get this right
+	/*class B_338_NM_Ball: BulletBase {};
+	class mjb_338_NM_trc_gr: B_338_NM_Ball { tracerColor[{122,204,0,255}]; tracerColorR[{122,204,0,255}]; };
+	class mjb_338_NM_trc_ylw: B_338_NM_Ball { tracerColor[{255,223,96,255}]; tracerColorR[{255,223,96,255}]; };
 	
+	class B_93x64_Ball: BulletBase {};
+	class mjb_93x64_trc_gr: B_93x64_Ball { tracerColor[{122,204,0,255}]; tracerColorR[{122,204,0,255}]; };
+	class mjb_93x64_trc_ylw: B_93x64_Ball { tracerColor[{255,223,96,255}]; tracerColorR[{255,223,96,255}]; };
+	*/
+	
+
+
+	// Ammo Balance, spreadsheet with changes: https://docs.google.com/spreadsheets/d/1hBv11wZy6fM9IIj6Qh0-j3qezPhqOBt0XZLNUT1HfvQ/edit#gid=0
+	// RHS has very different stats for ammo, resulting in stronger or weaker than expected performance.
+	// These configs change them to closer match ACE/Vanilla and balance ammos in general
+	// airFriction: affects bullet drop and damage falloff, 0 is no drop/falloff, -0.001 is ~average
+	// caliber: how well a bullet penetrates, higher is more penetrative
+	// hit: base damage of a bullet
+	// Initial bullet speed is set on magazines with a possible override on weapons, will be much more difficult to change
+	/*
 	// Vanilla
 	class B_12Gauge_Slug: BulletBase
 	{
@@ -2103,5 +2159,6 @@ class CfgMagazines
 		airFriction = -0.002042; // RHS slugs do their own thing
 		caliber = 0.54; // for each of these, I kept everything but 
 		hit = 34.51; // caliber and applied it to vanilla/CUP
-	};	
-};*/
+	};
+	*/
+};
