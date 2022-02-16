@@ -6,15 +6,15 @@ class CfgAmmo
 	class B_556x45_Ball: BulletBase	{};
 	class B_762x51_Ball: BulletBase	{};
 
-	// MMG Tracer ammo, need to look at other configs/test to get this right
-	/*class B_338_NM_Ball: BulletBase {};
-	class mjb_338_NM_trc_gr: B_338_NM_Ball { tracerColor[{122,204,0,255}]; tracerColorR[{122,204,0,255}]; };
-	class mjb_338_NM_trc_ylw: B_338_NM_Ball { tracerColor[{255,223,96,255}]; tracerColorR[{255,223,96,255}]; };
+	// MMG Tracer ammo
+	class B_338_NM_Ball: BulletBase {};
+	class mjb_338_NM_trc_gr: B_338_NM_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_green"; };
+	class mjb_338_NM_trc_ylw: B_338_NM_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_yellow"; };
 	
 	class B_93x64_Ball: BulletBase {};
-	class mjb_93x64_trc_gr: B_93x64_Ball { tracerColor[{122,204,0,255}]; tracerColorR[{122,204,0,255}]; };
-	class mjb_93x64_trc_ylw: B_93x64_Ball { tracerColor[{255,223,96,255}]; tracerColorR[{255,223,96,255}]; };
-	*/
+	class mjb_93x64_trc_red: B_93x64_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_red"; };
+	class mjb_93x64_trc_ylw: B_93x64_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_yellow"; };
+	
 	
 
 
