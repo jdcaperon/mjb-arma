@@ -6,47 +6,42 @@ class CfgMagazines
 	class 30Rnd_556x45_Stanag: CA_Magazine {};
 
 	// MMG Tracer magazines rounds, need to test these
-	/*class 130Rnd_338_Mag {};
+	class 130Rnd_338_Mag: CA_Magazine {};
 	class mjb_130Rnd_338_Mag_tracer: 130Rnd_338_Mag {  
 		author = "Alien314";
 		tracersEvery = 1;
 		displayName = ".338 Norma Magnum 130Rnd Red Tracer Belt";
-        	displayNameShort = ".338 NM 130Rnd (Tracer/Red)";
-        	descriptionShort = "Caliber: .338 Norma Magnum Rounds: 130 Used in: SPMG";
+		displayNameShort = ".338 NM 130Rnd (Tracer/Red)";
 	};
-	class mjb_130Rnd 338_Mag_trc_gr: mjb_130Rnd_338_Mag_tracer {
+	class mjb_130Rnd_338_Mag_trc_gr: mjb_130Rnd_338_Mag_tracer {
 		ammo = "mjb_338_NM_trc_gr";
 		displayName = ".338 Norma Magnum 130Rnd Green Tracer Belt";
-        	displayNameShort = ".338 NM 130Rnd (Tracer/Green)";
-        	descriptionShort = "Caliber: .338 Norma Magnum Rounds: 130 Used in: SPMG";
+		displayNameShort = ".338 NM 130Rnd (Tracer/Green)";
 	};
-	class mjb_130Rnd 338_Mag_trc_ylw: mjb_130Rnd_338_Mag_tracer {
+	class mjb_130Rnd_338_Mag_trc_ylw: mjb_130Rnd_338_Mag_tracer {
 		ammo = "mjb_338_NM_trc_ylw";
 		displayName = ".338 Norma Magnum 130Rnd Yellow Tracer Belt";
-        	displayNameShort = ".338 NM 130Rnd (Tracer/Yellow)";
-        	descriptionShort = "Caliber: .338 Norma Magnum Rounds: 130 Used in: SPMG";
+		displayNameShort = ".338 NM 130Rnd (Tracer/Yellow)";
 	};
 	
-	class 150Rnd_93x64_Mag {};
-	class mjb_150Rnd_93x64_Mag_tracer: 150Rnd_93x64_Mag {  
+	class 150Rnd_93x64_Mag: CA_Magazine {};
+	class mjb_150Rnd_93x64_Mag_tracer: 150Rnd_93x64_Mag {
 		author = "Alien314";
 		tracersEvery = 1;
-		displayName = "9.3mm 150Rnd Red Tracer Belt";
-        	displayNameShort = "9.3mm 150Rnd 130Rnd (Tracer/Red)";
-        	descriptionShort = "Caliber: 9.3x64mm Rounds: 150 Used in: Navid";
-	};
-	class mjb_150Rnd_93x64_Mag_trc_gr: mjb_150Rnd_93x64_Mag_tracer {
-		ammo = "mjb_93x64_trc_gr";
 		displayName = "9.3mm 150Rnd Green Tracer Belt";
-        	displayNameShort = "9.3mm 150Rnd (Tracer/Green)";
-        	descriptionShort = "Caliber: 9.3x64mm Rounds: 150 Used in: Navid";
+		displayNameShort = "9.3mm 150Rnd (Tracer/Green)";
+	};
+	class mjb_150Rnd_93x64_Mag_trc_red: mjb_150Rnd_93x64_Mag_tracer {  
+		ammo = "mjb_93x64_trc_red";
+		displayName = "9.3mm 150Rnd Red Tracer Belt";
+		displayNameShort = "9.3mm 150Rnd 130Rnd (Tracer/Red)";
 	};
 	class mjb_150Rnd_93x64_Mag_trc_ylw: mjb_150Rnd_93x64_Mag_tracer {
 		ammo = "mjb_93x64_trc_ylw";
 		displayName = "9.3mm 150Rnd Yellow Tracer Belt";
-        	displayNameShort = "9.3mm 150Rnd (Tracer/Yellow)";
-        	descriptionShort = "Caliber: 9.3x64mm Rounds: 150 Used in: Navid";
-	}; */
+		displayNameShort = "9.3mm 150Rnd (Tracer/Yellow)";
+	};
+	
 	
 // Quick and dirty 'Simple' sim complexity setting only Greenmag compatibility for CUP and RHS
 	class CUP_30Rnd_556x45_Stanag: CA_Magazine
@@ -414,4 +409,22 @@ class CfgMagazines
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;		
 	};
+};
+
+class CfgMagazineWells {
+    class CBA_338NM_LINKS {
+        ADDON[] = {
+            "mjb_130Rnd_338_Mag_tracer",
+			"mjb_130Rnd_338_Mag_trc_gr",
+			"mjb_130Rnd_338_Mag_trc_ylw"
+        };
+    };
+	
+    class CBA_93x64_LINKS {
+        ADDON[] = {
+            "mjb_150Rnd_93x64_Mag_tracer",
+			"mjb_150Rnd_93x64_Mag_trc_red",
+			"mjb_150Rnd_93x64_Mag_trc_ylw"
+        };
+    };
 };
