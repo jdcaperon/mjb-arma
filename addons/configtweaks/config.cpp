@@ -96,6 +96,6 @@ class CfgWeapons {
 	};
 };
 
-#include "CfgAmmo.hpp" // MMG Tracers, (commented Ammo config)
-#include "CfgMagazines.hpp" // GreenMag simple compatibility
-#include "CfgVehicles.hpp"  // BRH
+#include "CfgAmmo.hpp" // MMG Tracer ammo, (commented Ammo config)
+#include "CfgMagazines.hpp" // GreenMag simple compatibility, MMG Tracer boxes
+#include "CfgVehicles.hpp"  // BRH for all units/uniforms
