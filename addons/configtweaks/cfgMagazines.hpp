@@ -7,36 +7,26 @@ class CfgMagazines
 
 	// MMG Tracer magazines rounds, need to test these
 	class 130Rnd_338_Mag: CA_Magazine {};
-	class mjb_130Rnd_338_Mag_tracer: 130Rnd_338_Mag {  
+	class mjb_130Rnd_338_Mag_trc_gr: 130Rnd_338_Mag {
 		author = "Alien314";
-		tracersEvery = 1;
-		displayName = ".338 Norma Magnum 130Rnd Red Tracer Belt";
-		displayNameShort = ".338 NM 130Rnd (Tracer/Red)";
-	};
-	class mjb_130Rnd_338_Mag_trc_gr: mjb_130Rnd_338_Mag_tracer {
 		ammo = "mjb_338_NM_trc_gr";
 		displayName = ".338 Norma Magnum 130Rnd Green Tracer Belt";
 		displayNameShort = ".338 NM 130Rnd (Tracer/Green)";
 	};
-	class mjb_130Rnd_338_Mag_trc_ylw: mjb_130Rnd_338_Mag_tracer {
+	class mjb_130Rnd_338_Mag_trc_ylw: mjb_130Rnd_338_Mag_trc_gr {
 		ammo = "mjb_338_NM_trc_ylw";
 		displayName = ".338 Norma Magnum 130Rnd Yellow Tracer Belt";
 		displayNameShort = ".338 NM 130Rnd (Tracer/Yellow)";
 	};
 	
 	class 150Rnd_93x64_Mag: CA_Magazine {};
-	class mjb_150Rnd_93x64_Mag_tracer: 150Rnd_93x64_Mag {
-		author = "Alien314";
-		tracersEvery = 1;
-		displayName = "9.3mm 150Rnd Green Tracer Belt";
-		displayNameShort = "9.3mm 150Rnd (Tracer/Green)";
-	};
-	class mjb_150Rnd_93x64_Mag_trc_red: mjb_150Rnd_93x64_Mag_tracer {  
+	class mjb_150Rnd_93x64_Mag_trc_red: 150Rnd_93x64_Mag { 
+		author = "Alien314"; 
 		ammo = "mjb_93x64_trc_red";
 		displayName = "9.3mm 150Rnd Red Tracer Belt";
 		displayNameShort = "9.3mm 150Rnd 130Rnd (Tracer/Red)";
 	};
-	class mjb_150Rnd_93x64_Mag_trc_ylw: mjb_150Rnd_93x64_Mag_tracer {
+	class mjb_150Rnd_93x64_Mag_trc_ylw: mjb_150Rnd_93x64_Mag_trc_red {
 		ammo = "mjb_93x64_trc_ylw";
 		displayName = "9.3mm 150Rnd Yellow Tracer Belt";
 		displayNameShort = "9.3mm 150Rnd (Tracer/Yellow)";
@@ -414,17 +404,15 @@ class CfgMagazines
 class CfgMagazineWells {
     class CBA_338NM_LINKS {
         ADDON[] = {
-            "mjb_130Rnd_338_Mag_tracer",
-			"mjb_130Rnd_338_Mag_trc_gr",
-			"mjb_130Rnd_338_Mag_trc_ylw"
+		"mjb_130Rnd_338_Mag_trc_gr",
+		"mjb_130Rnd_338_Mag_trc_ylw"
         };
     };
 	
     class CBA_93x64_LINKS {
         ADDON[] = {
-            "mjb_150Rnd_93x64_Mag_tracer",
-			"mjb_150Rnd_93x64_Mag_trc_red",
-			"mjb_150Rnd_93x64_Mag_trc_ylw"
+		"mjb_150Rnd_93x64_Mag_trc_red",
+		"mjb_150Rnd_93x64_Mag_trc_ylw"
         };
     };
 };
