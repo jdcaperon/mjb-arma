@@ -10,26 +10,26 @@ class CfgMagazines
 	class mjb_130Rnd_338_Mag_trc_gr: 130Rnd_338_Mag {
 		author = "Alien314";
 		ammo = "mjb_338_NM_trc_gr";
-		displayName = ".338 Norma Magnum 130Rnd Green Tracer Belt";
-		displayNameShort = ".338 NM 130Rnd (Tracer/Green)";
+		displayName = ".338 Norma Magnum 130Rnd Green Mixed Belt";
+		displayNameShort = "Mixed/Green";
 	};
 	class mjb_130Rnd_338_Mag_trc_ylw: mjb_130Rnd_338_Mag_trc_gr {
 		ammo = "mjb_338_NM_trc_ylw";
-		displayName = ".338 Norma Magnum 130Rnd Yellow Tracer Belt";
-		displayNameShort = ".338 NM 130Rnd (Tracer/Yellow)";
+		displayName = ".338 Norma Magnum 130Rnd Yellow Mixed Belt";
+		displayNameShort = "Mixed/Yellow";
 	};
 	
 	class 150Rnd_93x64_Mag: CA_Magazine {};
 	class mjb_150Rnd_93x64_Mag_trc_red: 150Rnd_93x64_Mag { 
 		author = "Alien314"; 
 		ammo = "mjb_93x64_trc_red";
-		displayName = "9.3mm 150Rnd Red Tracer Belt";
-		displayNameShort = "9.3mm 150Rnd 130Rnd (Tracer/Red)";
+		displayName = "9.3mm 150Rnd Red Mixed Belt";
+		displayNameShort = "Mixed/Red";
 	};
 	class mjb_150Rnd_93x64_Mag_trc_ylw: mjb_150Rnd_93x64_Mag_trc_red {
 		ammo = "mjb_93x64_trc_ylw";
-		displayName = "9.3mm 150Rnd Yellow Tracer Belt";
-		displayNameShort = "9.3mm 150Rnd (Tracer/Yellow)";
+		displayName = "9.3mm 150Rnd Yellow Mixed Belt";
+		displayNameShort = "Mixed/Yellow";
 	};
 	
 	
