@@ -5,7 +5,7 @@ class CfgMagazines
 	class CA_Magazine: Default {};
 	class 30Rnd_556x45_Stanag: CA_Magazine {};
 
-	// MMG Tracer magazines rounds, need to test these
+	// MMG Tracer magazines rounds
 	class 130Rnd_338_Mag: CA_Magazine {};
 	class mjb_130Rnd_338_Mag_trc_gr: 130Rnd_338_Mag {
 		author = "Alien314";
