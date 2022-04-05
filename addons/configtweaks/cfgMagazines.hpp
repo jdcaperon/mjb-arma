@@ -399,6 +399,17 @@ class CfgMagazines
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;		
 	};
+	
+	
+	// 3CB
+	
+	// g3
+	// m14
+	// fn fal
+	// sten
+	// mp5
+	// 20rnd DMR
+	// Enfield
 };
 
 class CfgMagazineWells {
