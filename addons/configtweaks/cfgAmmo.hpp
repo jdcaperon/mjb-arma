@@ -14,10 +14,15 @@ class CfgAmmo
 	class B_93x64_Ball: BulletBase {};
 	class mjb_93x64_trc_red: B_93x64_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_red"; };
 	class mjb_93x64_trc_ylw: B_93x64_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_yellow"; };
-	
-	
 
 
+
+	// Rocket use flags
+	// cup rpg18, smaw hedp n, smaw spotting
+	
+	
+	
+	
 	// Ammo Balance, spreadsheet with changes: https://docs.google.com/spreadsheets/d/1hBv11wZy6fM9IIj6Qh0-j3qezPhqOBt0XZLNUT1HfvQ/edit#gid=0
 	// RHS has very different stats for ammo, resulting in stronger or weaker than expected performance.
 	// These configs change them to closer match ACE/Vanilla and balance ammos in general

@@ -1,7 +1,7 @@
 class CfgPatches {
   class ConfigTweaks {
 	ammo[] = {"mjb_338_NM_trc_gr","mjb_338_NM_trc_ylw","mjb_93x64_trc_gr","mjb_93x64_trc_ylw"};
-	magazines[] = {"mjb_150Rnd_93x64_Mag_tracer","mjb_150Rnd_93x64_Mag_trc_red","mjb_150Rnd_93x64_Mag_trc_ylw", "mjb_130Rnd_338_Mag_tracer","mjb_130Rnd_338_Mag_trc_gr","mjb_130Rnd_338_Mag_trc_ylw"};
+	magazines[] = {"mjb_150Rnd_93x64_Mag_tracer","mjb_150Rnd_93x64_Mag_trc_red","mjb_150Rnd_93x64_Mag_trc_ylw", "mjb_130Rnd_338_Mag_tracer","mjb_130Rnd_338_Mag_trc_gr","mjb_130Rnd_338_Mag_trc_ylw"/*, "CUP_64Rnd_9x18_Bizon_M","CUP_64Rnd_Green_Tracer_9x18_Bizon_M","CUP_64Rnd_Red_Tracer_9x18_Bizon_M","CUP_64Rnd_White_Tracer_9x18_Bizon_M","CUP_64Rnd_Yellow_Tracer_9x18_Bizon_M"*/};
     units[] = {};
     weapons[] = {};
     requiredVersion = 0.1;
@@ -38,6 +38,15 @@ class CfgBrains {
 };
 
 class CfgWeapons {
+  /*/Zoomy fuck
+  class Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class PistolCore;
+  class Pistol : PistolCore {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class RifleCore;
+  class Rifle : RifleCore {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class GrenadeLauncher : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class Put : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};*/	
+	
   class MGunCore;
   class MGun : MGunCore {
 	class manual;
@@ -80,6 +89,7 @@ class CfgWeapons {
   class autocannon_30mm_CTWS : autocannon_Base_F { };
   
   // CUP
+  // FAL Sounds?
   class CUP_Vhmg_DSHKM_veh : MGun {
     aiDispersionCoefX = 40.0;
     aiDispersionCoefY = 30.0;
@@ -212,7 +222,361 @@ class CfgWeapons {
     aiDispersionCoefX = 40.0;
     aiDispersionCoefY = 30.0;
   };
+  
+  // Bizon mag name fix
+  class Rifle_Base_F;
+  class CUP_smg_bizon : Rifle_Base_F
+  {
+	  magazineWell[] = {"CBA_9x18_PP19"};
+  };
   */
+  
+  // Flashlights, special thanks G4rrus
+  #define LIGHTCONF(NAME,PARENT) \
+  class ##NAME## : ##PARENT## \
+  { \
+      class ItemInfo : InventoryFlashLightItem_Base_F \
+	  { \
+		  class FlashLight \
+		  { \
+              ambient[] = {0.9,0.81,0.7}; \
+              color[] = {180,160,130}; \
+              coneFadeCoef = 10; \
+			  direction = "flash"; \
+              flareMaxDistance = 300; \
+              flareSize = 4; \
+              innerAngle = 10; \
+              intensity = 4000; \
+              outerAngle = 80; \
+			  position = "flash dir"; \
+              scale[] = {0}; \
+			  class Attenuation \
+			  { \
+                    constant = 32; \
+                    hardLimitEnd = 105; \
+                    hardLimitStart = 15; \
+                    linear = 1; \
+                    quadratic = 0.05; \
+                    start = 0; \
+			  }; \
+		  }; \
+	  }; \
+  };
+  #define LIGHTCONFT1(NAME,PARENT) \
+  class ##NAME## : ##PARENT## \
+  { \
+      class ItemInfo : InventoryFlashLightItem_Base_F \
+	  { \
+		  class FlashLight \
+		  { \
+              ambient[] = {0.9,0.81,0.7}; \
+              color[] = {180,160,130}; \
+              coneFadeCoef = 10; \
+			  direction = "flash_dir"; \
+              flareMaxDistance = 300; \
+              flareSize = 4; \
+              innerAngle = 10; \
+              intensity = 4000; \
+              outerAngle = 80; \
+			  position = "flash_pos"; \
+              scale[] = {0}; \
+			  class Attenuation \
+			  { \
+                    constant = 32; \
+                    hardLimitEnd = 105; \
+                    hardLimitStart = 15; \
+                    linear = 1; \
+                    quadratic = 0.05; \
+                    start = 0; \
+			  }; \
+		  }; \
+	  }; \
+  };
+  #define LASREQ(NAME,PARENT) \
+  class ##NAME## : ##PARENT## \
+  { \
+      class ItemInfo : InventoryFlashLightItem_Base_F {}; \
+  };
+  
+  class ItemCore;
+  class InventoryFlashLightItem_Base_F;
+  class FlashLight;
+  class acc_flashlight : ItemCore
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F
+	  {
+		  class FlashLight : FlashLight
+		  {
+              coneFadeCoef = 10;
+              flareMaxDistance = 300;
+              flareSize = 4;
+              innerAngle = 10;
+              intensity = 4000;
+              outerAngle = 80;
+              scale[] = {0};
+			  class Attenuation
+			  {
+                    constant = 32;
+                    hardLimitEnd = 105;
+                    hardLimitStart = 15;
+                    linear = 1;
+                    quadratic = 0.05;
+                    start = 0;				  
+			  };
+		  };
+	  };
+  };
+  LIGHTCONF(acc_flashlight_pistol,ItemCore);
+  LIGHTCONF(acc_esd_01_flashlight,ItemCore);
+  LIGHTCONF(CUP_acc_Flashlight,ItemCore);
+  LIGHTCONF(cup_acc_llm01_f,ItemCore);
+  LIGHTCONF(cup_acc_llm_flashlight,ItemCore);
+  LIGHTCONF(CUP_acc_Glock17_Flashlight,ItemCore);
+  LIGHTCONF(cup_acc_cz_m3x,CUP_acc_Flashlight);
+  LIGHTCONF(CUP_acc_Zenit_2DS,ItemCore);
+  class CUP_acc_ANPEQ_15_Flashlight_Tan_L : ItemCore
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F {};
+  };
+  LASREQ(CUP_acc_ANPEQ_15_Flashlight_Black_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LASREQ(CUP_acc_ANPEQ_15_Flashlight_OD_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Flashlight_Tan_F,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Flashlight_Black_F,CUP_acc_ANPEQ_15_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Flashlight_OD_F,CUP_acc_ANPEQ_15_Flashlight_OD_L);
+  LASREQ(CUP_acc_ANPEQ_15_Top_Flashlight_Black_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LASREQ(CUP_acc_ANPEQ_15_Top_Flashlight_OD_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LASREQ(CUP_acc_ANPEQ_15_Top_Flashlight_Tan_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Top_Flashlight_Black_F,CUP_acc_ANPEQ_15_Top_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Top_Flashlight_OD_F,CUP_acc_ANPEQ_15_Top_Flashlight_OD_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Top_Flashlight_Tan_F,CUP_acc_ANPEQ_15_Top_Flashlight_Tan_L);
+  class CUP_acc_ANPEQ_2_Flashlight_Black_L : ItemCore
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F {};
+  };
+  LASREQ(CUP_acc_ANPEQ_2_Flashlight_Coyote_L,CUP_acc_ANPEQ_2_Flashlight_Black_L);
+  LASREQ(CUP_acc_ANPEQ_2_Flashlight_OD_L,CUP_acc_ANPEQ_2_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_2_Flashlight_Black_F,CUP_acc_ANPEQ_2_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_2_Flashlight_Coyote_F,CUP_acc_ANPEQ_2_Flashlight_Coyote_L);
+  LIGHTCONF(CUP_acc_ANPEQ_2_Flashlight_OD_F,CUP_acc_ANPEQ_2_Flashlight_OD_L);
+  
+  class rhs_acc_2dpZenit : acc_flashlight
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F
+	  {
+		  class FlashLight : FlashLight
+		  {
+              coneFadeCoef = 10;
+              flareMaxDistance = 300;
+              flareSize = 4;
+              innerAngle = 10;
+              intensity = 4000;
+              outerAngle = 80;
+              scale[] = {0};
+			  class Attenuation
+			  {
+                    constant = 32;
+                    hardLimitEnd = 105;
+                    hardLimitStart = 15;
+                    linear = 1;
+                    quadratic = 0.05;
+                    start = 0;				  
+			  };
+		  };
+	  };
+  };
+  class rhs_acc_perst3;
+  LASREQ(rhs_acc_perst3_2dp,rhs_acc_perst3);
+  class rhs_acc_perst3_2dp_light : rhs_acc_perst3_2dp
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F
+	  {
+		  class FlashLight : FlashLight
+		  {
+              coneFadeCoef = 10;
+              flareMaxDistance = 300;
+              flareSize = 4;
+              innerAngle = 10;
+              intensity = 4000;
+              outerAngle = 80;
+              scale[] = {0};
+			  class Attenuation
+			  {
+                    constant = 32;
+                    hardLimitEnd = 105;
+                    hardLimitStart = 15;
+                    linear = 1;
+                    quadratic = 0.05;
+                    start = 0;				  
+			  };
+		  };
+	  };
+  };
+  class acc_pointer_IR;
+  LASREQ(rhsusf_acc_anpeq15,acc_pointer_IR);
+  LIGHTCONF(rhsusf_acc_anpeq15_light,rhsusf_acc_anpeq15);
+  LIGHTCONF(rhsusf_acc_anpeq15_wmx_light,rhsusf_acc_anpeq15_light);
+  LIGHTCONF(rhsusf_acc_anpeq16a_light,rhsusf_acc_anpeq15_light);
+  LIGHTCONF(rhsusf_acc_M952V,rhsusf_acc_anpeq15_light);
+  LIGHTCONF(rhsusf_acc_wmx,rhsusf_acc_M952V); 
+  
+  
+  // T1
+  LIGHTCONFT1(Tier1_10_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_10_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_145_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_145_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_416_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_M249_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M249_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M249_LA5_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(Tier1_M300C,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M300C_Black,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_M4BII_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(Tier1_M600V,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M600V_Black,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MCX_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MCX_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk18_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk46Mod0_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod0_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod0_LA5_M603V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod1_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod1_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod1_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk48Mod0_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod0_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod0_LA5_M603V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod1_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod1_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod1_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MP7_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MP7_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MP7_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MP7_NGAL_M300C_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MW_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MW_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_RAHG_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(Tier1_SCAR_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_URX4_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_URX4_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(tier1_dbalpl_fl,ItemCore);
+  LIGHTCONFT1(tier1_tlr1,ItemCore);
+  LIGHTCONFT1(Tier1_X300U,ItemCore);
 };
 
 #include "CfgAmmo.hpp" // MMG Tracer ammo, (commented Ammo config)
