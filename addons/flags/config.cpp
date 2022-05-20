@@ -1,6 +1,6 @@
 class CfgPatches {
   class mjb_flags {
-    units[] = {"mjb_Flag_RATS_F","Flag_CA_F","mjb_I_BTR80_RATS","mjb_I_BTR80A_RATS"};
+    units[] = {"mjb_Flag_RATS_F","Flag_CA_F"/*,"mjb_I_BTR80_RATS","mjb_I_BTR80A_RATS"*/};
     weapons[] = {};
     requiredVersion = 0.1;
     author = "Alien314, Flamebunny, MajorDanvers";
@@ -42,30 +42,35 @@ class CfgFactionClasses
 };
 
 class CfgVehicles {
-	class FlagPole_F;
-	class mjb_Flag_RATS_F : FlagPole_F
+	class FlagCarrier;
+	class mjb_Flag_RATS_F : FlagCarrier
 	{
 		_generalMacro = "mjb_Flag_RATS_F";
 		author = "Flamebunny, Alien314";
 		displayName = "Flag (RATS)";
+		editorPreview = "\A3\EditorPreviews_F\Data\CfgVehicles\FlagPole_F.jpg";
+		hiddenSelectionsMaterials[] = {"\A3\Structures_F\Mil\Flags\Data\Mast_mil.rvmat"};
+		hiddenSelectionsTextures[] = {"\A3\Structures_F\Mil\Flags\Data\Mast_mil_CO.paa"};
+		scope = 2;
+		scopeCurator = 2;
 		class EventHandlers
 		{
-			class CBA_Extended_EventHandlers
-			{
-				init = "call cba_xeh_fnc_init";
-			};
+			init = "(_this select 0) setFlagTexture ""\z\mjb\addons\flags\data\ratsFlag_ca.paa""";
 		};
 	};
-	class Flag_CA_F : FlagPole_F
+	class Flag_CA_F : FlagCarrier
 	{
 		_generalMacro = "Flag_CA_F";
+		author = "Canada";
 		displayName = "Flag (Canada)";
+		editorPreview = "\A3\EditorPreviews_F\Data\CfgVehicles\FlagPole_F.jpg";
+		hiddenSelectionsMaterials[] = {"\A3\Structures_F\Mil\Flags\Data\Mast_mil.rvmat"};
+		hiddenSelectionsTextures[] = {"\A3\Structures_F\Mil\Flags\Data\Mast_mil_CO.paa"};
+		scope = 2;
+		scopeCurator = 2;
 		class EventHandlers
 		{
-			class CBA_Extended_EventHandlers
-			{
-				init = "call cba_xeh_fnc_init";
-			};
+			init = "(_this select 0) setFlagTexture ""\z\mjb\addons\flags\data\canadaFlag_ca.paa""";
 		};
 	};
 	
@@ -108,16 +113,4 @@ class CfgVehicles {
 		faction = "mjb_I_RATS";
 		hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\granmobile.paa","CUP\WheeledVehicles\CUP_WheeledVehicles_BTR80\data\un\bppu_co.paa","CUP\WheeledVehicles\CUP_WheeledVehicles_BTR80\data\ion\Wheels_co.paa"};
 	};*/
-};
-
-class Extended_Init_EventHandlers
-{
-	class mjb_Flag_RATS_F
-	{
-		serverInit = "(_this # 0) setFlagTexture 'z\mjb\addons\flags\data\ratsFlag_ca.paa'";
-	};
-	class Flag_CA_F
-	{
-		serverInit = "(_this # 0) setFlagTexture 'z\mjb\addons\flags\data\canadaFlag_ca.paa'";
-	};
 };
