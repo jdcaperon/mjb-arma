@@ -12,20 +12,31 @@ class CfgPatches {
 	};
 };
 
+class CfgUnitInsignia
+{
+	class RATS
+	{
+		author = "Beagle, Flamebunny";
+		displayName = "RATS PMC";
+		material = "\A3\ui_f\data\GUI\Cfg\UnitInsignia\default_insignia.rvmat";
+		texture = "z\mjb\addons\flags\data\rats_insignia.paa";
+	};
+};
+
 class CfgMarkers {
 	
 	class flag_NATO;
 	class mjb_flag_RATS : flag_NATO
 	{
-		icon = "z\mjb\addons\flags\data\ratsFlag_ca.paa";
+		icon = "z\mjb\addons\flags\data\rats_ca.paa";
 		name = "RATS";
-		texture = "z\mjb\addons\flags\data\ratsFlag_ca.paa";
+		texture = "z\mjb\addons\flags\data\rats_ca.paa";
 	};
 	class flag_CA : flag_NATO
 	{
-		icon = "z\mjb\addons\flags\data\canadaFlag_ca.paa";
+		icon = "z\mjb\addons\flags\data\canada_ca.paa";
 		name = "CanadaHeightfixed";
-		texture = "z\mjb\addons\flags\data\canadaFlag_ca.paa";
+		texture = "z\mjb\addons\flags\data\canada_ca.paa";
 	};
 };
 
