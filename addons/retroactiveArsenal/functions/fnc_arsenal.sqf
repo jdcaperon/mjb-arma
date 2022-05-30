@@ -73,25 +73,51 @@
 			- Moved non-base/med backpacks into _itemPackMedium and _itemPackHeavy
 			
     * Arguments:
-      * 0: Remove existing Personal Arsenal, default: false <BOOLEAN>
+      * 0: Apply to JIPs, players coming in after will use these parameters to generate
+              a personal arsenal, default: false <BOOLEAN>
       * 1: Role for the target(s) to use, nil or "" to use TMF, or unit type. 
               default: TMF role, (typeOf _unit) if no TMF role set in editor <STRING>
-      * 2: Apply to JIPs, players coming in after will use these parameters to generate
-              a personal arsenal, default: false <BOOLEAN>
+      * 2: Remove existing Personal Arsenal, default: true <BOOLEAN>
       * 3: Additional gear to include <ARRAY> of <STRING> class names, default: []
       * 4: Winter camo available, default: false <BOOLEAN>
 	  
     ex.: [true, nil, true, ["ACRE_BF888S","tier1_exps3_0_g33_black_up"]] call mjb_arsenal_fnc_arsenal;
 */
-params [["_removeOld",false,[false]],["_role",nil,[""]],["_JIP",false,[false]],["_additions", [], [[]]],["_winter",false,[false]]];
+params [["_JIP",false,[false]],["_role","",[""]],["_removeOld",true,[false]],["_additions", [], [[]]],["_winter",false,[false]]];
 
-if (_JIP) exitWith { if (isServer) then {
-        [_removeOld,_role,false,_additions,_winter] remoteExec ["mjb_arsenal_fnc_arsenal",[0, -2] select isDedicated,"mjb_arsenal_JIP"];
-	};
+if (_JIP && {isServer}) exitWith {
+    [_removeOld,_role,false,_additions,_winter] remoteExec ["mjb_arsenal_fnc_arsenal",([0, -2] select (isDedicated)),"mjb_arsenal_JIP"];
 };
 
-if (_removeOld) then {
-    [typeOf player, 1,["ACE_SelfActions","personal_arsenal"]] call ace_interact_menu_fnc_removeActionFromClass;
+if !(canSuspend) exitWith {_this spawn mjb_arsenal_fnc_arsenal};
+
+if !(didJIP) then {
+    if (_removeOld && {!(isNil "arsenal")}) then {
+        [typeOf player, 1,["ACE_SelfActions","personal_arsenal"]] call ace_interact_menu_fnc_removeActionFromClass;
+        deleteVehicle arsenal;
+    } else {
+        if (!(isNil "arsenal") && {isNil "missionArsenal"}) then {
+			missionArsenal = arsenal;
+			private _action =
+			[
+				"mission_arsenal","Mission Arsenal","\A3\ui_f\data\igui\cfg\weaponicons\MG_ca.paa",
+				{
+					lockIdentity player;
+					[missionArsenal, _player] call ace_arsenal_fnc_openBox
+				},
+				{
+					(player distance2d (player getVariable ["startpos",[0,0,0]])) < 200
+				},
+				{},
+				[],
+				[0,0,0],
+				3
+			] call ace_interact_menu_fnc_createAction;            
+            ["CAManBase", 1, ["ACE_SelfActions"], _action, true] call ace_interact_menu_fnc_addActionToClass;
+            [typeOf player, 1,["ACE_SelfActions","personal_arsenal"]] call ace_interact_menu_fnc_removeActionFromClass;
+        };
+    };
+    arsenal = "building" createVehicleLocal [0,0,0];
 };
 
 //Variables
@@ -99,7 +125,6 @@ private _aceMedLoaded = isClass(configFile >> "CfgPatches" >> "ace_medical_engin
 
 private _winter = false; // true to enable winter camo
 
-arsenal = "building" createVehicleLocal [0,0,0];
 player setVariable ["startpos", getPosASL player];
 
 
@@ -1777,7 +1802,37 @@ if (_hasMarksmen) then {
 };
 
 //Add Existing Player Items
-waitUntil { !isNull player }; // should prevent FAKs/Medikits from adding when ACE enabled.
+waitUntil {!isNull player}; // should prevent FAKs/Medikits from adding when ACE enabled.
+if (didJIP && isNil "mjb_arsenal_JIPinit") then {
+  sleep 1; // waitUntil {(speed player) > 0.5};
+    if (_removeOld && {!(isNil "arsenal")}) then {
+        [typeOf player, 1,["ACE_SelfActions","personal_arsenal"]] call ace_interact_menu_fnc_removeActionFromClass;
+        deleteVehicle arsenal;
+    } else {
+        if (!(isNil "arsenal") && {isNil "missionArsenal"}) then {
+			missionArsenal = arsenal;
+			private _action =
+			[
+				"mission_arsenal","Mission Arsenal","\A3\ui_f\data\igui\cfg\weaponicons\MG_ca.paa",
+				{
+					lockIdentity player;
+					[missionArsenal, _player] call ace_arsenal_fnc_openBox
+				},
+				{
+					(player distance2d (player getVariable ["startpos",[0,0,0]])) < 200
+				},
+				{},
+				[],
+				[0,0,0],
+				3
+			] call ace_interact_menu_fnc_createAction;            
+            ["CAManBase", 1, ["ACE_SelfActions"], _action, true] call ace_interact_menu_fnc_addActionToClass;
+            [typeOf player, 1,["ACE_SelfActions","personal_arsenal"]] call ace_interact_menu_fnc_removeActionFromClass;
+        };
+    };
+    arsenal = "building" createVehicleLocal [0,0,0];
+    mjb_arsenal_JIPinit = true;
+};
 private _exWeap = weaponsItems player; // Weapons, attachments, loaded mags/ub
 for "_y" from 0 to (count _exWeap - 1) do {
 	{
@@ -1800,7 +1855,8 @@ for [{_i = 2}, {_i < 623}, {_i = _i + 24}] do // skips Beltstaff pants
 for "_i" from (1) to (49) do { _tarkovuniforms pushback ("Tarkov_Uniforms_Scavs_" + str _i) };
 
 private _unitRole = (player getVariable ["tmf_assignGear_role",typeOf player]);
-if (!isNil "_role" || {_role == ""}) then {systemChat ("Using set role: " + _role); _unitRole = _role; };
+if (_role isNotEqualTo "") then {systemChat ("Using set role: " + _role); _unitRole = _role; 
+} else { systemChat ("No role set, defaulting to: " + _unitRole); };
 private _leaderRole = ["tl","sl","B_officer_F","B_Soldier_SL_F"];
 //Match unitrole name with the classnames in loadout.
 switch (true) do
@@ -1893,6 +1949,10 @@ switch (true) do
 	{
 		[arsenal, (_itemEquipment + _itemSpecial + _itemFacewear + _itemMod + _itemReflexSight + _itemWeaponCQB + _itemWeaponPistol + _itemWeaponRifle + _itemWeaponCarbine+ _itemWeaponAmmo + _itemWeaponTracerAmmo + _itemWeaponARAmmo + _itemWeaponHighCapAmmo + _itemWeaponMMGAmmo  + _itemPackHeavy + _tarkovuniforms)] call ace_arsenal_fnc_initBox;
 	};
+		case (_unitRole == "full") :
+	{
+		[arsenal, true] call ace_arsenal_fnc_initBox;
+	};
 	case (_unitRole == "B_Soldier_AR_F") :
 	{
 		[arsenal, (_itemEquipment + _itemFacewear + _itemMod + _itemReflexSight + _itemWeaponAR + _itemWeaponPistol + _itemWeaponAmmo + _itemWeaponTracerAmmo + _itemWeaponARAmmo + _itemWeaponHighCapAmmo + _itemPackMedium + _tarkovuniforms)] call ace_arsenal_fnc_initBox;
@@ -1983,7 +2043,7 @@ switch (true) do
 	};
 };
 
-_action =
+private _action =
 [
 	"personal_arsenal","Personal Arsenal","\A3\ui_f\data\igui\cfg\weaponicons\MG_ca.paa",
 	{
