@@ -1,5 +1,5 @@
 
-// Bullet Resistance Tweaks
+/*/ Bullet Resistance Tweaks
 class CfgVehicles {
   class Man;
   class CAManBase : Man {
@@ -827,3 +827,4 @@ class CfgVehicles {
     };
   };
 };
+*/
