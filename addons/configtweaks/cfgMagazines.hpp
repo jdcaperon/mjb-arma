@@ -1,3 +1,17 @@
+#define RND545X39(NAME,PARENT) \
+	class ##NAME## : ##PARENT## \
+	{ \
+		greenmag_basicammo = "greenmag_ammo_545x39_basic_1Rnd"; \
+		greenmag_canSpeedload = 1; \
+		greenmag_needBelt = 0; \
+	};
+#define RND556X45(NAME,PARENT) \
+	class ##NAME## : ##PARENT## \
+	{ \
+		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd"; \
+		greenmag_canSpeedload = 1; \
+		greenmag_needBelt = 0; \
+	};
 #define RND65X39(NAME,PARENT) \
 	class ##NAME## : ##PARENT## \
 	{ \
@@ -83,230 +97,78 @@ class CfgMagazines
 	
 	
 // Quick and dirty 'Simple' sim complexity setting only Greenmag compatibility for CUP and RHS
-	class CUP_30Rnd_556x45_Stanag: CA_Magazine
+    RND556X45(CUP_30Rnd_556x45_Stanag,CA_Magazine);
+    RND556X45(CUP_25Rnd_556x45_Famas,CA_Magazine);
+    RND556X45(CUP_30Rnd_556x45_AK,CA_Magazine);
+    RND556X45(CUP_30Rnd_556x45_AK19_M,CA_Magazine);
+    RND556X45(CUP_30Rnd_556x45_X95,CA_Magazine);
+    RND556X45(CUP_35Rnd_556x45_Galil_Mag,CA_Magazine);
+    RND556X45(CUP_50Rnd_556x45_Galil_Mag,CA_Magazine);
+    RND556X45(CUP_50Rnd_556x45_Galil_Mag,CA_Magazine);
+	
+	RND545X39(CUP_30Rnd_545x39_AK_M,CA_Magazine);
+	RND545X39(CUP_30Rnd_545x39_AK12_M,CA_Magazine);
+	RND545X39(CUP_30Rnd_545x39_Fort224_M,CA_Magazine);
+	RND545X39(CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M,CA_Magazine);
+	
+	RND762X39(CUP_30Rnd_762x39_AK47_M,CA_Magazine);
+	RND762X39(CUP_30Rnd_762x39_CZ807,CA_Magazine);
+	RND762X39(CUP_75Rnd_TE4_LRT4_Green_Tracer_762x39_RPK_M,CA_Magazine);
+	
+	RND762X51(CUP_20Rnd_762x51_DMR,CA_Magazine);
+	RND762X51(CUP_10Rnd_762x51_FNFAL_M,CA_Magazine);
+	RND762X51(CUP_20Rnd_762x51_FNFAL_M,CA_Magazine);
+	RND762X51(CUP_30Rnd_762x51_FNFAL_M,CA_Magazine);
+	RND762X51(CUP_20Rnd_762x51_G3,CA_Magazine);
+	RND762X51(CUP_20Rnd_762x51_HK417,CA_Magazine);
+	RND762X51(CUP_20Rnd_762x51_L129_M,CA_Magazine);
+	RND762X51(CUP_25Rnd_762x51_Galil_Mag,CA_Magazine);
+	RND762X51(CUP_30Rnd_762x51_1_B_SCAR,CA_Magazine);
+	RND762X51(CUP_30Rnd_762x51_2_B_SCAR,CA_Magazine);
+	RND762X51(CUP_50Rnd_762x51_B_SCAR,CA_Magazine);
+	RND762X51(CUP_5Rnd_762x51_M24,CA_Magazine);
+	RND762X51(CUP_5x_22_LR_17_HMR_M,CA_Magazine);
+	RND762X51(CUP_1Rnd_762x51_CZ584,CA_Magazine);
+	RND762X51(CUP_10Rnd_762x51_CZ750,CA_Magazine);
+	RND762X51(CUP_20Rnd_762x51_B_M110,CA_Magazine);
+	RND762X51(CUP_20Rnd_762x51_B_SCAR,CA_Magazine);
+	RND762X51(CUP_20Rnd_762x51_CZ805B,CA_Magazine);
+	
+	class CUP_5Rnd_762x54_Mosin_M: CA_Magazine
 	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_25Rnd_556x45_Famas: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_30Rnd_556x45_AK: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_30Rnd_556x45_AK19_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};	
-	class CUP_30Rnd_556x45_X95: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};		
-	class CUP_35Rnd_556x45_Galil_Mag: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_50Rnd_556x45_Galil_Mag: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_30Rnd_545x39_AK_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_545x39_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_30Rnd_545x39_AK12_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_545x39_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_30Rnd_545x39_Fort224_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_545x39_basic_1Rnd";		
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_545x39_basic_1Rnd";		
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_30Rnd_762x39_AK47_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x39_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_30Rnd_762x39_CZ807: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x39_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_75Rnd_TE4_LRT4_Green_Tracer_762x39_RPK_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x39_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
-	class CUP_20Rnd_762x51_DMR: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
+		greenmag_basicammo = "greenmag_ammo_762x54_basic_1Rnd";
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;		
 	};
-	class CUP_10Rnd_762x51_FNFAL_M: CA_Magazine
+	class CUP_10Rnd_762x54_SVD_M: CA_Magazine
 	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
+		greenmag_basicammo = "greenmag_ammo_762x54_basic_1Rnd";
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;		
 	};
-	class CUP_20Rnd_762x51_FNFAL_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_762x51_FNFAL_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_20Rnd_762x51_G3: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_20Rnd_762x51_HK417: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_20Rnd_762x51_L129_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_25Rnd_762x51_Galil_Mag: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_762x51_1_B_SCAR: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_762x51_2_B_SCAR: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_50Rnd_762x51_B_SCAR: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_10Rnd_9x19_Compact: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_15Rnd_9x19_M9: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_17Rnd_9x19_M17_Coyote: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_17Rnd_9x19_glock17: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_16Rnd_9x19_cz75: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_9x19_MP5: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_9x19_EVO: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_9x19_UZI: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_9x19_Vityaz: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_30Rnd_9x19AP_Vityaz: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;	
-	};
-	class CUP_32Rnd_9x19_TEC9: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_72Rnd_9x19_UZI_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
+	
+	RND9X19(CUP_10Rnd_9x19_Compact,CA_Magazine);
+	RND9X19(CUP_15Rnd_9x19_M9,CA_Magazine);
+	RND9X19(CUP_17Rnd_9x19_M17_Coyote,CA_Magazine);
+	RND9X19(CUP_17Rnd_9x19_glock17,CA_Magazine);
+	RND9X19(CUP_16Rnd_9x19_cz75,CA_Magazine);
+	RND9X19(CUP_30Rnd_9x19_MP5,CA_Magazine);
+	RND9X19(CUP_30Rnd_9x19_EVO,CA_Magazine);
+	RND9X19(CUP_30Rnd_9x19_UZI,CA_Magazine);
+	RND9X19(CUP_72Rnd_9x19_UZI_M,CA_Magazine);
+	RND9X19(CUP_30Rnd_9x19_Vityaz,CA_Magazine);
+	RND9X19(CUP_30Rnd_9x19AP_Vityaz,CA_Magazine);
+	RND9X19(CUP_32Rnd_9x19_TEC9,CA_Magazine);
+	RND9X19(CUP_72Rnd_9x19_UZI_M,CA_Magazine);
+	RND9X19(CUP_13Rnd_9x19_Browning_HP,CA_Magazine);
+	RND9X19(CUP_18Rnd_9x19_Phantom,CA_Magazine);
+	
 	RND45ACP(CUP_30Rnd_45ACP_M3A1_M,CA_Magazine);
 	RND45ACP(CUP_30Rnd_45ACP_MAC10_M,CA_Magazine);
+	RND45ACP(CUP_12Rnd_45ACP_mk23,CA_Magazine);
+	RND45ACP(CUP_6Rnd_45ACP_M,CA_Magazine);
+	RND45ACP(CUP_7Rnd_45ACP_1911,CA_Magazine);
+	
 	class CUP_10Rnd_B_765x17_Ball_M: CA_Magazine
 	{
 		greenmag_basicammo = "greenmag_ammo_765x17_ball_1Rnd";
@@ -328,18 +190,6 @@ class CfgMagazines
 	class CUP_5Rnd_127x108_KSVK_M: CA_Magazine
 	{
 		greenmag_basicammo = "greenmag_ammo_127x108_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_5Rnd_762x51_M24: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x51_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_5Rnd_762x54_Mosin_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x54_basic_1Rnd";
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;		
 	};
@@ -367,33 +217,6 @@ class CfgMagazines
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;
 	};
-	RND762X51(CUP_5x_22_LR_17_HMR_M,CA_Magazine);
-	RND762X51(CUP_1Rnd_762x51_CZ584,CA_Magazine);
-	RND762X51(CUP_10Rnd_762x51_CZ750,CA_Magazine);
-	class CUP_10Rnd_762x54_SVD_M: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_762x54_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	RND45ACP(CUP_12Rnd_45ACP_mk23,CA_Magazine);
-	RND45ACP(CUP_6Rnd_45ACP_M,CA_Magazine);
-	RND45ACP(CUP_7Rnd_45ACP_1911,CA_Magazine);
-	class CUP_13Rnd_9x19_Browning_HP: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	class CUP_18Rnd_9x19_Phantom: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_9x19_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
-	RND762X51(CUP_20Rnd_762x51_B_M110,CA_Magazine);
-	RND762X51(CUP_20Rnd_762x51_B_SCAR,CA_Magazine);
-	RND762X51(CUP_20Rnd_762x51_CZ805B,CA_Magazine);
 	
 	/*/ Bizon class name fix, magwell at bottom
 	class CUP_64Rnd_9x19_Bizon_M : CA_Magazine
@@ -419,12 +242,8 @@ class CfgMagazines
 	
 	// RHS
 	class rhs_mag_30Rnd_556x45_M855A1_Stanag: 30Rnd_556x45_Stanag {};
-	class rhs_30Rnd_545x39_AK: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_545x39_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;
-	};
+	
+	RND545X39(rhs_30Rnd_545x39_AK,CA_Magazine);
 	class rhs_30Rnd_545x39_7N6_AK: rhs_30Rnd_545x39_AK {};	
 	class rhs_30Rnd_762x39mm: rhs_30Rnd_545x39_7N6_AK
 	{
@@ -461,18 +280,10 @@ class CfgMagazines
 	};
 	
 	// GREF
-	class rhsgref_30rnd_556x45_m21: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};	
-	class rhsgref_30rnd_556x45_vhs2: CA_Magazine
-	{
-		greenmag_basicammo = "greenmag_ammo_556x45_basic_1Rnd";
-		greenmag_canSpeedload = 1;
-		greenmag_needBelt = 0;		
-	};
+    RND556X45(rhsgref_30rnd_556x45_m21,CA_Magazine);
+    RND556X45(rhsgref_30rnd_556x45_vhs2,CA_Magazine);
+	
+	
 	RND45ACP(rhsgref_30rnd_1143x23_M1911B_SMG,CA_Magazine);
 	class rhs_mag_762x25_8: CA_Magazine
 	{
@@ -492,6 +303,7 @@ class CfgMagazines
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;		
 	};
+	RND762X51(rhsgref_5Rnd_792x57_kar98k,CA_Magazine);
 	class rhsgref_296Rnd_792x57_SmE_belt: CA_Magazine
 	{
 		greenmag_basicammo = "greenmag_beltlinked_762x51_basic";
@@ -522,7 +334,6 @@ class CfgMagazines
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;
 	};
-	RND762X51(rhsgref_5Rnd_792x57_kar98k,CA_Magazine);
 	class rhsgref_8Rnd_762x63_M2B_M1rifle: CA_Magazine
 	{
 		greenmag_basicammo = "greenmag_ammo_303_ball_1Rnd";
