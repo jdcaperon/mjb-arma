@@ -104,7 +104,6 @@ class CfgMagazines
     RND556X45(CUP_30Rnd_556x45_X95,CA_Magazine);
     RND556X45(CUP_35Rnd_556x45_Galil_Mag,CA_Magazine);
     RND556X45(CUP_50Rnd_556x45_Galil_Mag,CA_Magazine);
-    RND556X45(CUP_50Rnd_556x45_Galil_Mag,CA_Magazine);
 	
 	RND545X39(CUP_30Rnd_545x39_AK_M,CA_Magazine);
 	RND545X39(CUP_30Rnd_545x39_AK12_M,CA_Magazine);
@@ -159,7 +158,6 @@ class CfgMagazines
 	RND9X19(CUP_30Rnd_9x19_Vityaz,CA_Magazine);
 	RND9X19(CUP_30Rnd_9x19AP_Vityaz,CA_Magazine);
 	RND9X19(CUP_32Rnd_9x19_TEC9,CA_Magazine);
-	RND9X19(CUP_72Rnd_9x19_UZI_M,CA_Magazine);
 	RND9X19(CUP_13Rnd_9x19_Browning_HP,CA_Magazine);
 	RND9X19(CUP_18Rnd_9x19_Phantom,CA_Magazine);
 	

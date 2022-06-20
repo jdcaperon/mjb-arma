@@ -118,12 +118,12 @@ class CfgVehicles {
 	{
 		class textureSources
 		{
-			class Desert;
-			class RATS : Desert
+			class Woodland;
+			class RATS : Woodland
 			{
                 author = "MajorDanvers";
 				displayName = "Limebacker";
-				textures[] = {"z\mjb\addons\flags\data\cadpat_base.paa","z\mjb\addons\flags\data\cadpat_co.paa","cup\TrackedVehicles\CUP_TrackedVehicles_Bradley\data\ultralp_co.paa"};
+				textures[] = {"z\mjb\addons\flags\data\cadpat_base.paa","z\mjb\addons\flags\data\cadpat_co.paa","cup\TrackedVehicles\CUP_TrackedVehicles_Bradley\data\ultralp_wdl_co.paa"};
 			};
 		}
 	};
@@ -192,11 +192,9 @@ class CfgWeapons
     class H_Cap_red;
     class mjb_H_Cap_Voin : H_Cap_red
     {
-        access = 0;
-        scope = 2;
         author = "Alien314";
         displayName = "Cap (Voin)";
         hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\capb_voin_co.paa"};
         picture = "\A3\Characters_F_Bootcamp\Data\UI\icon_H_Cap_oli_ca.paa";
-    };	
+    };
 };
