@@ -3,8 +3,11 @@
 This mod contains addons for MJB Arma including:
 
 - Config Tweaks
-  - Improve bullet resistance of infantry
-  - Increase AI dispersion when using HMG's
+  - Improves bullet resistance of infantry.
+  - Increase AI dispersion when using HMGs, autocannons, and miniguns.
+  - Simple setting GreenMag compatibility for CUP and RHS magazines.
+  - {WIP, commented out} Ammo balance configs lessening the differences between vanilla and modded ammo of the same caliber.
+  - Configs for boxes used in the Marksmen DLC MMGs with tracers of the other colors besides their default color.
 - Custom faces for players
 
 ## Contributing
@@ -24,6 +27,7 @@ Built with [HEMTT](https://github.com/BrettMayson/HEMTT/tree/51deaa66b3a376e0744
 - Camelith (Author of [Bullet Resistant Human](https://steamcommunity.com/sharedfiles/filedetails/?id=2260739003))
 - Diwako (Author of [Armor Plates System](https://github.com/diwako/armor_plates_system)
 - nkenny (Author of [LAMBS_Turrets](https://steamcommunity.com/sharedfiles/filedetails/?id=1862208264) and [LAMBS_Danger](https://steamcommunity.com/sharedfiles/filedetails/?id=1858075458))
+- CoseDola | Miller (creator of the [GreenMag](https://steamcommunity.com/sharedfiles/filedetails/?id=2352603233&searchtext=green+mag+compat) mod.)
 
 ## Licensing
 
