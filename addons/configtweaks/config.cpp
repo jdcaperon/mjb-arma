@@ -38,6 +38,8 @@ class CfgBrains {
 };
 
 class CfgWeapons {
+  class Default;
+  class ItemInfo : Default {scope = 1;};
   /*/Zoomy fuck
   class Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
   class PistolCore;
@@ -45,7 +47,7 @@ class CfgWeapons {
   class RifleCore;
   class Rifle : RifleCore {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
   class GrenadeLauncher : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
-  class Put : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};*/	
+  class Put : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};*/
 	
   class MGunCore;
   class MGun : MGunCore {

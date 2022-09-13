@@ -1,7 +1,7 @@
 class CfgPatches {
   class mjb_flags {
     units[] = {"mjb_Flag_RATS_F","Flag_CA_F"/*,"mjb_I_BTR80_RATS","mjb_I_BTR80A_RATS"*/};
-    weapons[] = {"mjb_H_Cap_Voin"};
+    weapons[] = {"mjb_H_Cap_Voin","mjb_H_HelmetSpecB_winter"};
     requiredVersion = 0.1;
     author = "Alien314, Flamebunny, MajorDanvers";
     name = "Flags";
@@ -196,5 +196,12 @@ class CfgWeapons
         displayName = "Cap (Voin)";
         hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\capb_voin_co.paa"};
         picture = "\A3\Characters_F_Bootcamp\Data\UI\icon_H_Cap_oli_ca.paa";
+    };
+
+    class H_HelmetSpecB;
+    class mjb_H_HelmetSpecB_winter : H_HelmetSpecB
+    {
+        displayName = "Enhanced Combat Helmet (Winter)";
+        hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\equip1winter_co.paa"};
     };
 };
