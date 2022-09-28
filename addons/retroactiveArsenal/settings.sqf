@@ -24,3 +24,14 @@
     true
 ] call CBA_fnc_addSetting;
 
+[
+    "mjb_saveLoadout",
+    "LIST",
+    ["Loadout save frequency", "At what times/actions your loadout gets saved when persistence is enabled for the mission. No saves will be made when disabled, this is only checked at mission start. When enabled, the saved loadout is erased on death, unless the mission maker specifies otherwise."],
+    ["MJB Arma","Loadout Persistence"],
+    [[0, 1, 2, 3], ["Disable","Closing inventory","Five minute interval", "Both"], 3],
+    0,
+    { },
+    true
+] call CBA_fnc_addSetting;
+

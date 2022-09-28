@@ -132,8 +132,9 @@ if !(didJIP) then {
 private _aceMedLoaded = isClass(configFile >> "CfgPatches" >> "ace_medical_engine"); //Store whether ace med is present
 
 //private _winter = false; // true to enable winter camo
-
-player setVariable ["startpos", getPosASL player];
+private _rejoincheck = player getVariable "startpos";
+if (isNil "_rejoincheck") then {
+    player setVariable ["startpos", getPosASL player, true];};
 
 
 //Define Arsenal Items
@@ -835,6 +836,7 @@ private _itemWeaponAmmo =
     "CUP_30Rnd_556x45_XM8",
     "CUP_25Rnd_556x45_Famas",
     "CUP_30Rnd_556x45_AK",
+    "CUP_20Rnd_556x45_Stanag",
 
     //Loose ammo
     "greenmag_ammo_556x45_basic_60Rnd",
@@ -909,6 +911,7 @@ private _itemWeaponTracerAmmo =
     "CUP_25Rnd_556x45_Famas_Tracer_Yellow",
     "CUP_30Rnd_TE1_Yellow_Tracer_556x45_AK",
     "CUP_30Rnd_556x45_TE1_Tracer_Green_AK19_Tan_M",
+    "CUP_20Rnd_556x45_Stanag_Tracer_Yellow",
 
     //============================================================
     //5.45x39mm
