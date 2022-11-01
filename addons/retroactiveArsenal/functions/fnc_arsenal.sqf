@@ -310,6 +310,7 @@ private _itemEquipment =
     //Greenmag speedloader
     "greenmag_item_speedloader"
 ];
+_itemEquipment append _additions;
 
 private _itemNVG =
 [
