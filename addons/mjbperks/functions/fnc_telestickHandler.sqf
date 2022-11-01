@@ -1,9 +1,12 @@
-params ["_projectile"];
+params ["_unit","_weapon","_projectile"];
 
+
+if (_weapon isNotEqualTo "Throw") exitWith {};
 private _projClass = (typeOf _projectile);
 if ("hemlight" in _projClass) then {
+    _projectile setVariable ["mjb_tpUnit", _unit];
     _projectile addEventHandler ["Explode", {
-        params ["","_pos"];
-        player setPosASL _pos;
+        params ["_projectile","_pos"];
+        (_projectile getVariable ["mjb_tpUnit", objNull]) setPosASL _pos;
     }];
 };

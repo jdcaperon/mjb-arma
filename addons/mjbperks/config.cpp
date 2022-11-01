@@ -36,6 +36,36 @@ class Extended_PreStart_EventHandlers
 		init="call compileScript ['z\mjb\addons\perks\XEH_preStart.sqf']";
 	};
 };
+
+class MJB_Perks {
+	class mjb_perks_slingState {
+		list = "[player]";
+		skipNull = 1;
+
+		class Visible {
+			onState = "";
+			onStateEntered = "";
+			onStateLeaving = "";
+
+			class Down {
+				targetState = "Hidden";
+				condition = "(lifestate _this isEqualTo 'INCAPACITATED')";
+				onTransition = "if (!isNil 'mjb_storedWeapon') then {[(mjb_storedWeapon select 2),true] remoteExec ['hideObjectGlobal', 2]; };";
+			};
+		};
+
+		class Hidden {
+			onState = "";
+			onStateEntered = "";
+			onStateLeaving = "";
+			class NotDown {
+				targetState = "Visible";
+				condition = "(lifestate _this isNotEqualTo 'INCAPACITATED')";
+				onTransition = "[_this] call mjb_perks_fnc_slingVis;";
+			};
+		};
+	};
+};
 /*
 class CfgFactionClasses {
     class MJB {

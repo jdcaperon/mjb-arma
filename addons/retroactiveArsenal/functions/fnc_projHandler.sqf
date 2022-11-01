@@ -31,8 +31,8 @@ _projectile addEventHandler ["HitPart", {
     };
 }];
 _projectile addEventHandler ["SubmunitionCreated", {
-    params ["_projectile"];
-    [_projectile] call mjb_arsenal_fnc_projHandler;
+    params ["","_subProj"];
+    [_subProj] call mjb_arsenal_fnc_projHandler;
 }];
 
 _projectile addEventHandler ["HitExplosion", {

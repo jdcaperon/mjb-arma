@@ -20,6 +20,17 @@ if (isNil "_rejoincheck") then {
 };
 
 mjb_activePerks = [];
+/*
+    Perks saved to Profile and automatically loaded at missions starts? Checking point vals before applying
+    save sling weapon
+
+mjb_perkLoadName = getText (missionConfigFile >> "missionGroup");
+if (mjb_perkLoadName isEqualTo "") then {mjb_perkLoadName = "mjb_loadout" + missionName;
+} else {mjb_perkLoadName = "mjb_loadout" + mjb_perkLoadName};
+private _varName = mjb_perkLoadName;
+if (!isNil "mjb_perkLoadName") then {};
+*/
+
 
 private _event = "Killed";
 mjb_deathCleanupHandler = [ _event, (player addEventHandler [_event, {[true] call mjb_perks_fnc_perkCleanup;}] ) ];
@@ -52,6 +63,8 @@ private _disableMod = {
     };
     _actionData set [1, format ["%1, %2", _textName, _perkCost] ];
 };
+
+// !!!!! _target setVariable ["mjb_activePerks", mjb_activePerks, [owner _target, 2]];
 
 // No Perk
     private _perkName = "noPerk";
@@ -127,21 +140,24 @@ if (mjb_packSlingEnabled) then {
             if (_perkName in mjb_activePerks) exitWith {[_perkName] call mjb_perks_fnc_perkCleanup;};
             // perk effects
             //mjb_activePerkLoop = [] spawn {};
-            private _event = "Killed";
+            /*private _event = "Killed";
             missionNamespace setVariable [("mjb_pSlingHandler"),
-                ([ _event, (player addEventHandler [_event, {
+                ([ _event, (player addEventHandler [_event, { params ["_unit"];
                     if (!isNil "mjb_storedWeapon") then {
-                        (mjb_storedWeapon # 2) enableSimulationGlobal true;
+                        private _slingContainter = (mjb_storedWeapon # 2);
+                        _slingContainter enableSimulationGlobal true;
+                        //[_slingContainter,false] remoteExec ["lockInventory",0];
+                        //remoteExec ["", (_unit getVariable ["mjb_slingName",nil]) ];
                         mjb_storedWeapon = nil;
                     };
-                    player removeEventHandler [_thisEvent,_thisEventHandler];
+                    _unit removeEventHandler [_thisEvent,_thisEventHandler];
                 }] ) ])
-            ];
+            ];*/
             private _pSling =
             [
                 "pSling","Sling current weapon","z\mjb\addons\perks\data\packSling_ca.paa",
-                {
-                    call mjb_perks_fnc_pSling;
+                { params ["_target"];
+                   [_target] call mjb_perks_fnc_pSling;
                 },
                 { true },
                 {},[],[0,0,0],3,[false, false, false, false, true],
@@ -157,6 +173,10 @@ if (mjb_packSlingEnabled) then {
             private _path = [_addClass, 1, ["ACE_SelfActions"], _pSling] call ace_interact_menu_fnc_addActionToClass;
             missionNamespace setVariable [("mjb_" + _perkName + "ACEAction"),
                 [_addClass, 1, _path]
+            ];
+            private _stateMachine = [configFile >> "MJB_Perks" >> "mjb_perks_slingState"] call CBA_statemachine_fnc_createFromConfig;
+            missionNamespace setVariable [("mjb_" + _perkName + "Statemachine"),
+                [_stateMachine]
             ];
             mjb_activePerks pushBack _perkName;
             mjb_perkPoints = mjb_perkPoints - (missionNamespace getVariable [("mjb_" + _perkName + "Points"),0]);
@@ -182,6 +202,56 @@ if (mjb_packSlingEnabled) then {
         ["CAManBase", 1, ["ACE_SelfActions","perk_select",_perkName], _action, true] call ace_interact_menu_fnc_addActionToClass;
 };
 
+if (mjb_extraHpEnabled) then {
+    private _perkName = "extraHp";
+    _action =
+    [
+        _perkName,"Extra Conditioning","\A3\ui_f\data\igui\cfg\actions\heal_ca.paa",
+        {   params ["_target", "_player", "_actionParams"]; _actionParams params ["_perkName"];
+            if (_perkName in mjb_activePerks) exitWith {
+                private _newHP = mjb_defaultHP;
+                mjb_defaultHP = nil;
+			    _target setVariable ["diw_armor_plates_main_maxHp", _newHP, true];
+			    _target setVariable ["diw_armor_plates_main_Hp", (_newHP + 0.001), true];
+				player call diw_armor_plates_main_fnc_updateHPUi;
+                _target call diw_armor_plates_main_fnc_fillVestWithPlates;
+                player call diw_armor_plates_main_fnc_updatePlateUi;
+                [_perkName] call mjb_perks_fnc_perkCleanup;
+            };
+            // perk effects
+			mjb_defaultHP = _target getVariable ["diw_armor_plates_main_maxHp", diw_armor_plates_main_maxPlayerHP];
+			private _newHP = (ceil (mjb_defaultHP * mjb_extraHpMult));
+			_target setVariable ["diw_armor_plates_main_maxHp", _newHP, true];
+			_target setVariable ["diw_armor_plates_main_Hp", (_newHP + 0.001), true];
+			player call diw_armor_plates_main_fnc_updateHPUi;
+            _target call diw_armor_plates_main_fnc_fillVestWithPlates;
+            player call diw_armor_plates_main_fnc_updatePlateUi;
+            //private _event = "Fired";
+            //mjb_activePerkHandler = [ _event, (player addEventHandler [_event, {[player] call mjb_perks_fnc_sneakProjHandler;}] ) ];
+            mjb_activePerks pushBack _perkName;
+            mjb_perkPoints = mjb_perkPoints - (missionNamespace getVariable [("mjb_" + _perkName + "Points"),0]);
+        },
+        { params ["_target", "_player", "_actionParams"]; _actionParams params ["_perkName"];
+            mjb_extraHpEnabled && {mjb_perkPoints >= mjb_extraHpPoints || {_perkName in mjb_activePerks}}
+        },
+        { },
+        [_perkName],
+        [0,0,0],
+        3,
+        [false, true, false, false, true],
+        _disableMod
+    ] call ace_interact_menu_fnc_createAction;
+    ["CAManBase", 1, ["ACE_SelfActions","perk_select"], _action, true] call ace_interact_menu_fnc_addActionToClass;
+        // Perk description
+        _action =
+        [
+            "perkDesc","50% more max HP.",
+            "",{ },  { true },{ },[],[0,0,0],3,[false, true, false, false, true]
+        ] call ace_interact_menu_fnc_createAction;
+
+        ["CAManBase", 1, ["ACE_SelfActions","perk_select",_perkName], _action, true] call ace_interact_menu_fnc_addActionToClass;
+};
+
 if (mjb_plateDropEnabled) then {
     private _perkName = "plateDrop";
     _action =
@@ -196,8 +266,7 @@ if (mjb_plateDropEnabled) then {
             private _pDrop =
             [
                 "pDrop","Plate Call-in","\a3\ui_f\data\gui\rsc\rscdisplayarsenal\vest_ca.paa",
-                {
-                    private _target = player;
+                {   params ["_target"];
                     private _pCrate = "Box_Syndicate_Ammo_F" createVehicle (getPos _target);
                     private _height = 500;
                     if (getTerrainHeightASL (getPosATL _pCrate) <= 0) then {
@@ -218,10 +287,10 @@ if (mjb_plateDropEnabled) then {
                     mjb_plateDropAvailable = false;
                     [{mjb_plateDropAvailable = true;}, [], 1200] call CBA_fnc_waitAndExecute;
                 },
-                { mjb_plateDropAvailable && { leader player == player || {player getUnitTrait 'Medic'}} },
+                {    params ["_target"]; mjb_plateDropAvailable && { leader _target == _target || {_target getUnitTrait 'Medic'}} },
                 { },[],[0,0,0],3,[false, false, false, false, true]
             ] call ace_interact_menu_fnc_createAction;
-            private _addClass = typeOf player;
+            private _addClass = typeOf _target;
             private _path = [_addClass, 1, ["ACE_SelfActions"], _pDrop] call ace_interact_menu_fnc_addActionToClass;
             missionNamespace setVariable [("mjb_" + _perkName + "ACEAction"),
                 [_addClass, 1, _path]
@@ -231,7 +300,7 @@ if (mjb_plateDropEnabled) then {
             mjb_perkPoints = mjb_perkPoints - (missionNamespace getVariable [("mjb_" + _perkName + "Points"),0]);
         },
         { params ["_target", "_player", "_actionParams"]; _actionParams params ["_perkName"];
-            mjb_plateDropEnabled && { (leader player == player || {player getUnitTrait 'Medic'}) && { (mjb_perkPoints >= mjb_plateDropPoints || {_perkName in mjb_activePerks}) } }
+            mjb_plateDropEnabled && { (leader _target == _target || {_target getUnitTrait 'Medic'}) && { (mjb_perkPoints >= mjb_plateDropPoints || {_perkName in mjb_activePerks}) } }
         },
         { },
         [_perkName],
@@ -350,15 +419,8 @@ if (mjb_telestickEnabled) then {
             // perk effects
             //mjb_activePerkLoop = [] spawn {};
             //private _event = "Fired";
-            private _playerHandler = ["ace_firedPlayer", { params["", "_weapon", "", "", "", "", "_projectile"];
-                if (_weapon isNotEqualTo "Throw") exitWith {};
-                private _projClass = (typeOf _projectile);
-                if ("hemlight" in _projClass) then {
-                    _projectile addEventHandler ["Explode", {
-                        params ["","_pos"];
-                        player setPosASL _pos;
-                    }];
-                };
+            private _playerHandler = ["ace_firedPlayer", { params["_unit", "_weapon", "", "", "", "", "_projectile"];
+                [_unit,_weapon,_projectile] call mjb_perks_fnc_telestickHandler;
             }] call CBA_fnc_addEventHandler;
             missionNamespace setVariable [("mjb_" + _perkName + "CBAHandler"),
                 ["ace_firedPlayer", _playerHandler]
@@ -367,7 +429,7 @@ if (mjb_telestickEnabled) then {
             mjb_perkPoints = mjb_perkPoints - (missionNamespace getVariable [("mjb_" + _perkName + "Points"),0]);
         },
         { params ["_target", "_player", "_actionParams"]; _actionParams params ["_perkName"];
-            mjb_telestickEnabled && {mjb_perkPoints >= mjb_dragonPoints || {_perkName in mjb_activePerks}}
+            mjb_telestickEnabled && {mjb_perkPoints >= mjb_telestickPoints || {_perkName in mjb_activePerks}}
         },
         { },
         [_perkName],
@@ -398,8 +460,13 @@ if (mjb_eyesEnabled) then {
             missionNamespace setVariable [("mjb_" + _perkName + "Loop"),
                 [] spawn mjb_perks_fnc_eyesLoop
             ];
-            //private _event = "Fired";
-            //mjb_activePerkHandler = [ _event, (player addEventHandler [_event, {[player] call mjb_perks_fnc_sneakProjHandler;}] ) ];
+            private _event = "OpticsSwitch";
+            mjb_activePerkHandler = [ _event, (this addEventHandler [_event, {
+	            params ["_unit", "_isADS"];
+				if (vehicle _unit isNotEqualTo _unit) exitWith {};
+				mjb_aiming = _isADS;
+            }] ) ];
+		    mjb_aiming = false;
             mjb_activePerks pushBack _perkName;
             mjb_perkPoints = mjb_perkPoints - (missionNamespace getVariable [("mjb_" + _perkName + "Points"),0]);
         },

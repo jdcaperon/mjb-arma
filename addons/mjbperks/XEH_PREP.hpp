@@ -6,4 +6,6 @@
 ["z\mjb\addons\perks\functions\fnc_eyesLoop.sqf", "mjb_perks_fnc_eyesLoop"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_restoreWeapon.sqf", "mjb_perks_fnc_restoreWeapon"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_pSling.sqf", "mjb_perks_fnc_pSling"] call CBA_fnc_compileFunction;
+["z\mjb\addons\perks\functions\fnc_slungWeapon.sqf", "mjb_perks_fnc_slungWeapon"] call CBA_fnc_compileFunction;
+["z\mjb\addons\perks\functions\fnc_slingVis.sqf", "mjb_perks_fnc_slingVis"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_telestickHandler.sqf", "mjb_perks_fnc_telestickHandler"] call CBA_fnc_compileFunction;

@@ -16,8 +16,8 @@ _projectile addEventHandler ["HitPart", {
     }] remoteExec ["call", _hitEntity];
 }];
 _projectile addEventHandler ["SubmunitionCreated", {
-    params ["_projectile"];
-    [_projectile] call mjb_perks_fnc_sneakProjHandler;
+    params ["","_subProj"];
+    [_subProj] call mjb_perks_fnc_sneakProjHandler;
 }];
 
 _projectile addEventHandler ["HitExplosion", {

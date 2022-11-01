@@ -38,7 +38,7 @@
 [
     "mjb_plateToughness",
     "CHECKBOX",
-    ["Enable Plate Toughness", "Players regen their first plate, starts after delay when not taking damage."],
+    ["Enable Plate Toughness", "Players can regen plates over time, starts after delay when not taking damage."],
     ["MJB Arma", "Plates"],
     false,
     true,
@@ -49,7 +49,7 @@
 [
     "mjb_plateRegenCount",
     "SLIDER",
-    ["Plates to regen", "How many plates are affected by the toughness regen. Limited by plates wearable setting in Armor Plates System."],
+    ["Plates that regen from toughness", "How many plates are affected by the toughness regen. Limited by plates wearable setting in Armor Plates System."],
     ["MJB Arma", "Plates"],
     [1, 10, 1, 0],
     true,

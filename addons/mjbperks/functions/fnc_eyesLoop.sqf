@@ -13,7 +13,7 @@ private _camEffect = [0];
 private _camFov = 0.75;
 mjb_eyesEnd = false;
 while {alive player && {!mjb_eyesEnd}} do {
-    waitUntil {mjb_eyesEnd || {inputAction "ZoomTemp" > 0 && {cameraView == "INTERNAL" && {vehicle player == player}}}};
+    waitUntil {mjb_eyesEnd || {inputAction "ZoomTemp" > 0 && {!mjb_aiming && {vehicle player == player}}}};
     private _camDir = getCameraViewDirection player;
     private _vehicle = (vehicle player);
     private _hidden = isServer || {isHidden _vehicle};
