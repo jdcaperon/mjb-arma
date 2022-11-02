@@ -1,185 +1,27 @@
 class CfgPatches {
   class ConfigTweaks {
+	ammo[] = {"mjb_338_NM_trc_gr","mjb_338_NM_trc_ylw","mjb_93x64_trc_gr","mjb_93x64_trc_ylw"};
+	magazines[] = {"mjb_150Rnd_93x64_Mag_tracer","mjb_150Rnd_93x64_Mag_trc_red","mjb_150Rnd_93x64_Mag_trc_ylw", "mjb_130Rnd_338_Mag_tracer","mjb_130Rnd_338_Mag_trc_gr","mjb_130Rnd_338_Mag_trc_ylw"/*, "CUP_64Rnd_9x18_Bizon_M","CUP_64Rnd_Green_Tracer_9x18_Bizon_M","CUP_64Rnd_Red_Tracer_9x18_Bizon_M","CUP_64Rnd_White_Tracer_9x18_Bizon_M","CUP_64Rnd_Yellow_Tracer_9x18_Bizon_M"*/};
     units[] = {};
     weapons[] = {};
     requiredVersion = 0.1;
-    author = "SuperJam & Camelith";
+    author = "SuperJam, Camelith, Alien314";
     name = "Config Tweaks";
-    requiredAddons[] = {
-        "A3_Characters_F",
-    };
-  };
-};
-
-// Bullet Resistance Tweaks
-class CfgVehicles {
-  class Man;
-  class CAManBase : Man {
-    // total hit points (meaning global "health") of the object keep constant
-    // among various soldiers so that the hit points armor coefficients remains
-    // on the same scale
-    armor = 2;
-    // divides all damage taken to total hit point, either directly or through
-    // hit point passThrough coefficient. must be adjusted for each model to
-    // achieve consistent total damage results
-    armorStructural = 3;
-    // for consistent explosive damage after adjusting = (armorStructural / 10)
-    explosionShielding = 0.3;
-    // minimalHit for total damage
-    minTotalDamageThreshold = 0.001;
-    // multiplier for falling damage
-    impactDamageMultiplier = 0.5;
-
-    class HitPoints {
-      class HitFace {
-        // "Healthpoints" of this hitpoint is armor value (of hitpoint) * armor
-        // value (coefficient of the total armor defined below for the whole
-        // object)
-        armor = 5;
-        // damage material (-1 means "unused")
-        material = -1;
-        // selection name from hit points LOD in object
-        name = "face_hub";
-        // coefficient defining how much damage will pass into  total damage
-        // when this hit point is damaged
-        passThrough = 0.80000001;
-        // size of the hit point sphere, this is how it works:
-        // https://community.bistudio.com/wiki/Arma_3_Damage_Description
-        radius = 0.079999998;
-        // multiplier of explosive damage (parameter: explosive > 0 in
-        // ammunition type)
-        explosionShielding = 0.1;
-        // minimal damage value that can be applied (based on armor value),
-        // damage below this threshold is ignored example: total hit point armor
-        // = 2 and hitpoint class armor = 10 and minimalHit = 0.04 -> all damage
-        // below a hit value of 2*10*0.04 = 0.8 is ignored
-        minimalHit = 0.0099999998;
-      };
-      class HitNeck : HitFace {
-        armor = 5;
-        material = -1;
-        name = "neck";
-        passThrough = 0.80000001;
-        radius = 0.1;
-        explosionShielding = 0.5;
-        minimalHit = 0.0099999998;
-      };
-      class HitHead : HitNeck {
-        armor = 5;
-        material = -1;
-        name = "head";
-        passThrough = 0.80000001;
-        radius = 0.2;
-        explosionShielding = 0.5;
-        minimalHit = 0.0099999998;
-        // returns the greater of HitFace and HitNeck. for depends to work,
-        // HitHead must be inheriting from HitFace and HitNeck. "max" is not the
-        // only operator you can use. + and * are confirmed working. Other
-        // operators from the
-        // https://community.bistudio.com/wiki/Simple_Expression list may be
-        // usable as well.
-        depends = "HitFace max HitNeck";
-      };
-      class HitPelvis : HitHead {
-        armor = 10;
-        material = -1;
-        name = "pelvis";
-        passThrough = 0.80000001;
-        radius = 0.23999999;
-        explosionShielding = 1;
-        visual = "injury_body";
-        minimalHit = 0.0099999998;
-        depends = "0";
-      };
-      class HitAbdomen : HitPelvis {
-        armor = 10;
-        material = -1;
-        name = "spine1";
-        passThrough = 0.80000001;
-        radius = 0.16;
-        explosionShielding = 1;
-        visual = "injury_body";
-        minimalHit = 0.0099999998;
-      };
-      class HitDiaphragm : HitAbdomen {
-        armor = 10;
-        material = -1;
-        name = "spine2";
-        passThrough = 0.80000001;
-        radius = 0.18000001;
-        explosionShielding = 6;
-        visual = "injury_body";
-        minimalHit = 0.0099999998;
-      };
-      class HitChest : HitDiaphragm {
-        armor = 10;
-        material = -1;
-        name = "spine3";
-        passThrough = 0.80000001;
-        radius = 0.18000001;
-        explosionShielding = 6;
-        visual = "injury_body";
-        minimalHit = 0.0099999998;
-      };
-      class HitBody : HitChest {
-        armor = 1000;
-        material = -1;
-        name = "body";
-        passThrough = 1;
-        radius = 0;
-        explosionShielding = 6;
-        visual = "injury_body";
-        minimalHit = 0.0099999998;
-        depends = "HitPelvis max HitAbdomen max HitDiaphragm max HitChest";
-      };
-      class HitArms : HitBody {
-        armor = 65;
-        material = -1;
-        name = "arms";
-        passThrough = 0.55;
-        radius = 0.1;
-        explosionShielding = 1;
-        visual = "injury_hands";
-        minimalHit = 0.0099999998;
-        depends = "0";
-      };
-      class HitHands : HitArms {
-        armor = 65;
-        material = -1;
-        name = "hands";
-        passThrough = 0.55;
-        radius = 0.1;
-        explosionShielding = 1;
-        visual = "injury_hands";
-        minimalHit = 0.0099999998;
-        depends = "HitArms";
-      };
-      class HitLegs : HitHands {
-        armor = 65;
-        material = -1;
-        name = "legs";
-        passThrough = 0.40;
-        radius = 0.14;
-        explosionShielding = 1;
-        visual = "injury_legs";
-        minimalHit = 0.0099999998;
-        depends = "0";
-      };
-      class Incapacitated : HitLegs {
-        armor = 1000;
-        material = -1;
-        name = "body";
-        passThrough = 1;
-        radius = 0;
-        explosionShielding = 1;
-        visual = "";
-        minimalHit = 0;
-        depends =
-            "(((Total - 0.25) max 0) + ((HitHead - 0.25) max 0)"
-            "+ ((HitBody - 0.25) max 0)) * 2";
-      };
-    };
-  };
+   requiredAddons[]=
+		{
+	   		"ace_ballistics",
+			"CUP_Creatures_People_LoadOrder",
+			"CUP_Weapons_Ammunition",
+			"rhsusf_c_troops",
+			"rhs_weapons2",
+			"rhs_weapons3",
+			"rhsgref_weapons",
+			"rhsgref_weapons2",
+			"rhsgref_weapons3",
+			"rhsusf_weapons2",
+			"rhsusf_weapons3"
+		};
+	};
 };
 
 // AI Turrets Dispersion Config Tweaks (Built on nkenny's @LAMBS_Turrets)
@@ -196,11 +38,20 @@ class CfgBrains {
 };
 
 class CfgWeapons {
-  class MGun;
-  class LMG_RCWS : MGun {
-    aiDispersionCoefX = 40.0;
-    aiDispersionCoefY = 30.0;
-    class manual : MGun {};
+  class Default;
+  class ItemInfo : Default {scope = 1;};
+  /*/Zoomy fuck
+  class Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class PistolCore;
+  class Pistol : PistolCore {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class RifleCore;
+  class Rifle : RifleCore {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class GrenadeLauncher : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
+  class Put : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};*/
+	
+  class MGunCore;
+  class MGun : MGunCore {
+	class manual;
     class close : manual {
       aiBurstTerminable = 0;
     };
@@ -214,49 +65,522 @@ class CfgWeapons {
       aiBurstTerminable = 0;
     };
   };
+  class M134_minigun : MGunCore {
+    aiDispersionCoefX = 4.0;
+    aiDispersionCoefY = 3.0;
+  };
+  class LMG_RCWS : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class LMG_M200 : LMG_RCWS { };
   // HMG_M2 Explicitly overrides aiDispersionCoef in vanilla configs
   // so we can't take advantage of inheritance. Must explicitly override here.
   class HMG_01;
   class HMG_M2 : HMG_01 {
     aiDispersionCoefX = 40.0;
     aiDispersionCoefY = 30.0;
-    class manual : MGun {};
-    class close : manual {
-      aiBurstTerminable = 0;
-    };
-    class short : close {
-      aiBurstTerminable = 0;
-    };
-    class medium : close {
-      aiBurstTerminable = 0;
-    };
-    class far : close {
-      aiBurstTerminable = 0;
-    };
   };
   class CannonCore;
+  class gatling_30mm_base : CannonCore { };
+  class gatling_30mm : gatling_30mm_base { };
   class autocannon_Base_F : CannonCore {
     aiDispersionCoefX = 40;
     aiDispersionCoefY = 30;
   };
+  class autocannon_30mm_CTWS : autocannon_Base_F { };
+  
+  // CUP
+  // FAL Sounds?
+  class CUP_Vhmg_DSHKM_veh : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vhmg_KORD_veh : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vhmg_KPVT_veh : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vhmg_PKT_veh : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vhmg_PKT_MGNest : CUP_Vhmg_PKT_veh { };
+  class CUP_Vhmg_PKT_veh2 : CUP_Vhmg_PKT_MGNest {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vhmg_PKT_veh3 : CUP_Vhmg_PKT_MGNest {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vlmg_M134_veh : MGun {
+    aiDispersionCoefX = 4.0;
+    aiDispersionCoefY = 3.0;
+  };
+  class CUP_Vlmg_M240_veh : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vlmg_M240_nest : CUP_Vlmg_M240_veh {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vlmg_MG3_veh : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class CUP_Vlmg_UK59_veh : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  
+  class CUP_Vacannon_2A42_veh : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+  class CUP_Vacannon_AK630_veh : CannonCore {
+    aiDispersionCoefX = 12;
+    aiDispersionCoefY = 9;
+  };
+  class CUP_Vacannon_M197_veh : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+  class CUP_Vacannon_M230_veh : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+  class CUP_Vacannon_M242_veh : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+  class CUP_Vacannon_M621_AW159_veh : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+  
+  class PKT : MGun { // ???
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  // RHS
+  class RHS_M2 : HMG_M2 { };
+  class RHS_M2_offroad : RHS_M2 {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class rhs_weap_DSHKM : LMG_RCWS {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class rhs_weap_kpvt : MGun {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class rhs_weap_nsvt : rhs_weap_DSHKM {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class rhs_weap_pkt : PKT {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class rhs_weap_gau21_1 : RHS_M2 {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  class rhs_weap_m240veh : LMG_M200 {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  
+  class rhs_weap_azp23 : CannonCore {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+  class rhs_weap_2a42_base : autocannon_30mm_CTWS {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };/* Helo nose guns
+  class rhs_weap_M197 : gatling_30mm {
+    aiDispersionCoefX = 12;
+    aiDispersionCoefY = 9;
+  };
+  class rhs_weap_gi2_base : rhs_weap_M197 {
+    aiDispersionCoefX = 12;
+    aiDispersionCoefY = 9;
+  };*/
+  class RHS_weap_M242BC : autocannon_30mm_CTWS {
+    aiDispersionCoefX = 40;
+    aiDispersionCoefY = 30;
+  };
+  
+  // 3CB
+  /* class UK3CB_PKT : rhs_weap_pkt {
+    aiDispersionCoefX = 40.0;
+    aiDispersionCoefY = 30.0;
+  };
+  
+  // Bizon mag name fix
+  class Rifle_Base_F;
+  class CUP_smg_bizon : Rifle_Base_F
+  {
+	  magazineWell[] = {"CBA_9x18_PP19"};
+  };
+  */
+  
+  // Flashlights, special thanks G4rrus
+  #define LIGHTCONF(NAME,PARENT) \
+  class ##NAME## : ##PARENT## \
+  { \
+      class ItemInfo : InventoryFlashLightItem_Base_F \
+	  { \
+		  class FlashLight \
+		  { \
+              ambient[] = {0.9,0.81,0.7}; \
+              color[] = {180,160,130}; \
+              coneFadeCoef = 10; \
+			  direction = "flash"; \
+              flareMaxDistance = 300; \
+              flareSize = 4; \
+              innerAngle = 10; \
+              intensity = 4000; \
+              outerAngle = 80; \
+			  position = "flash dir"; \
+              scale[] = {0}; \
+			  class Attenuation \
+			  { \
+                    constant = 32; \
+                    hardLimitEnd = 105; \
+                    hardLimitStart = 15; \
+                    linear = 1; \
+                    quadratic = 0.05; \
+                    start = 0; \
+			  }; \
+		  }; \
+	  }; \
+  };
+  #define LIGHTCONFT1(NAME,PARENT) \
+  class ##NAME## : ##PARENT## \
+  { \
+      class ItemInfo : InventoryFlashLightItem_Base_F \
+	  { \
+		  class FlashLight \
+		  { \
+              ambient[] = {0.9,0.81,0.7}; \
+              color[] = {180,160,130}; \
+              coneFadeCoef = 10; \
+			  direction = "flash_dir"; \
+              flareMaxDistance = 300; \
+              flareSize = 4; \
+              innerAngle = 10; \
+              intensity = 4000; \
+              outerAngle = 80; \
+			  position = "flash_pos"; \
+              scale[] = {0}; \
+			  class Attenuation \
+			  { \
+                    constant = 32; \
+                    hardLimitEnd = 105; \
+                    hardLimitStart = 15; \
+                    linear = 1; \
+                    quadratic = 0.05; \
+                    start = 0; \
+			  }; \
+		  }; \
+	  }; \
+  };
+  #define LASREQ(NAME,PARENT) \
+  class ##NAME## : ##PARENT## \
+  { \
+      class ItemInfo : InventoryFlashLightItem_Base_F {}; \
+  };
+  
+  class ItemCore;
+  class InventoryFlashLightItem_Base_F;
+  class FlashLight;
+  class acc_flashlight : ItemCore
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F
+	  {
+		  class FlashLight : FlashLight
+		  {
+              coneFadeCoef = 10;
+              flareMaxDistance = 300;
+              flareSize = 4;
+              innerAngle = 10;
+              intensity = 4000;
+              outerAngle = 80;
+              scale[] = {0};
+			  class Attenuation
+			  {
+                    constant = 32;
+                    hardLimitEnd = 105;
+                    hardLimitStart = 15;
+                    linear = 1;
+                    quadratic = 0.05;
+                    start = 0;				  
+			  };
+		  };
+	  };
+  };
+  LIGHTCONF(acc_flashlight_pistol,ItemCore);
+  LIGHTCONF(acc_esd_01_flashlight,ItemCore);
+  LIGHTCONF(CUP_acc_Flashlight,ItemCore);
+  LIGHTCONF(cup_acc_llm01_f,ItemCore);
+  LIGHTCONF(cup_acc_llm_flashlight,ItemCore);
+  LIGHTCONF(CUP_acc_Glock17_Flashlight,ItemCore);
+  LIGHTCONF(cup_acc_cz_m3x,CUP_acc_Flashlight);
+  LIGHTCONF(CUP_acc_Zenit_2DS,ItemCore);
+  class CUP_acc_ANPEQ_15_Flashlight_Tan_L : ItemCore
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F {};
+  };
+  LASREQ(CUP_acc_ANPEQ_15_Flashlight_Black_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LASREQ(CUP_acc_ANPEQ_15_Flashlight_OD_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Flashlight_Tan_F,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Flashlight_Black_F,CUP_acc_ANPEQ_15_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Flashlight_OD_F,CUP_acc_ANPEQ_15_Flashlight_OD_L);
+  LASREQ(CUP_acc_ANPEQ_15_Top_Flashlight_Black_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LASREQ(CUP_acc_ANPEQ_15_Top_Flashlight_OD_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LASREQ(CUP_acc_ANPEQ_15_Top_Flashlight_Tan_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Top_Flashlight_Black_F,CUP_acc_ANPEQ_15_Top_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Top_Flashlight_OD_F,CUP_acc_ANPEQ_15_Top_Flashlight_OD_L);
+  LIGHTCONF(CUP_acc_ANPEQ_15_Top_Flashlight_Tan_F,CUP_acc_ANPEQ_15_Top_Flashlight_Tan_L);
+  class CUP_acc_ANPEQ_2_Flashlight_Black_L : ItemCore
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F {};
+  };
+  LASREQ(CUP_acc_ANPEQ_2_Flashlight_Coyote_L,CUP_acc_ANPEQ_2_Flashlight_Black_L);
+  LASREQ(CUP_acc_ANPEQ_2_Flashlight_OD_L,CUP_acc_ANPEQ_2_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_2_Flashlight_Black_F,CUP_acc_ANPEQ_2_Flashlight_Black_L);
+  LIGHTCONF(CUP_acc_ANPEQ_2_Flashlight_Coyote_F,CUP_acc_ANPEQ_2_Flashlight_Coyote_L);
+  LIGHTCONF(CUP_acc_ANPEQ_2_Flashlight_OD_F,CUP_acc_ANPEQ_2_Flashlight_OD_L);
+  
+  class rhs_acc_2dpZenit : acc_flashlight
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F
+	  {
+		  class FlashLight : FlashLight
+		  {
+              coneFadeCoef = 10;
+              flareMaxDistance = 300;
+              flareSize = 4;
+              innerAngle = 10;
+              intensity = 4000;
+              outerAngle = 80;
+              scale[] = {0};
+			  class Attenuation
+			  {
+                    constant = 32;
+                    hardLimitEnd = 105;
+                    hardLimitStart = 15;
+                    linear = 1;
+                    quadratic = 0.05;
+                    start = 0;				  
+			  };
+		  };
+	  };
+  };
+  class rhs_acc_perst3;
+  LASREQ(rhs_acc_perst3_2dp,rhs_acc_perst3);
+  class rhs_acc_perst3_2dp_light : rhs_acc_perst3_2dp
+  {
+	  class ItemInfo : InventoryFlashLightItem_Base_F
+	  {
+		  class FlashLight : FlashLight
+		  {
+              coneFadeCoef = 10;
+              flareMaxDistance = 300;
+              flareSize = 4;
+              innerAngle = 10;
+              intensity = 4000;
+              outerAngle = 80;
+              scale[] = {0};
+			  class Attenuation
+			  {
+                    constant = 32;
+                    hardLimitEnd = 105;
+                    hardLimitStart = 15;
+                    linear = 1;
+                    quadratic = 0.05;
+                    start = 0;				  
+			  };
+		  };
+	  };
+  };
+  class acc_pointer_IR;
+  LASREQ(rhsusf_acc_anpeq15,acc_pointer_IR);
+  LIGHTCONF(rhsusf_acc_anpeq15_light,rhsusf_acc_anpeq15);
+  LIGHTCONF(rhsusf_acc_anpeq15_wmx_light,rhsusf_acc_anpeq15_light);
+  LIGHTCONF(rhsusf_acc_anpeq16a_light,rhsusf_acc_anpeq15_light);
+  LIGHTCONF(rhsusf_acc_M952V,rhsusf_acc_anpeq15_light);
+  LIGHTCONF(rhsusf_acc_wmx,rhsusf_acc_M952V); 
+  
+  
+  // T1
+  LIGHTCONFT1(Tier1_10_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_10_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_10_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_145_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_145_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_145_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_416_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_416_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_M249_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M249_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M249_LA5_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(Tier1_M300C,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M300C_Black,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_M4BII_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M4BII_NGAL_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(Tier1_M600V,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_M600V_Black,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MCX_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MCX_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MCX_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk18_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk18_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk46Mod0_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod0_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod0_LA5_M603V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod1_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod1_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk46Mod1_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_Mk48Mod0_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod0_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod0_LA5_M603V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod1_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod1_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_Mk48Mod1_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MP7_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MP7_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MP7_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MP7_NGAL_M300C_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MW_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_MW_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_MW_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_RAHG_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_RAHG_NGAL_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(Tier1_SCAR_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_SCAR_NGAL_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_URX4_LA5_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_LA5_M603V_FL,acc_pointer_IR);
+  
+  LIGHTCONFT1(Tier1_URX4_NGAL_M300C_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M300C_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_alt_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_alt_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_Black_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M600V_FL,acc_pointer_IR);
+  LIGHTCONFT1(Tier1_URX4_NGAL_M603V_FL,acc_pointer_IR);  
+  
+  LIGHTCONFT1(tier1_dbalpl_fl,ItemCore);
+  LIGHTCONFT1(tier1_tlr1,ItemCore);
+  LIGHTCONFT1(Tier1_X300U,ItemCore);
 };
 
-
-// Custom Greenmag Config
-class CfgMagazines {
-    class CUP_30Rnd_Sa58_M
-    {
-        greenmag_ammo = "greenmag_ammo_762x39_basic_1Rnd";
-        greenmag_basicammo = "greenmag_ammo_762x39_basic_1Rnd";
-        greenmag_canSpeedload = 1;
-        greenmag_needBelt = 0;
-    };
-    
-    class CUP_30Rnd_Sa58_M_TracerY
-    {
-        greenmag_ammo = "greenmag_ammo_762x39_basic_1Rnd";
-        greenmag_basicammo = "greenmag_ammo_762x39_basic_1Rnd";
-        greenmag_canSpeedload = 1;
-        greenmag_needBelt = 0;
-    };
-};
+#include "CfgAmmo.hpp" // MMG Tracer ammo, (commented Ammo config)
+#include "CfgMagazines.hpp" // GreenMag simple compatibility, MMG Tracer boxes
+#include "CfgVehicles.hpp"  // BRH for all units/uniforms

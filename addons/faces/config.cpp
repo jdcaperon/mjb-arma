@@ -74,5 +74,11 @@ class CfgFaces
             head="DefaultHead_A3";
             texture="z\mjb\addons\faces\data\ocelot.paa";
         };
+		class Mongobeef: WhiteHead_01 {
+            displayname="Mongobeef";
+            author="Mongobeef";
+            head="DefaultHead_A3";
+            texture="z\mjb\addons\faces\data\facemongo.paa";
+        };
 	};
 };
