@@ -55,7 +55,7 @@
     true,
     {
         params ["_value"];
-        mjb_plateDelay = round _value;
+        mjb_plateRegenCount = round _value;
     }
 ] call CBA_fnc_addSetting;
 
@@ -70,6 +70,17 @@
         params ["_value"];
         mjb_plateDelay = _value;
     }
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_plateDelayInter",
+    "CHECKBOX",
+    ["Delay between plates", "Whether to apply delay between each plate to be regen'd."],
+    ["MJB Arma", "Plates"],
+    false,
+    true,
+    { },
+    true
 ] call CBA_fnc_addSetting;
 
 [
@@ -94,7 +105,7 @@
     false,
     {
         params ["_value"];
-        mjb_plateRegenSpeed = _value;
+        mjb_plateRegenPerTick = _value;
     }
 ] call CBA_fnc_addSetting;
 

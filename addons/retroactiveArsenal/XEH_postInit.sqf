@@ -32,33 +32,7 @@ if (isDedicated) exitWith {};
 if (mjb_plateToughness) then {
     player addEventHandler ["Hit", {
         player setVariable ["mjb_hitTime", cba_missionTime];
-        [cba_missionTime] spawn { params ["_hitCheck"];
-            sleep mjb_plateDelay;
-            private _plateCarrier = (vestContainer player);
-            if (!alive player || {_plateCarrier isEqualTo objNull}) exitWith {};
-            private _plates = _plateCarrier getVariable ["diw_armor_plates_main_plates", [0]];
-            private _plateCnt = (count _plates - 1) max 0;
-            if (_plateCnt == 0) then {_plates = [0];};
-            private _plateMaxHp = diw_armor_plates_main_maxPlateHealth;
-            private _tickRegen = mjb_plateRegenPerTick;
-            private _waitTime = (mjb_plateRegenSpeed/_plateMaxHp) * _tickRegen;
-            //private _tick = 0.1;
-            private _plateRegenCount = mjb_plateRegenCount;
-            private _maxPlates = diw_armor_plates_main_numWearablePlates;
-            while {_plateCnt < _plateRegenCount && {_plateCnt < _maxPlates} } do {
-                private _toughPlate = _plates # _plateCnt;
-                if (isNil "_toughPlate") then {_toughPlate = 0;};
-                while {_hitCheck isEqualTo (player getVariable ["mjb_hitTime", 0])} do {
-                    if (_toughPlate >= _plateMaxHp) then {break};
-                    sleep _waitTime;
-                    _toughPlate = _toughPlate + _tickRegen;
-                    _plates set [_plateCnt, (_toughPlate min _plateMaxHp)];
-                    _plateCarrier setVariable ["diw_armor_plates_main_plates", _plates];
-                    [player] call diw_armor_plates_main_fnc_updatePlateUi;
-                };
-                _plateCnt = _plateCnt + 1;
-            };
-        };
+        [cba_missionTime] spawn mjb_arsenal_fnc_toughLoop;
     }];
 };
 if (mjb_plateSteal) then {
