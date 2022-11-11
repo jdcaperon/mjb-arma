@@ -12,7 +12,7 @@
 [
     "mjb_perkPoints",
     "SLIDER",
-    ["Perk points", "How many points players have for perks."],
+    ["Perk points", "How many points players have for perks. Needs mission restart."],
     ["MJB Arma Perks"],
     [0, 5000, 1000, 0],
     true,
@@ -20,6 +20,17 @@
         params ["_value"];
         mjb_perkPoints = round _value;
     },
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_enableFlags",
+    "CHECKBOX",
+    ["Enable Flags", "Enable players to self attach/remove RATS or Canadian flags, from Self interact > Equipment."],
+    ["MJB Arma Perks"],
+    true,
+    true,
+    { },
     true
 ] call CBA_fnc_addSetting;
 
@@ -131,6 +142,31 @@ private _perkName = "Pack Sling";
     {
         params ["_value"];
         mjb_packSlingPoints = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
+
+private _perkName = "Doorkicker";
+[
+    "mjb_flashDoorEnabled",
+    "CHECKBOX",
+    [("Enable " + _perkName), "Player can perform a flash and kick action (self-interact at a door, with ace flashbangs in inventory)."],
+    ["MJB Arma Perks", "Individual Perks"],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_flashDoorPoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", "Individual Perks"],
+    [0, 5000, 500, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_flashDoorPoints = round _value;
     },
     true
 ] call CBA_fnc_addSetting;

@@ -9,3 +9,4 @@
 ["z\mjb\addons\perks\functions\fnc_slungWeapon.sqf", "mjb_perks_fnc_slungWeapon"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_slingVis.sqf", "mjb_perks_fnc_slingVis"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_telestickHandler.sqf", "mjb_perks_fnc_telestickHandler"] call CBA_fnc_compileFunction;
+["z\mjb\addons\perks\functions\fnc_flashDoor.sqf", "mjb_perks_fnc_flashDoor"] call CBA_fnc_compileFunction;

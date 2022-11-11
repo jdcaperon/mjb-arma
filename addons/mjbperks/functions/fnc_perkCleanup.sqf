@@ -56,11 +56,11 @@ if (!isNil ("mjb_" + _remove + "ACEAction") ) then {
 if (!isNil ("mjb_" + _remove + "Statemachine") ) then {
     private _eventHandle = (missionNamespace getVariable [("mjb_" + _remove + "Statemachine"),nil]);
     sleep 1;
-systemChat "removing Statemachine";
+//systemChat "removing Statemachine";
     _eventHandle call CBA_statemachine_fnc_delete;
     missionNamespace setVariable [("mjb_" + _remove + "Statemachine"), nil ];
 };
 
 mjb_activePerks = mjb_activePerks - [_remove];
 // !!!!! _target setVariable ["mjb_activePerks", mjb_activePerks, [owner _target, 2]];
-mjb_perkPoints = mjb_perkPoints + (missionNamespace getVariable [("mjb_" + _remove + "Points"),0]);
+mjb_pP = mjb_pP + (missionNamespace getVariable [("mjb_" + _remove + "Points"),0]);

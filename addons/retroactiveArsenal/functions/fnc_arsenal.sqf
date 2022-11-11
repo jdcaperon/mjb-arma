@@ -310,7 +310,6 @@ private _itemEquipment =
     //Greenmag speedloader
     "greenmag_item_speedloader"
 ];
-_itemEquipment append _additions;
 
 private _itemNVG =
 [
@@ -1916,6 +1915,8 @@ for [{_i = 2}, {_i < 623}, {_i = _i + 24}] do // skips Beltstaff pants
     _tarkovuniforms pushback ("Tarkov_Uniforms_" + str _j) }; };
 };
 for "_i" from (1) to (49) do { _tarkovuniforms pushback ("Tarkov_Uniforms_Scavs_" + str _i) };
+
+_itemEquipment append _additions;
 
 private _unitRole = (player getVariable ["tmf_assignGear_role",typeOf player]);
 if (_role isNotEqualTo "") then {systemChat ("Using set role: " + _role); _unitRole = _role;
