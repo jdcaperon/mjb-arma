@@ -1,6 +1,5 @@
-
-/*/ Bullet Resistance Tweaks
 class CfgVehicles {
+  /*/ Bullet Resistance Tweaks
   class Man;
   class CAManBase : Man {
     // total hit points (meaning global "health") of the object keep constant
@@ -826,5 +825,30 @@ class CfgVehicles {
 	  };
     };
   };
+//*/
+
+  #define PACKPLUS(PARENT,NAME,DISPLAYNAME) \
+  class ##PARENT##; \
+  class ##NAME## : ##PARENT## { \
+    displayName = ##DISPLAYNAME##; \
+    maximumLoad = 350; \
+  };
+
+  PACKPLUS(B_Carryall_cbr,mjb_carryallplus_cbr,"Carryall Backpack (Coyote/plus)");
+  PACKPLUS(B_Carryall_eaf_F,mjb_carryallplus_eaf_F,"Carryall Backpack (Geometric/plus)");
+  PACKPLUS(B_Carryall_ghex_F,mjb_carryallplus_ghex,"Carryall Backpack (Green Hex/plus)");
+  PACKPLUS(B_Carryall_green_F,mjb_carryallplus_green,"Carryall Backpack (Green/plus)");
+  PACKPLUS(B_Carryall_khk,mjb_carryallplus_khk,"Carryall Backpack (Khaki/plus)");
+  PACKPLUS(B_Carryall_mcamo,mjb_carryallplus_mcamo,"Carryall Backpack (MTP/plus)");
+  PACKPLUS(B_Carryall_ocamo,mjb_carryallplus_ocamo,"Carryall Backpack (Hex/plus)");
+  PACKPLUS(B_Carryall_oli,mjb_carryallplus_oli,"Carryall Backpack (Olive/plus)");
+  PACKPLUS(B_Carryall_oucamo,mjb_carryallplus_oucamo,"Carryall Backpack (Urban/plus)");
+  PACKPLUS(B_Carryall_taiga_F,mjb_carryallplus_taiga_F,"Carryall Backpack (Taiga/plus)");
+  PACKPLUS(B_Carryall_wdl_F,mjb_carryallplus_wdl,"Carryall Backpack (Woodland/plus)");
+
+  PACKPLUS(rhs_tortila_black,mjb_carryallplus_black,"SPOSN Tortila Backpack (Black/plus)");
+  PACKPLUS(rhs_tortila_emr,mjb_carryallplus_emr,"SPOSN Tortila Backpack (EMR-Summer/plus)");
+  PACKPLUS(rhs_tortila_grey,mjb_carryallplus_grey,"SPOSN Tortila Backpack (Grey/plus)");
+  PACKPLUS(rhs_tortila_khaki,mjb_carryallplus_khaki,"SPOSN Tortila Backpack (Khaki/plus)");
+  PACKPLUS(rhs_tortila_olive,mjb_carryallplus_olive,"SPOSN Tortila Backpack (Olive/plus)");
 };
-*/

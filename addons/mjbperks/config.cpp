@@ -49,7 +49,7 @@ class MJB_Perks {
 
 			class Down {
 				targetState = "Hidden";
-				condition = "(lifestate _this isEqualTo 'INCAPACITATED')";
+				condition = "(lifestate _this isEqualTo 'INCAPACITATED') || { vehicle _this isNotEqualTo _this }";
 				onTransition = "if (!isNil 'mjb_storedWeapon') then {[(mjb_storedWeapon select 2),true] remoteExec ['hideObjectGlobal', 2]; };";
 			};
 		};
@@ -60,7 +60,7 @@ class MJB_Perks {
 			onStateLeaving = "";
 			class NotDown {
 				targetState = "Visible";
-				condition = "(lifestate _this isNotEqualTo 'INCAPACITATED')";
+				condition = "(lifestate _this isNotEqualTo 'INCAPACITATED') && { vehicle _this isEqualTo _this }";
 				onTransition = "[_this] call mjb_perks_fnc_slingVis;";
 			};
 		};

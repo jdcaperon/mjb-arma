@@ -1,27 +1,27 @@
 class CfgPatches {
   class ConfigTweaks {
-	ammo[] = {"mjb_338_NM_trc_gr","mjb_338_NM_trc_ylw","mjb_93x64_trc_gr","mjb_93x64_trc_ylw"};
-	magazines[] = {"mjb_150Rnd_93x64_Mag_tracer","mjb_150Rnd_93x64_Mag_trc_red","mjb_150Rnd_93x64_Mag_trc_ylw", "mjb_130Rnd_338_Mag_tracer","mjb_130Rnd_338_Mag_trc_gr","mjb_130Rnd_338_Mag_trc_ylw"/*, "CUP_64Rnd_9x18_Bizon_M","CUP_64Rnd_Green_Tracer_9x18_Bizon_M","CUP_64Rnd_Red_Tracer_9x18_Bizon_M","CUP_64Rnd_White_Tracer_9x18_Bizon_M","CUP_64Rnd_Yellow_Tracer_9x18_Bizon_M"*/};
+    ammo[] = {"mjb_338_NM_trc_gr","mjb_338_NM_trc_ylw","mjb_93x64_trc_gr","mjb_93x64_trc_ylw"};
+    magazines[] = {"mjb_150Rnd_93x64_Mag_tracer","mjb_150Rnd_93x64_Mag_trc_red","mjb_150Rnd_93x64_Mag_trc_ylw", "mjb_130Rnd_338_Mag_tracer","mjb_130Rnd_338_Mag_trc_gr","mjb_130Rnd_338_Mag_trc_ylw"/*, "CUP_64Rnd_9x18_Bizon_M","CUP_64Rnd_Green_Tracer_9x18_Bizon_M","CUP_64Rnd_Red_Tracer_9x18_Bizon_M","CUP_64Rnd_White_Tracer_9x18_Bizon_M","CUP_64Rnd_Yellow_Tracer_9x18_Bizon_M"*/};
     units[] = {};
     weapons[] = {};
     requiredVersion = 0.1;
     author = "SuperJam, Camelith, Alien314";
     name = "Config Tweaks";
    requiredAddons[]=
-		{
-	   		"ace_ballistics",
-			"CUP_Creatures_People_LoadOrder",
-			"CUP_Weapons_Ammunition",
-			"rhsusf_c_troops",
-			"rhs_weapons2",
-			"rhs_weapons3",
-			"rhsgref_weapons",
-			"rhsgref_weapons2",
-			"rhsgref_weapons3",
-			"rhsusf_weapons2",
-			"rhsusf_weapons3"
-		};
-	};
+        {
+            "ace_ballistics",
+            "CUP_Creatures_People_LoadOrder",
+            "CUP_Weapons_Ammunition",
+            "rhsusf_c_troops",
+            "rhs_weapons2",
+            "rhs_weapons3",
+            "rhsgref_weapons",
+            "rhsgref_weapons2",
+            "rhsgref_weapons3",
+            "rhsusf_weapons2",
+            "rhsusf_weapons3"
+        };
+    };
 };
 
 // AI Turrets Dispersion Config Tweaks (Built on nkenny's @LAMBS_Turrets)
@@ -48,10 +48,10 @@ class CfgWeapons {
   class Rifle : RifleCore {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
   class GrenadeLauncher : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};
   class Put : Default {opticsZoomInit = 0.66; opticsZoomMax = 1.5; opticsZoomMin = 0.33;};*/
-	
+    
   class MGunCore;
   class MGun : MGunCore {
-	class manual;
+    class manual;
     class close : manual {
       aiBurstTerminable = 0;
     };
@@ -229,7 +229,7 @@ class CfgWeapons {
   class Rifle_Base_F;
   class CUP_smg_bizon : Rifle_Base_F
   {
-	  magazineWell[] = {"CBA_9x18_PP19"};
+      magazineWell[] = {"CBA_9x18_PP19"};
   };
   */
   
@@ -238,61 +238,61 @@ class CfgWeapons {
   class ##NAME## : ##PARENT## \
   { \
       class ItemInfo : InventoryFlashLightItem_Base_F \
-	  { \
-		  class FlashLight \
-		  { \
+      { \
+          class FlashLight \
+          { \
               ambient[] = {0.9,0.81,0.7}; \
               color[] = {180,160,130}; \
               coneFadeCoef = 10; \
-			  direction = "flash"; \
+              direction = "flash"; \
               flareMaxDistance = 300; \
               flareSize = 4; \
               innerAngle = 10; \
               intensity = 4000; \
               outerAngle = 80; \
-			  position = "flash dir"; \
+              position = "flash dir"; \
               scale[] = {0}; \
-			  class Attenuation \
-			  { \
+              class Attenuation \
+              { \
                     constant = 32; \
                     hardLimitEnd = 105; \
                     hardLimitStart = 15; \
                     linear = 1; \
                     quadratic = 0.05; \
                     start = 0; \
-			  }; \
-		  }; \
-	  }; \
+              }; \
+          }; \
+      }; \
   };
   #define LIGHTCONFT1(NAME,PARENT) \
   class ##NAME## : ##PARENT## \
   { \
       class ItemInfo : InventoryFlashLightItem_Base_F \
-	  { \
-		  class FlashLight \
-		  { \
+      { \
+          class FlashLight \
+          { \
               ambient[] = {0.9,0.81,0.7}; \
               color[] = {180,160,130}; \
               coneFadeCoef = 10; \
-			  direction = "flash_dir"; \
+              direction = "flash_dir"; \
               flareMaxDistance = 300; \
               flareSize = 4; \
               innerAngle = 10; \
               intensity = 4000; \
               outerAngle = 80; \
-			  position = "flash_pos"; \
+              position = "flash_pos"; \
               scale[] = {0}; \
-			  class Attenuation \
-			  { \
+              class Attenuation \
+              { \
                     constant = 32; \
                     hardLimitEnd = 105; \
                     hardLimitStart = 15; \
                     linear = 1; \
                     quadratic = 0.05; \
                     start = 0; \
-			  }; \
-		  }; \
-	  }; \
+              }; \
+          }; \
+      }; \
   };
   #define LASREQ(NAME,PARENT) \
   class ##NAME## : ##PARENT## \
@@ -305,10 +305,10 @@ class CfgWeapons {
   class FlashLight;
   class acc_flashlight : ItemCore
   {
-	  class ItemInfo : InventoryFlashLightItem_Base_F
-	  {
-		  class FlashLight : FlashLight
-		  {
+      class ItemInfo : InventoryFlashLightItem_Base_F
+      {
+          class FlashLight : FlashLight
+          {
               coneFadeCoef = 10;
               flareMaxDistance = 300;
               flareSize = 4;
@@ -316,17 +316,17 @@ class CfgWeapons {
               intensity = 4000;
               outerAngle = 80;
               scale[] = {0};
-			  class Attenuation
-			  {
+              class Attenuation
+              {
                     constant = 32;
                     hardLimitEnd = 105;
                     hardLimitStart = 15;
                     linear = 1;
                     quadratic = 0.05;
-                    start = 0;				  
-			  };
-		  };
-	  };
+                    start = 0;                
+              };
+          };
+      };
   };
   LIGHTCONF(acc_flashlight_pistol,ItemCore);
   LIGHTCONF(acc_esd_01_flashlight,ItemCore);
@@ -338,7 +338,7 @@ class CfgWeapons {
   LIGHTCONF(CUP_acc_Zenit_2DS,ItemCore);
   class CUP_acc_ANPEQ_15_Flashlight_Tan_L : ItemCore
   {
-	  class ItemInfo : InventoryFlashLightItem_Base_F {};
+      class ItemInfo : InventoryFlashLightItem_Base_F {};
   };
   LASREQ(CUP_acc_ANPEQ_15_Flashlight_Black_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
   LASREQ(CUP_acc_ANPEQ_15_Flashlight_OD_L,CUP_acc_ANPEQ_15_Flashlight_Tan_L);
@@ -353,7 +353,7 @@ class CfgWeapons {
   LIGHTCONF(CUP_acc_ANPEQ_15_Top_Flashlight_Tan_F,CUP_acc_ANPEQ_15_Top_Flashlight_Tan_L);
   class CUP_acc_ANPEQ_2_Flashlight_Black_L : ItemCore
   {
-	  class ItemInfo : InventoryFlashLightItem_Base_F {};
+      class ItemInfo : InventoryFlashLightItem_Base_F {};
   };
   LASREQ(CUP_acc_ANPEQ_2_Flashlight_Coyote_L,CUP_acc_ANPEQ_2_Flashlight_Black_L);
   LASREQ(CUP_acc_ANPEQ_2_Flashlight_OD_L,CUP_acc_ANPEQ_2_Flashlight_Black_L);
@@ -363,10 +363,10 @@ class CfgWeapons {
   
   class rhs_acc_2dpZenit : acc_flashlight
   {
-	  class ItemInfo : InventoryFlashLightItem_Base_F
-	  {
-		  class FlashLight : FlashLight
-		  {
+      class ItemInfo : InventoryFlashLightItem_Base_F
+      {
+          class FlashLight : FlashLight
+          {
               coneFadeCoef = 10;
               flareMaxDistance = 300;
               flareSize = 4;
@@ -374,26 +374,26 @@ class CfgWeapons {
               intensity = 4000;
               outerAngle = 80;
               scale[] = {0};
-			  class Attenuation
-			  {
+              class Attenuation
+              {
                     constant = 32;
                     hardLimitEnd = 105;
                     hardLimitStart = 15;
                     linear = 1;
                     quadratic = 0.05;
-                    start = 0;				  
-			  };
-		  };
-	  };
+                    start = 0;                
+              };
+          };
+      };
   };
   class rhs_acc_perst3;
   LASREQ(rhs_acc_perst3_2dp,rhs_acc_perst3);
   class rhs_acc_perst3_2dp_light : rhs_acc_perst3_2dp
   {
-	  class ItemInfo : InventoryFlashLightItem_Base_F
-	  {
-		  class FlashLight : FlashLight
-		  {
+      class ItemInfo : InventoryFlashLightItem_Base_F
+      {
+          class FlashLight : FlashLight
+          {
               coneFadeCoef = 10;
               flareMaxDistance = 300;
               flareSize = 4;
@@ -401,17 +401,17 @@ class CfgWeapons {
               intensity = 4000;
               outerAngle = 80;
               scale[] = {0};
-			  class Attenuation
-			  {
+              class Attenuation
+              {
                     constant = 32;
                     hardLimitEnd = 105;
                     hardLimitStart = 15;
                     linear = 1;
                     quadratic = 0.05;
-                    start = 0;				  
-			  };
-		  };
-	  };
+                    start = 0;                
+              };
+          };
+      };
   };
   class acc_pointer_IR;
   LASREQ(rhsusf_acc_anpeq15,acc_pointer_IR);
@@ -579,6 +579,65 @@ class CfgWeapons {
   LIGHTCONFT1(tier1_dbalpl_fl,ItemCore);
   LIGHTCONFT1(tier1_tlr1,ItemCore);
   LIGHTCONFT1(Tier1_X300U,ItemCore);
+
+  class HeadgearItem;
+  #define HATARMOR(NAME,PARENT) \
+  class ##NAME## : ##PARENT## \
+  { \
+    class ItemInfo : HeadgearItem \
+    { \
+	  class HitpointsProtectionInfo \
+  	  { \
+		class Head \
+		{ \
+			hitPointName = "HitHead"; \
+			armor = 6; \
+			passThrough = 0.5; \
+		}; \
+	  }; \
+    }; \
+  };
+
+  HATARMOR(HelmetBase,ItemCore);
+
+  HATARMOR(CUP_H_RUS_Bandana_GSSh_Headphones,ItemCore);
+  HATARMOR(CUP_H_RUS_Bandana_HS,ItemCore);
+  HATARMOR(CUP_H_FR_BandanaWdl,ItemCore);
+  HATARMOR(CUP_H_FR_BoonieWDL,ItemCore);
+  HATARMOR(CUP_H_FR_Cap_Headset_Green,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_Burberry,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_Back_Burberry,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_Back_EP_Burberry,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_EP_Burberry,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_PRR_Burberry,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_Back_Grey,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_Back_EP_Grey,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_EP_Grey,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_PRR_Grey,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_Back_tan,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_Back_EP_tan,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_EP_tan,ItemCore);
+  HATARMOR(CUP_H_PMC_Cap_PRR_tan,ItemCore);
+  HATARMOR(CUP_H_C_Ushanka_01,ItemCore);
+  HATARMOR(CUP_H_PMC_PRR_Headset,ItemCore);
+  HATARMOR(CUP_H_PMC_Beanie_Headphones_Black,ItemCore);
+  HATARMOR(CUP_H_PMC_Beanie_Khaki,ItemCore);
+  HATARMOR(CUP_H_PMC_Beanie_Headphones_Khaki,ItemCore);
+  HATARMOR(CUP_H_PMC_Beanie_Winter,ItemCore);
+  HATARMOR(CUP_H_PMC_Beanie_Headphones_Winter,ItemCore);
+  HATARMOR(CUP_H_ChDKZ_Beret,ItemCore);
+
+  class H_Beret_blk : HelmetBase {};
+  HATARMOR(CUP_H_SLA_BeretRed,H_Beret_blk);
+  HATARMOR(CUP_H_PMC_Beanie_Black,CUP_H_PMC_Beanie_Khaki);
+  HATARMOR(CUP_H_C_Beanie_01,ItemCore);
+
+  class H_HelmetB;
+  HATARMOR(rhs_beanie,H_HelmetB);
+  HATARMOR(rhs_fieldcap_m88,rhs_beanie);
+  HATARMOR(rhs_ushanka,rhs_fieldcap_m88);
+  HATARMOR(rhsgref_Booniehat_alpen,ItemCore);
+  HATARMOR(rhsusf_Bowman,ItemCore);
 };
 
 #include "CfgAmmo.hpp" // MMG Tracer ammo, (commented Ammo config)

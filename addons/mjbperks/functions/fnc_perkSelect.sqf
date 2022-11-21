@@ -212,7 +212,7 @@ if (mjb_flashDoorEnabled) then {
             if (_perkName in mjb_activePerks) exitWith {[_perkName] call mjb_perks_fnc_perkCleanup;};
             // perk effects
             missionNamespace setVariable [("mjb_" + _perkName + "ACEAction"),
-                [player] call mjb_perks_fnc_flashDoor
+                [_target] call mjb_perks_fnc_flashDoor
             ];
             [_perkName] call mjb_perks_fnc_updatePerks;
         },
@@ -529,32 +529,34 @@ if (mjb_enableFlags) then {
     private _condition = {
         true
     };
-    private _statement = { params ["_target", "_player", "_actionParams"];
-        if (getForcedFlagTexture _target isNotEqualTo "") exitWith {_target forceFlagTexture "";};
-        [_target,"z\mjb\addons\flags\data\canadaFlag_ca.paa"] remoteExec ["forceFlagTexture",2];
+    private _flag = "z\mjb\addons\flags\data\canadaflag_ca.paa";
+    private _statement = { params ["_target", "_player", "_actionParams"]; _actionParams params ["_flag"];
+        if (getForcedFlagTexture _target isEqualTo _flag) exitWith {[_target,""] remoteExec ["forceFlagTexture",0];};
+        [_target,_flag] remoteExec ["forceFlagTexture",0];
     };
     private _disableMod = {
-        params ["_target", "_player", "_params", "_actionData"];
-        if (getForcedFlagTexture _target isEqualTo "z\mjb\addons\flags\data\canadaFlag_ca.paa") then {
+        params ["_target", "_player", "_params", "_actionData"]; _params params ["_flag"];
+        if ((getForcedFlagTexture _target) isEqualTo _flag) then {
             _actionData set [1, "Remove Canadian Flag"];
         };
     };
-    private _action = ["canadaFlag","Attach Canadian Flag","z\mjb\addons\flags\data\canadaFlag_ca.paa",_statement,_condition, { }, [], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
+    private _action = ["ratsFlag","Attach Canadian Flag",_flag,_statement,_condition, { }, [_flag], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
     [(typeOf player), 1, ["ACE_SelfActions","ACE_Equipment"], _action] call ace_interact_menu_fnc_addActionToClass;
 
     private _condition = {
         true
     };
-    private _statement = { params ["_target", "_player", "_actionParams"];
-        if (getForcedFlagTexture _target isNotEqualTo "") exitWith {_target forceFlagTexture "";};
-        [_target,"z\mjb\addons\flags\data\ratsFlag_ca.paa"] remoteExec ["forceFlagTexture",2];
+    private _flag = "z\mjb\addons\flags\data\ratsflag_ca.paa";
+    private _statement = { params ["_target", "_player", "_actionParams"]; _actionParams params ["_flag"];
+        if (getForcedFlagTexture _target isEqualTo _flag) exitWith {[_target,""] remoteExec ["forceFlagTexture",0];};
+        [_target,_flag] remoteExec ["forceFlagTexture",0];
     };
     private _disableMod = {
-        params ["_target", "_player", "_params", "_actionData"];
-        if (getForcedFlagTexture _target isEqualTo "z\mjb\addons\flags\data\ratsFlag_ca.paa") then {
+        params ["_target", "_player", "_params", "_actionData"]; _params params ["_flag"];
+        if ((getForcedFlagTexture _target) isEqualTo _flag) then {
             _actionData set [1, "Remove RATS Flag"];
         };
     };
-    private _action = ["ratsFlag","Attach RATS Flag","z\mjb\addons\flags\data\ratsFlag_ca.paa",_statement,_condition, { }, [], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
+    private _action = ["ratsFlag","Attach RATS Flag",_flag,_statement,_condition, { }, [_flag], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
     [(typeOf player), 1, ["ACE_SelfActions","ACE_Equipment"], _action] call ace_interact_menu_fnc_addActionToClass;
 };

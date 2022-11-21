@@ -97,7 +97,7 @@ if !(canSuspend) exitWith {_this spawn mjb_arsenal_fnc_arsenal};
     waitUntil {!isNull player};
     sleep 1;
 
-if !(didJIP) then {
+//if !(didJIP) then {
     if (_removeOld && {!(isNil "arsenal")}) then {
         [typeOf player, 1,["ACE_SelfActions","personal_arsenal"]] call ace_interact_menu_fnc_removeActionFromClass;
         deleteVehicle arsenal;
@@ -124,7 +124,7 @@ if !(didJIP) then {
         };
     };
     arsenal = "building" createVehicleLocal [0,0,0];
-};
+//};
 
 #include "_arsenalMacros.hpp"
 
@@ -341,13 +341,23 @@ if (_winter) then {
         "CUP_I_B_PMC_Unit_34",
 
         "CUP_H_PMC_Beanie_Winter",
-        "CUP_H_PMC_Beanie_Headphones_Winter"
+        "CUP_H_PMC_Beanie_Headphones_Winter",
+
+        "CUP_O_RUS_Patrol_bag_Winter"
     ];
     _itemEquipment append _winterCamo;
 };
 
 private _itemPackHeavy =
 [
+    "mjb_carryallplus_cbr",
+    "mjb_carryallplus_taiga_F",
+    "mjb_carryallplus_eaf_F",
+    "mjb_carryallplus_oli",
+    "mjb_carryallplus_grey",
+    "mjb_carryallplus_khaki",
+    "mjb_carryallplus_olive",
+
     "B_Bergen_mcamo_F",
     "B_Bergen_tna_F",
     "B_Bergen_dgtl_F",
@@ -771,6 +781,8 @@ private _itemWeaponRifle =
     "rhs_weap_akmn",
     "rhs_weap_ak103",
     "rhs_weap_ak103_zenitco01",
+    "rhs_weap_pm63",
+    "rhs_weap_m70ab2",
 
     //============================================================
     //7.62x51mm
@@ -823,7 +835,8 @@ private _itemWeaponCarbine =
     "CUP_arifle_Sa58_Carbine_RIS_AFG",
 
     "rhs_weap_ak104",
-    "rhs_weap_ak104_zenitco01"
+    "rhs_weap_ak104_zenitco01",
+    "rhs_weap_m92"
 ];
 
 private _itemWeaponAmmo =
@@ -1193,6 +1206,7 @@ private _itemWeaponSharpshooter =
     "rhs_weap_svds",
     "rhs_weap_svdp",
 
+    "ace_tripod",
     "ace_csw_m220CarryTripod", // can deploy bipod on these
     "ace_csw_spg9CarryTripod",
 
@@ -1537,6 +1551,7 @@ private _itemWeaponMMGAmmo =
     GREENMAG_BELT(93x64),
     "Rangefinder",
     "ACE_Vector",
+    "ace_tripod",
     "ace_csw_m220CarryTripod", // can deploy bipod on these
     "ace_csw_spg9CarryTripod"
 ];
@@ -1561,6 +1576,16 @@ private _itemSF =
     "CUP_V_B_Ciras_Khaki2",
     "CUP_V_B_Ciras_Olive",
     "CUP_V_B_Ciras_Olive2",
+
+    "mjb_carryallplus_cbr",
+    "mjb_carryallplus_taiga_F",
+    "mjb_carryallplus_eaf_F",
+    "mjb_carryallplus_oli",
+    "mjb_carryallplus_black",
+    "mjb_carryallplus_grey",
+    "mjb_carryallplus_khaki",
+    "mjb_carryallplus_olive",
+
     "Mechanism",
     "G2_Gunslinger",
     "Paratus",
@@ -1863,7 +1888,7 @@ if (_hasMarksmen) then {
     _itemSniper pushBack "optic_AMS";
 };
 
-//Add Existing Player Items
+/*/Add Existing Player Items
 waitUntil {!isNull player}; // should prevent FAKs/Medikits from adding when ACE enabled.
 if (didJIP && isNil "mjb_arsenal_JIPinit") then {
   sleep 1; // waitUntil {(speed player) > 0.5};
@@ -1895,6 +1920,7 @@ if (didJIP && isNil "mjb_arsenal_JIPinit") then {
     arsenal = "building" createVehicleLocal [0,0,0];
     mjb_arsenal_JIPinit = true;
 };
+//*/
 private _exWeap = weaponsItems player; // Weapons, attachments, loaded mags/ub
 for "_y" from 0 to (count _exWeap - 1) do {
     {
