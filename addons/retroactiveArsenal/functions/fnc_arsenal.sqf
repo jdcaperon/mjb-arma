@@ -295,6 +295,7 @@ private _itemEquipment =
     "ACE_Flashlight_XL50",
     "ACE_MapTools",
     "ACE_RangeCard",
+    "ACE_IR_Strobe_Item",
 
     //BIS
     "ItemCompass",
@@ -320,6 +321,16 @@ private _itemNVG =
     "CUP_NVG_GPNVG_tan"
 ];
 _itemEquipment append _itemNVG;
+
+private _itemWeaponMelee =
+[
+    "Crowbar",
+    "WBK_Katana",
+    "Weap_melee_knife",
+    "Knife_kukri",
+    "WBK_pipeStyledSword"
+];
+_itemEquipment append _itemWeaponMelee;
 
 private _itemPackMedium =
 [
@@ -1709,6 +1720,7 @@ private _itemTankCrew =
     "WU_B_GEN_Commander_F",
     "Rangefinder",
     "ACE_Vector",
+    "ACE_IR_Strobe_Item",
     "ItemMap",
     "ItemGPS",
     "ItemCompass",
@@ -1728,6 +1740,7 @@ private _itemTankCrew =
     "Tier1_Larue_FUG_Black"
 ];
 _itemTankCrew append _itemNVG;
+_itemTankCrew append _itemWeaponMelee;
 
 private _itemHeloCrew =
 [
@@ -1745,6 +1758,7 @@ private _itemHeloCrew =
     "U_B_HeliPilotCoveralls",
     "Rangefinder",
     "ACE_Vector",
+    "ACE_IR_Strobe_Item",
     "ItemMap",
     "ItemGPS",
     "ItemCompass",
@@ -1764,6 +1778,7 @@ private _itemHeloCrew =
     "Tier1_Larue_FUG_Black"
 ];
 _itemHeloCrew append _itemNVG;
+_itemHeloCrew append _itemWeaponMelee;
 
 private _itemAirCrew =
 [

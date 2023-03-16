@@ -22,7 +22,8 @@ if (isServer && {mjb_slotSaverAI}) then {
                 //};
             }];
         };
-        //(group _unit) setVariable ["Vcm_Disable",true];
+        //(group _unit) setVariable ["Vcm_Disable",true];        
+        [(group _unit), 2] remoteExec ["setGroupOwner", 2]; 
         true
     }];
 };

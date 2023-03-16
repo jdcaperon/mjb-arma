@@ -851,4 +851,131 @@ class CfgVehicles {
   PACKPLUS(rhs_tortila_grey,mjb_carryallplus_grey,"SPOSN Tortila Backpack (Grey/plus)");
   PACKPLUS(rhs_tortila_khaki,mjb_carryallplus_khaki,"SPOSN Tortila Backpack (Khaki/plus)");
   PACKPLUS(rhs_tortila_olive,mjb_carryallplus_olive,"SPOSN Tortila Backpack (Olive/plus)");
+
+  class Box_NATO_Ammo_F;
+  class Box_Rats_Ammo : Box_NATO_Ammo_F {
+    displayName = "Basic Ammo [RATS]";
+    class ACE_Actions {
+      class ACE_MainActions {
+        condition = "true";
+        displayName = "Interactions";
+        distance = 2;
+        selection = "";
+        class ACE_OpenBox {
+          condition = "alive _target && {!lockedInventory _target} && {getNumber (configOf _target >> 'disableInventory') == 0}";
+          displayName = "Open";
+          showDisabled = 0;
+          statement = "_player action [""Gear"", _target]";
+        };
+        class mjb_ArsenalAmmo {
+          condition = "alive _target && {!lockedInventory _target} && {getNumber (configOf _target >> 'disableInventory') == 0}";
+          displayName = "RATS Ammo Arsenal";
+          showDisabled = 0;
+          statement = "[] call mjb_arsenal_fnc_arsenalAmmo";
+        };
+      };
+    };
+    class TransportItems {
+    };
+    // Limited AT
+    class TransportMagazines {
+      class _xx_rhs_rpg7_PG7VM_mag {
+        count = 1;
+        magazine = "rhs_rpg7_PG7VM_mag";
+      };
+      class _xx_rhs_rpg7_PG7VL_mag {
+        count = 1;
+        magazine = "rhs_rpg7_PG7VL_mag";
+      };
+      class _xx_rhs_rpg7_OG7V_mag {
+        count = 2;
+        magazine = "rhs_rpg7_OG7V_mag";
+      };
+      class _xx_MRAWS_HE_F {
+        count = 1;
+        magazine = "MRAWS_HE_F";
+      };
+      class _xx_MRAWS_HEAT55_F {
+        count = 1;
+        magazine = "MRAWS_HEAT55_F";
+      };
+      class _xx_MRAWS_HEAT_F {
+        count = 1;
+        magazine = "MRAWS_HEAT_F";
+      };
+      class _xx_Titan_AT {
+        count = 1;
+        magazine = "Titan_AT";
+      };
+      class _xx_DemoCharge_Remote_Mag {
+        count = 2;
+        magazine = "DemoCharge_Remote_Mag";
+      };
+    };
+    // disposables
+    class TransportWeapons {
+      class _xx_rhs_weap_rpg75 {
+        count = 1;
+        weapon = "rhs_weap_rpg75";
+      };
+      class _xx_rhs_weap_M136 {
+        count = 1;
+        weapon = "rhs_weap_M136";
+      };
+      class _xx_CUP_launch_FIM92Stinger {
+        count = 1;
+        weapon = "CUP_launch_FIM92Stinger";
+      };
+    };
+	/*private _itemWeaponLAT =
+	[
+		"CUP_launch_M136", // Better than RHS HEAT
+		"CUP_launch_M72A6",
+		"CUP_launch_RPG26",
+
+		"rhs_weap_rpg75", // Not much better than m72s in the configs
+		"rhs_weap_M136", // HEAT
+		"rhs_weap_M136_hedp", // Not great for AT
+		"rhs_weap_M136_hp", // High Penetration
+
+		"rhs_acc_at4_handler",
+
+		//Launchers in Backpack
+		"CUP_launch_M136_Loaded",
+		"CUP_launch_M72A6_Loaded",
+		"CUP_M72A6_M",
+		"CUP_launch_RPG26_Loaded"
+	];
+
+	private _itemWeaponManpad = {
+		"CUP_launch_FIM92Stinger"
+	};
+	private _itemAmmoLAT =
+	[
+		//RPG Rockets (Uncomment desired rockets)
+
+		 "rhs_rpg7_OG7V_mag",
+		// "rhs_rpg7_PG7V_mag",
+		 "rhs_rpg7_PG7VL_mag", // High pen
+		 "rhs_rpg7_PG7VM_mag", //
+		// "rhs_rpg7_PG7VR_mag", // Very High Pen Tandem
+		// "rhs_rpg7_PG7VS_mag", // Between VM and VL, ~AT4 HEAT
+		// "rhs_rpg7_TBG7V_mag",
+		// "rhs_rpg7_type69_airburst_mag"
+
+		"MRAWS_HE_F",
+		"MRAWS_HEAT55_F"
+	];
+
+	private _itemAmmoMAT =
+	[
+		"MRAWS_HEAT_F",
+		"MRAWS_HEAT55_F",
+		"MRAWS_HE_F"
+	];
+	private _itemAmmoHAT =
+	[
+		"Titan_AT"
+	];*/
+  };
 };

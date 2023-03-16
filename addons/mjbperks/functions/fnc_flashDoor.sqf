@@ -11,7 +11,7 @@ mjb_kickCD = true;
         {
             if (_x in _mags) exitWith {_flash = _x};
         } forEach _flash;
-        if (_flash isEqualTo _noFlash) exitWith {systemChat "No ACE flashbangs."};
+        if (_flash isEqualTo _noFlash) exitWith {systemChat "No ACE flashbangs available."};
         private _info = [2.5] call ace_interaction_fnc_getDoor;
         _info params ["_house", "_door"];
 if ((configProperties [configOf _house >> "UserActions"]) isEqualTo []) exitWith {

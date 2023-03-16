@@ -2,7 +2,7 @@ class CfgPatches {
   class ConfigTweaks {
     ammo[] = {"mjb_338_NM_trc_gr","mjb_338_NM_trc_ylw","mjb_93x64_trc_gr","mjb_93x64_trc_ylw"};
     magazines[] = {"mjb_150Rnd_93x64_Mag_tracer","mjb_150Rnd_93x64_Mag_trc_red","mjb_150Rnd_93x64_Mag_trc_ylw", "mjb_130Rnd_338_Mag_tracer","mjb_130Rnd_338_Mag_trc_gr","mjb_130Rnd_338_Mag_trc_ylw"/*, "CUP_64Rnd_9x18_Bizon_M","CUP_64Rnd_Green_Tracer_9x18_Bizon_M","CUP_64Rnd_Red_Tracer_9x18_Bizon_M","CUP_64Rnd_White_Tracer_9x18_Bizon_M","CUP_64Rnd_Yellow_Tracer_9x18_Bizon_M"*/};
-    units[] = {};
+    units[] = {"Box_Rats_Ammo"};
     weapons[] = {};
     requiredVersion = 0.1;
     author = "SuperJam, Camelith, Alien314";
@@ -638,6 +638,12 @@ class CfgWeapons {
   HATARMOR(rhs_ushanka,rhs_fieldcap_m88);
   HATARMOR(rhsgref_Booniehat_alpen,ItemCore);
   HATARMOR(rhsusf_Bowman,ItemCore);
+};
+
+class CfgSounds {
+  class 3den_notificationWarning {
+    sound[] = {"\a3\3DEN\Data\Sound\CfgSound\notificationWarning",0.85,1};
+  };
 };
 
 #include "CfgAmmo.hpp" // MMG Tracer ammo, (commented Ammo config)

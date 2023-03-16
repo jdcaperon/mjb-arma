@@ -65,6 +65,35 @@ class MJB_Perks {
 			};
 		};
 	};
+
+	class mjb_perks_disChargeState {
+		list = "[player]";
+		skipNull = 1;
+
+		class Charged {
+			onState = "";
+			onStateEntered = "mjb_disChargeCdDone = nil; _this addWeaponGlobal (mjb_regDisposable # 0); _this addSecondaryWeaponItem (mjb_regDisposable # 1);";
+			onStateLeaving = "";
+
+			class Discharge {
+				targetState = "Recharge";
+				condition = "private _class = secondaryWeapon _this; (_class isEqualTo '') || {('Used' in (getText (configFile >> 'CfgWeapons' >> _class >> 'displayName'))) || {('used' in (getText (configFile >> 'CfgWeapons' >> _class >> 'displayName'))) } }";
+				onTransition = "mjb_disChargeCdDone = false;";
+			};
+		};
+
+		class Recharge {
+			onState = "";
+			onStateEntered = "[{mjb_disChargeCdDone = true;},[],mjb_disChargeCd] call CBA_fnc_waitAndExecute;";
+			onStateLeaving = "";
+
+			class Charge {
+				targetState = "Charged";
+				condition = "mjb_disChargeCdDone && {((secondaryWeapon _this) isEqualTo '') || {('Used' in (getText (configFile >> 'CfgWeapons' >> (secondaryWeapon _this) >> 'displayName'))) || {('used' in (getText (configFile >> 'CfgWeapons' >> _class >> 'displayName'))) } } }";
+				onTransition = "";
+			};
+		};
+	};
 };
 /*
 class CfgFactionClasses {
