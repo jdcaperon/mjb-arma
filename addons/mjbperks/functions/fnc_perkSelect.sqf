@@ -271,6 +271,10 @@ if (mjb_plateDropEnabled) then {
                     _pCrate allowDamage false;
                     _pCrate addItemCargoGlobal ["diw_armor_plates_main_plate", 9];
                     _pCrate addItemCargoGlobal ["FirstAidKit", 9];
+                    if ((_target getUnitTrait 'Medic') && {(mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors}) then { 
+                        _pCrate addItemCargoGlobal ["diw_armor_plates_main_autoInjector", 1];
+                        mjb_arsenal_injectorStash = mjb_arsenal_injectorStash + 1;
+                    };
                     _pCrate spawn { params ["_crate"];
                         while {(getPosATL _crate) # 2 > 1 && {(getPosASL _crate) # 2 > 3}} do {sleep 1;};
                         _crate setVelocity [0, 0, 0];
@@ -336,10 +340,11 @@ if (mjb_ammoDropEnabled) then {
                     _pCrate spawn { params ["_crate"];
                         while {(getPosATL _crate) # 2 > 1 && {(getPosASL _crate) # 2 > 3}} do {sleep 1;};
                         _crate setVelocity [0, 0, 0];
-                        [_crate, false] call ace_dragging_fnc_setDraggable;
-                        [_crate, false] call ace_dragging_fnc_setCarryable;
-                        [_crate, 10] call ace_cargo_fnc_setSize;
-                        _crate allowDamage true;
+                        [_crate, false] remoteExec ["ace_dragging_fnc_setDraggable",0];
+                        [_crate, false] remoteExec ["ace_dragging_fnc_setCarryable",0];
+                        [_crate, 10] remoteExec ["ace_cargo_fnc_setSize",0];
+                        [_crate, true] remoteExec ["allowDamage", _crate];
+                        //mjb_ammoCalled = _crate;
                         [_crate, { params ["_crate"];
                             _crate addEventHandler ["Killed", {
                                 params ["_unit"];
@@ -817,7 +822,8 @@ if (mjb_techSuppEnabled) then {
                 {   params ["_target"];
                     _target spawn mjb_perks_fnc_techSupport;
                 },
-                { mjb_techSuppAvailable && {(!alive mjb_technical || {mjb_technical getHitPointDamage "hitEngine" >= 0.9 || {mjb_technical getHitPointDamage "hitGun" >= 0.9 }})} },
+                {   params ["_target"];
+                        mjb_techSuppAvailable && {(!alive mjb_technical || {mjb_technical getHitPointDamage "hitEngine" >= 0.9 || {mjb_technical getHitPointDamage "hitGun" >= 0.9 || {_target distance2D mjb_technical > 1500}}})} },
                 { },[],[0,0,0],3,[false, false, false, false, true]
             ] call ace_interact_menu_fnc_createAction;
             private _addClass = typeOf _target;
@@ -865,30 +871,30 @@ if (mjb_familiarEnabled) then {
                     if (_pos isEqualTo []) exitWith {systemChat "Suitable summon position not found."};
                     private _vicClass = ["CUP_B_Leopard2A6_HIL","CUP_B_M6LineBacker_NATO_T"] select mjb_perks_familiar;
                     private _vic = ([_pos, getDir _target, _vicClass, group _target] call BIS_fnc_spawnVehicle);
-					private _crew = (_vic select 1);
-					_vic = (_vic select 0);
-					[[_vic, _crew], {  params ["_vic", "_crew"];
-						_vic enableSimulationGlobal false;
-						_vic lockCargo true;
-						_vic lock true;
-						clearItemCargoGlobal _vic;
-						clearMagazineCargoGlobal _vic;
-						clearWeaponCargoGlobal _vic;
-						clearBackpackCargoGlobal _vic;
-						if ((typeOf _vic) isEqualTo "CUP_B_M6LineBacker_NATO_T") then {_vic lockCargo false;
-							[_vic, "RATS"] call BIS_fnc_initVehicle;
-							_vic addWeaponCargoGlobal ["mjb_arifle_C7Alpha", 14];
-							_vic addMagazineCargoGlobal ["CUP_30Rnd_556x45_Emag", 28];
-							_vic addMagazineCargoGlobal ["CUP_30Rnd_556x45_Emag_Tracer_Yellow", 28];
-						};
-						_vic enableSimulationGlobal true;
-						[{  params ["_vic","_crew"];
-							[[_vic,_crew], {  params ["_vic","_crew"];
-								{[_x] remoteExec ["deleteVehicle", _x]; waitUntil {_x isEqualTo objNull};} forEach _crew;
-								deleteVehicle _vic;
-							}] remoteExec ["spawn", _vic];
-						}, [_vic, _crew], 180] call CBA_fnc_waitAndExecute;
-					}] remoteExec ["call",2];
+                    private _crew = (_vic select 1);
+                    _vic = (_vic select 0);
+                    [[_vic, _crew], {  params ["_vic", "_crew"];
+                        _vic enableSimulationGlobal false;
+                        _vic lockCargo true;
+                        _vic lock true;
+                        clearItemCargoGlobal _vic;
+                        clearMagazineCargoGlobal _vic;
+                        clearWeaponCargoGlobal _vic;
+                        clearBackpackCargoGlobal _vic;
+                        if ((typeOf _vic) isEqualTo "CUP_B_M6LineBacker_NATO_T") then {_vic lockCargo false;
+                            [_vic, "RATS"] call BIS_fnc_initVehicle;
+                            _vic addWeaponCargoGlobal ["mjb_arifle_C7Alpha", 14];
+                            _vic addMagazineCargoGlobal ["CUP_30Rnd_556x45_Emag", 28];
+                            _vic addMagazineCargoGlobal ["CUP_30Rnd_556x45_Emag_Tracer_Yellow", 28];
+                        };
+                        _vic enableSimulationGlobal true;
+                        [{  params ["_vic","_crew"];
+                            [[_vic,_crew], {  params ["_vic","_crew"];
+                                {[_x] remoteExec ["deleteVehicle", _x]; waitUntil {_x isEqualTo objNull};} forEach _crew;
+                                deleteVehicle _vic;
+                            }] remoteExec ["spawn", _vic];
+                        }, [_vic, _crew], 180] call CBA_fnc_waitAndExecute;
+                    }] remoteExec ["call",2];
                     mjb_activeFamiliar = _vic;
                     mjb_familiarAvailable = false;
                     [{mjb_familiarAvailable}, {mjb_familiarAvailable = true;}, [], mjb_familiarCd, {mjb_familiarAvailable = true;}] call CBA_fnc_waitUntilAndExecute;
@@ -1090,6 +1096,7 @@ if (mjb_rearmEnabled) then {
                         //for each turret, add 50% of (default load - remaining)
                         {
                             private _turret = _x;
+                          [[_vic, _turret], { params ["_vic", "_turret"];
                             private _mags = _vic magazinesTurret [_turret, true];
                             private _magsEmpty = (_mags - (_vic magazinesTurret [_turret, false]));
                             while {_mags isNotEqualTo []} do {
@@ -1110,7 +1117,6 @@ if (mjb_rearmEnabled) then {
                                     if (_delete > -1) then {_magsEmpty deleteAt _delete;};
                                 };
                             };
-                            [[_vic, _turret], { params ["_vic", "_turret"];
                                 private _mags = _vic magazinesTurret [_turret, false];
                                 {
                                     private _curgun = _x;

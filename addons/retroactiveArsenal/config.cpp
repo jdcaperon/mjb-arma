@@ -36,6 +36,41 @@ class Extended_PreStart_EventHandlers
 		init="call compileScript ['z\mjb\addons\arsenal\XEH_preStart.sqf']";
 	};
 };
+
+
+class CfgLoadouts
+{
+	#include "_macros.hpp"
+	class rats {
+		category = "RATS";
+		displayName = "RATS";
+		tooltip = "RATS PMC loadouts.";
+		#include "player_loadout.hpp"
+	};
+	class example_enemy {
+		category = "RATS";
+		displayName = "xExample Enemy Loadout";
+		tooltip = "Loadout example for enemies.";
+		#include "enemy_loadout.hpp"
+	};
+};
+
+class ACEX_Fortify_Presets {
+	class rats {
+		displayName = "RATS";
+		objects[] = {
+			{"FootBridge_0_ACR", 5},
+			{"Land_Plank_01_4m_F", 5},
+			{"Land_tires_EP1", 10},
+			{"Land_Tyres_F", 10},
+			{"ClutterCutter_small_2_EP1", 10},
+			{"TyreBarrier_01_black_F", 15},
+			{"Land_Misc_ConcPipeline_EP1", 25},
+			{"Land_BagBunker_Small_F", 35},
+			{"Land_fort_rampart", 40}
+		};
+	};
+};
 /*
 class CfgFactionClasses {
     class MJB {

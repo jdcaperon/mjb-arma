@@ -7,3 +7,7 @@
 ["z\mjb\addons\arsenal\functions\fnc_projHandler.sqf", "mjb_arsenal_fnc_projHandler"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\arsenal\functions\fnc_toughLoop.sqf", "mjb_arsenal_fnc_toughLoop"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\arsenal\functions\fnc_submitVehicle.sqf", "mjb_arsenal_fnc_submitVehicle"] call CBA_fnc_compileFunction;
+["z\mjb\addons\arsenal\functions\fnc_initStuff.sqf", "mjb_arsenal_fnc_initStuff"] call CBA_fnc_compileFunction;
+["z\mjb\addons\arsenal\functions\fnc_missionInit.sqf", "mjb_arsenal_fnc_missionInit"] call CBA_fnc_compileFunction;
+["z\mjb\addons\arsenal\functions\fnc_playerLocalInit.sqf", "mjb_arsenal_fnc_playerLocalInit"] call CBA_fnc_compileFunction;
+["z\mjb\addons\arsenal\functions\fnc_serverInit.sqf", "mjb_arsenal_fnc_serverInit"] call CBA_fnc_compileFunction;

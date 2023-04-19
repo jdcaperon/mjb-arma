@@ -13,3 +13,4 @@
 ["z\mjb\addons\perks\functions\fnc_flashDoor.sqf", "mjb_perks_fnc_flashDoor"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_updatePerks.sqf", "mjb_perks_fnc_updatePerks"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_techSupport.sqf", "mjb_perks_fnc_techSupport"] call CBA_fnc_compileFunction;
+["z\mjb\addons\perks\functions\fnc_initStuff.sqf", "mjb_perks_fnc_initStuff"] call CBA_fnc_compileFunction;

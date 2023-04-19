@@ -1,0 +1,90 @@
+
+
+class NoEndings
+{
+	// Arma 3
+	endDefault = ;
+};
+
+class MissionDefault : NoEndings
+{
+	lives		= -1;	// this sets your "lives" to none - old OFP setting where you would lose a "life" every time you retried the mission, never used
+	noAward		=  1;	// TBD
+	cutscene	= ;		// mandatory definition
+};
+
+//directory = "..\zeustemplates";
+weaponPool = 1;
+
+class Campaign
+{
+	briefingName	= "RATS Zeus Templates";
+	author			= "NotherDuck, MajorDanvers, Alien314";
+	overviewText	= "Missions for Zeuses to use to create missions.";
+	overviewPicture	= "z\mjb\addons\zeustemplates\overview.paa";
+
+	firstBattle	= Chapter1;
+	disableMP	= 0;
+
+	class Chapter1 : NoEndings
+	{
+		firstMission = Chapter1_Mission1;
+		name = "Zeus Templates";
+		cutscene = ;
+
+		class Chapter1_Mission1 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.Altis;
+		};
+
+		class Chapter1_Mission2 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.atolls_gdc;
+		};
+
+		class Chapter1_Mission12 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.intro;
+		};
+
+		class Chapter1_Mission14 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.Malden;
+		};
+
+		class Chapter1_Mission17 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.porto;
+		};
+
+		class Chapter1_Mission19 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.pulau;
+		};
+
+		class Chapter1_Mission22 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.sara;
+		};
+
+		class Chapter1_Mission23 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.sara_dbe1;
+		};
+
+		class Chapter1_Mission25 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.Stratis;
+		};
+
+		class Chapter1_Mission27 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.Tanoa;
+		};
+
+		class Chapter1_Mission32 : MissionDefault
+		{
+			template = MJB_Zeus_Template_V2,0_510.utes;
+		};
+	};	
+};

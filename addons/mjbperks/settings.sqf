@@ -172,31 +172,6 @@ private _perkName = "Extra Conditioning";
     }
 ] call CBA_fnc_addSetting;
 
-private _perkName = "Pack Sling";
-[
-    "mjb_packSlingEnabled",
-    "CHECKBOX",
-    [("Enable " + _perkName), "Player can store an extra weapon from any slot."],
-    ["MJB Arma Perks", "Individual Perks"],
-    true,
-    true,
-    { },
-    true
-] call CBA_fnc_addSetting;
-[
-    "mjb_packSlingPoints",
-    "SLIDER",
-    [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
-    [0, 5000, 1000, 0],
-    true,
-    {
-        params ["_value"];
-        mjb_packSlingPoints = round _value;
-    },
-    true
-] call CBA_fnc_addSetting;
-
 private _perkName = "Doorkicker";
 [
     "mjb_flashDoorEnabled",
@@ -247,56 +222,6 @@ private _perkName = "Sneak Attack";
     true
 ] call CBA_fnc_addSetting;
 
-private _perkName = "Dragon's breath";
-[
-    "mjb_dragonEnabled",
-    "CHECKBOX",
-    [("Enable" + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
-    ["MJB Arma Perks", "Individual Perks"],
-    true,
-    true,
-    { },
-    true
-] call CBA_fnc_addSetting;
-[
-    "mjb_dragonPoints",
-    "SLIDER",
-    [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
-    [0, 5000, 500, 0],
-    true,
-    {
-        params ["_value"];
-        mjb_dragonPoints = round _value;
-    },
-    true
-] call CBA_fnc_addSetting;
-
-private _perkName = "Bullet Lottery";
-[
-    "mjb_randEnabled",
-    "CHECKBOX",
-    [("Enable" + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
-    ["MJB Arma Perks", "Individual Perks"],
-    true,
-    true,
-    { },
-    true
-] call CBA_fnc_addSetting;
-[
-    "mjb_randPoints",
-    "SLIDER",
-    [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
-    [0, 5000, 1000, 0],
-    true,
-    {
-        params ["_value"];
-        mjb_randPoints = round _value;
-    },
-    true
-] call CBA_fnc_addSetting;
-
 private _perkName = "Telestick";
 [
     "mjb_telestickEnabled",
@@ -321,45 +246,6 @@ private _perkName = "Telestick";
     },
     true
 ] call CBA_fnc_addSetting;
-
-private _perkName = "Disposable Recharge";
-[
-    "mjb_disChargeEnabled",
-    "CHECKBOX",
-    [("Enable " + _perkName), "Player can register a disposable to recharge after a cooldown."],
-    ["MJB Arma Perks", "Individual Perks"],
-    true,
-    true,
-    { },
-    true
-] call CBA_fnc_addSetting;
-[
-    "mjb_disChargePoints",
-    "SLIDER",
-    [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
-    [0, 5000, 1000, 0],
-    true,
-    {
-        params ["_value"];
-        mjb_disChargePoints = round _value;
-    },
-    true
-] call CBA_fnc_addSetting;
-[
-    "mjb_disChargeCd",
-    "SLIDER",
-    [_perkName + " coooldown", "How many seconds the cooldown of " + _perkName + " lasts."],
-    ["MJB Arma Perks", "Individual Perks"],
-    [0, 7200, 1800, 0],
-    true,
-    {
-        params ["_value"];
-        mjb_disChargeCd = round _value;
-    },
-    true
-] call CBA_fnc_addSetting;
-
 
 mjb_eyesEnabled = false;
 mjb_eyesPoints = 0;/*
@@ -388,6 +274,120 @@ private _perkName = "Hawk eyes";
     true
 ] call CBA_fnc_addSetting;*/
 
+private _category = "Weapon Perks";
+
+private _perkName = "Pack Sling";
+[
+    "mjb_packSlingEnabled",
+    "CHECKBOX",
+    [("Enable " + _perkName), "Player can store an extra weapon from any slot."],
+    ["MJB Arma Perks", _category],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_packSlingPoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", _category],
+    [0, 5000, 1000, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_packSlingPoints = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
+
+private _perkName = "Dragon's breath";
+[
+    "mjb_dragonEnabled",
+    "CHECKBOX",
+    [("Enable" + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
+    ["MJB Arma Perks", _category],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_dragonPoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", _category],
+    [0, 5000, 500, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_dragonPoints = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
+
+private _perkName = "Bullet Lottery";
+[
+    "mjb_randEnabled",
+    "CHECKBOX",
+    [("Enable" + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
+    ["MJB Arma Perks", _category],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_randPoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", _category],
+    [0, 5000, 1000, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_randPoints = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
+
+private _perkName = "Disposable Recharge";
+[
+    "mjb_disChargeEnabled",
+    "CHECKBOX",
+    [("Enable " + _perkName), "Player can register a disposable to recharge after a cooldown."],
+    ["MJB Arma Perks", _category],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_disChargePoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", _category],
+    [0, 5000, 1000, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_disChargePoints = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_disChargeCd",
+    "SLIDER",
+    [_perkName + " coooldown", "How many seconds the cooldown of " + _perkName + " lasts."],
+    ["MJB Arma Perks", _category],
+    [0, 7200, 1800, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_disChargeCd = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
 
 private _category = "Vehicle Perks";
 

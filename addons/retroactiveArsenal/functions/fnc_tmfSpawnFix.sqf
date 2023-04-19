@@ -1,6 +1,7 @@
 params ["_player"];
 
 //if (!canSuspend) then {_player spawn mjb_arsenal_fnc_tmfSpawnFix};
+
  private _check = false;
 waitUntil {sleep 8; !(isNil {_check = (isPlayer _player); _check}) && {_check}};
 
@@ -19,6 +20,10 @@ waitUntil {sleep 8; !(isNil {_check = (isPlayer _player); _check}) && {_check}};
         player call diw_armor_plates_main_fnc_updateHPUi;
     };
     call babe_em_fnc_init;
-	if (player isEqualTo tmf_localrespawnedunit) then {[false] call mjb_arsenal_fnc_arsenal;
-        player call diw_armor_plates_main_fnc_addPlayerHoldActions; };
+	if (player isEqualTo tmf_localrespawnedunit) then {
+		[false] call mjb_arsenal_fnc_arsenal;
+        player call diw_armor_plates_main_fnc_addPlayerHoldActions;
+        [] call mjb_arsenal_fnc_initStuff;
+        [] call mjb_perks_fnc_initStuff;
+    };
 }] remoteExec ["call", _player];
