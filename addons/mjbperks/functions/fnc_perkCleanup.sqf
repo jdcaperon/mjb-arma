@@ -6,11 +6,13 @@
 */
 params ["_remove"];
 
-if !(canSuspend) exitWith {_this spawn mjb_perks_fnc_perkCleanup};
+if !(canSuspend) exitWith {mjb_perkYeet = (_this spawn mjb_perks_fnc_perkCleanup);};
 
 if (_remove isEqualTo true) exitWith {
+	private _i = 0;
     {
-        [_x] call mjb_perks_fnc_perkCleanup;
+        missionNamespace setVariable [("mjb_perkYeet_" + str _i),([_x] spawn mjb_perks_fnc_perkCleanup)];
+		_i = _i + 1;
     } forEach mjb_activePerks;
 };
 

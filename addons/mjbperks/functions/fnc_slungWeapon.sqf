@@ -1,5 +1,15 @@
 params ["_target","_storeWeapon","_slot"];
 
+if (_slot < 0) exitWith {
+	//_storeWeapon enableSimulationGlobal false;
+	private _oDir = vectorDir _storeWeapon;
+	private _oUp = vectorUp _storeWeapon;
+	[_target, _storeWeapon] call ace_dragging_fnc_dropObject_carry;
+	_storeWeapon attachTo [_target,[-0.69,-0.26,-0.2], "rightshoulder", true];
+	_storeWeapon setVectorDirAndUp [_oDir,_oUp];
+	_storeWeapon
+};
+
 private _packWeapon = ("GroundWeaponHolder" createVehicle [0,0,0]);
 //systemChat str _storeWeapon;
 _packWeapon addWeaponWithAttachmentsCargoGlobal [_storeWeapon, 1];

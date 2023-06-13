@@ -1,7 +1,7 @@
 class CfgPatches {
   class mjb_flags {
     units[] = {"mjb_Flag_RATS_F","Flag_CA_F"/*,"mjb_I_BTR80_RATS","mjb_I_BTR80A_RATS"*/};
-    weapons[] = {"mjb_H_Cap_Voin","mjb_H_HelmetSpecB_winter"};
+    weapons[] = {"mjb_arifle_C7Alpha","mjb_arifle_C7Bravo","mjb_H_Cap_Voin","mjb_H_HelmetSpecB_winter"};
     requiredVersion = 0.1;
     author = "Alien314, Flamebunny, MajorDanvers";
     name = "Flags";
@@ -204,4 +204,26 @@ class CfgWeapons
         displayName = "Enhanced Combat Helmet (Winter)";
         hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\equip1winter_co.paa"};
     };
+
+  class CUP_arifle_M4A1;
+  class mjb_arifle_C7Alpha : CUP_arifle_M4A1
+  {
+	  displayName = "C7Alpha";
+	  aimTransitionSpeed = 1.1;
+	  inertia = 0.5;
+	  initSpeed = -1.02717;
+	  handAnim[] = {"OFP2_ManSkeleton","CUP\Weapons\CUP_Weapons_M16\data\anim\M16.rtm"};
+	  hiddenSelections[] = {"camo","CamoFrontSight","CamoHandguard"};
+	  hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\c7a2_co.paa","cup\weapons\cup_weapons_m16\data\m16a1_body_co.paa","z\mjb\addons\flags\data\c7a2_handguard_co.paa"};
+	  model = "\CUP\Weapons\CUP_Weapons_M16\CUP_M16A2.p3d";
+	  picture = "\CUP\Weapons\CUP_Weapons_M16\data\ui\gear_M16A2_X_ca.paa";
+	  recoil = "Recoil_CUP_M16";
+	  reloadMagazineSound[] = {"CUP\Weapons\CUP_Weapons_M16\data\sfx\M16_Reload",1,1,10};
+  };
+  class CUP_arifle_Colt727_M203;
+  class mjb_arifle_C7Bravo : CUP_arifle_Colt727_M203
+  {
+	  displayName = "C7Bravo";
+	  hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\c7a2_co.paa","CUP\Weapons\CUP_Weapons_M16\data\tigg_m203_m4_co.paa","z\mjb\addons\flags\data\colt727_furniture_co.paa","cup\weapons\cup_weapons_m16\data\tigg_m4barrel_co.paa","cup\weapons\cup_weapons_m16\data\m16a1_body_co.paa"};
+  };
 };

@@ -10,6 +10,52 @@
 ] call CBA_fnc_addSetting;
 
 [
+    "mjb_EMfix",
+    "CHECKBOX",
+    ["Enable possible slow mode fix for EM", "Detects interrupted animations that change animation speed, and attempts to fix speed/climbing ability if broken."],
+    ["MJB Arma", "Enhanced Movement"],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_EMFixDiag",
+    "CHECKBOX",
+    ["Enable message when slow mode fix triggers", "Just something that might help understand the cause, and make the fix better."],
+    ["MJB Arma", "Enhanced Movement"],
+    false,
+    false
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_thermalStart",
+    "SLIDER",
+    ["Thermal Cold Floor", "Sets where coldest color starts, can make thermals unusable at higher settings."],
+    ["MJB Arma", "Thermal Vision"],
+    [0, 1, 0, 2],
+    true,
+    {
+        params ["_value"];
+        mjb_thermalStart = _value;
+    }
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_thermalWidth",
+    "SLIDER",
+    ["Thermal Width", "Sets maximum contrast of thermals, can make thermals unusable at lower settings."],
+    ["MJB Arma", "Thermal Vision"],
+    [0, 1, 1, 2],
+    true,
+    {
+        params ["_value"];
+        mjb_thermalWidth = _value;
+    }
+] call CBA_fnc_addSetting;
+
+[
     "mjb_saveLoadout",
     "LIST",
     ["Loadout save frequency", "At what times/actions your loadout gets saved when persistence is enabled for the mission. No saves will be made when disabled, this is only checked at mission start. When enabled, the saved loadout is erased on death, unless the mission maker specifies otherwise."],

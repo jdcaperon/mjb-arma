@@ -978,4 +978,85 @@ class CfgVehicles {
 		"Titan_AT"
 	];*/
   };
+
+/*/ GM Compats compat
+class Land_CanisterFuel_F;
+  class gm_jerrycan_base : Land_CanisterFuel_F {
+    scope = 1;
+    side = 1;
+  };
+  class gm_gc_army_shelterlakII_repair_base {
+    scope = 1;
+    side = 1;
+  };
+  class gm_ge_army_shelteraceII_repair_base {
+    scope = 1;
+    side = 1;
+  };/*/
+
+  /*/ Launcher from vehicle, failed
+  class RHS_MELB_base;
+  
+  class RHS_MELB_MH6M : RHS_MELB_base {
+	class NewTurret;
+    class CargoTurret : NewTurret{
+        allowLauncherIn = 1;
+        allowLauncherOut = 1;
+      };
+	class Turrets {
+      class CargoTurret_03 : CargoTurret {
+        allowLauncherIn = 1;
+        allowLauncherOut = 1;
+      };
+    };
+  };//*/
+
+  /*/ MFD is a lot tho
+  class Helicopter_Base_H;
+  class Heli_Attack_01_dynamicLoadout_base_F;
+  class B_Heli_Attack_01_dynamicLoadout_F : Heli_Attack_01_dynamicLoadout_base_F {
+    class MFD;
+  };
+
+  class Heli_Transport_01_base_F : Helicopter_Base_H {
+    //class MFD : MFD;
+  };
+
+  class Heli_Light_02_dynamicLoadout_base_F;
+  class O_Heli_Light_02_dynamicLoadout_F : Heli_Light_02_dynamicLoadout_base_F {
+    class MFD;
+  };
+
+  class Heli_Attack_02_dynamicLoadout_base_F;
+  class O_Heli_Attack_02_dynamicLoadout_F : Heli_Attack_02_dynamicLoadout_base_F {
+    class MFD;
+  };
+
+  class I_Heli_light_03_base_F;
+  class I_Heli_light_03_F : I_Heli_light_03_base_F {
+    class MFD {
+		class Airplane_HUD {
+			class Bones {
+			};
+			class Draw {
+				class CollectiveGroup {
+				};
+				class HorizontalLine {
+				};
+				class MGun {
+				};
+				class Rockets {
+				};
+			};
+		};
+		class MFD_Pilot_10 {
+			class Bones {
+			};
+			class Draw {
+				class ReticleGroup {
+				};
+			};
+		};
+    };
+  };//*/
 };

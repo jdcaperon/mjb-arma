@@ -247,6 +247,55 @@ private _perkName = "Telestick";
     true
 ] call CBA_fnc_addSetting;
 
+//mjb_heartEnabled = false;
+//mjb_heartPoints = 0;//
+private _perkName = "Heartbeat Sensor";
+[
+    "mjb_heartEnabled",
+    "CHECKBOX",
+    [("Enable" + _perkName), "Allows players to see units outside their group on radar within a range."],
+    ["MJB Arma Perks", "Individual Perks"],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_heartPoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", "Individual Perks"],
+    [0, 5000, 500, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_heartPoints = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_heartColor",
+    "COLOR",
+    ["Heartbeat Sensor color", "Units detected by heartbeat will flash between this color and the tracking color in DUI - Main."],
+    ["MJB Arma Perks", "Individual Perks"],
+    [1.0, 0.48, 0.45],
+    false
+] call CBA_fnc_addSetting;
+[
+    "mjb_heartRange",
+    "SLIDER",
+    [(_perkName + " Range"), "Range in meters where heartbeat sensor will detect units."],
+    ["MJB Arma Perks", "Individual Perks"],
+    [1, 50, 20, 1],
+    true,
+    {
+        params ["_value"];
+        mjb_heartRange = (parseNumber (_value toFixed 1));
+    }
+] call CBA_fnc_addSetting;
+//*/
+
 mjb_eyesEnabled = false;
 mjb_eyesPoints = 0;/*
 private _perkName = "Hawk eyes";

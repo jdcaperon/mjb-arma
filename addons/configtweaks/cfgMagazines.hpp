@@ -440,6 +440,12 @@ class CfgMagazines
 	// mp5
 	// 20rnd DMR
 	// Enfield
+
+	class rhs_rpg7_PG7V_mag;
+	class rhs_rpg7_PG7VL_mag;
+	// globmob compat tweak
+	//class gm_1Rnd_40mm_heat_pg7v_rpg7 : rhs_rpg7_PG7V_mag {};
+	//class gm_1Rnd_40mm_heat_pg7vl_rpg7 : rhs_rpg7_PG7VL_mag {};
 };
 
 class CfgMagazineWells {

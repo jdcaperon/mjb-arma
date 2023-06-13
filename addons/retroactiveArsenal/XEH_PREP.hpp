@@ -11,3 +11,4 @@
 ["z\mjb\addons\arsenal\functions\fnc_missionInit.sqf", "mjb_arsenal_fnc_missionInit"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\arsenal\functions\fnc_playerLocalInit.sqf", "mjb_arsenal_fnc_playerLocalInit"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\arsenal\functions\fnc_serverInit.sqf", "mjb_arsenal_fnc_serverInit"] call CBA_fnc_compileFunction;
+["z\mjb\addons\arsenal\functions\fnc_switchUniform.sqf", "mjb_arsenal_fnc_switchUniform"] call CBA_fnc_compileFunction;

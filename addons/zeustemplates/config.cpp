@@ -21,78 +21,172 @@ class CfgMissions {
 			author = "NotherDuck, MajorDanvers";
 			briefingName = "Zeus Template 2,0 Altis";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Altis";
-			overview = "";
+			overview = "z\mjb\addons\zeustemplates\overview.paa";
 			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_atolls_gdc {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_atolls_gdc : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Atolls GDC";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.atolls_gdc";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_intro {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_intro : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Rahmadi";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.intro";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_Malden {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_Malden : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Malden 2035";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Malden";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_porto {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_porto : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Porto";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.porto";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_pulau {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_pulau : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Pulau";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.pulau";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_sara {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_sara : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Sahrani";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.sara";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_sara_dbe1 {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_saralite : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Southern Sahrani";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.saralite";
+		};
+		class mjb_rzt_sara_dbe1 : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Sahrani United";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.sara_dbe1";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_Stratis {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_Stratis : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Stratis";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Stratis";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_Tanoa {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_Tanoa : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Tanoa";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Tanoa";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
 		};
-		class mjb_rzt_utes {
-			author = "NotherDuck, MajorDanvers";
+		class mjb_rzt_utes : mjb_rzt_Altis {
 			briefingName = "Zeus Template 2,0 Utes";
 			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.utes";
-			overview = "";
-			overviewText = "Zeus template for RATS.";
+		};
+		class mjb_rzt_vr : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Virtual Reality";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.VR";
+		};
+
+		class mjb_rzt_Bootcamp_ACR : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Bukovina";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Bootcamp_ACR";
+		};
+		class mjb_rzt_chernarus : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Chernarus (Autumn)";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.chernarus";
+		};
+		class mjb_rzt_chernarus_summer : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Chernarus (Summer)";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.chernarus_summer";
+		};
+		class mjb_rzt_chernarus_winter : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Chernarus (Winter)";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.chernarus_winter";
+		};
+		class mjb_rzt_cup_chernarus_A3 : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Chernarus 2020";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.cup_chernarus_A3";
+		};
+		class mjb_rzt_Desert_E : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Desert";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Desert_E";
+		};
+		class mjb_rzt_Enoch : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Livonia";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Enoch";
+		};
+		class mjb_rzt_hellanmaa : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Hellanmaa";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.hellanmaa";
+		};
+		class mjb_rzt_hellanmaaw : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Hellanmaa winter";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.hellanmaaw";
+		};
+		class mjb_rzt_Maksniemi : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Maksniemi";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Maksniemi";
+		};
+		class mjb_rzt_Mountains_ACR : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Takistan Mountains";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Mountains_ACR";
+		};
+		class mjb_rzt_oski_corran : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Scottish Highlands";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.oski_corran";
+		};
+		class mjb_rzt_ProvingGrounds_PMC : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Proving Grounds";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.ProvingGrounds_PMC";
+		};
+		class mjb_rzt_rhspkl : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Prei Khmaoch Luong";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.rhspkl";
+		};
+		class mjb_rzt_ruha : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Ruha";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.ruha";
+		};
+		class mjb_rzt_Shapur_BAF : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Shapur";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Shapur_BAF";
+		};
+		class mjb_rzt_takistan : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Takistan";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.takistan";
+		};
+		class mjb_rzt_tem_anizay : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Anizay";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.tem_anizay";
+		};
+		class mjb_rzt_tem_kujari : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Kujari";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.tem_kujari";
+		};
+		class mjb_rzt_tem_summa : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Summa";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.tem_summa";
+		};
+		class mjb_rzt_tem_summawcup : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Summa winter";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.tem_summawcup";
+		};
+		class mjb_rzt_tem_vinjesvingenc : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Vinjesvingen";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.tem_vinjesvingenc";
+		};
+		class mjb_rzt_WL_Rosche : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Rosche, Germany";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.WL_Rosche";
+		};
+		class mjb_rzt_Woodland_ACR : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Bystrica";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.Woodland_ACR";
+		};
+		class mjb_rzt_zargabad : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Zargabad";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.zargabad";
+		};
+		class mjb_rzt_tem_cham : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Cham";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.tem_cham";
+		};
+		class mjb_rzt_tem_chamw : mjb_rzt_Altis {
+			briefingName = "Zeus Template 2,0 Cham Winter";
+			directory = "z\mjb\addons\zeustemplates\missions\MJB_Zeus_Template_V2,0_510.tem_chamw";
+		};
+
+        
+		class mjb_rzt_stratisFR : mjb_rzt_Altis {
+			briefingName = "Stratis Firing Range v2,0";
+			directory = "z\mjb\addons\zeustemplates\missions\Stratis_Firing_Range_V2,0_130.Stratis";
+			overviewText = "Firing Range for RATS pre-session and testing.";
 		};
 	};
 
@@ -185,6 +279,11 @@ class CfgMissions {
 					class Chapter1_Mission32 : MissionDefault
 					{
 						template = MJB_Zeus_Template_V2,0_510.utes;
+					};
+
+					class Chapter1_Mission33 : MissionDefault
+					{
+						template = Stratis_Firing_Range_V2,0_130.Stratis;
 					};
 				};				
 			};

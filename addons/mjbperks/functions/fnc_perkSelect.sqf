@@ -97,9 +97,10 @@ private _disableMod = {
         ["CAManBase", 1, ["ACE_SelfActions","perk_select",_perkName], _action, true] call ace_interact_menu_fnc_addActionToClass;
 
 
+private _perkCat = "playerPerk_select";
 private _action =
 [
-    "playerPerk_select","Player Perks","\a3\ui_f\data\gui\rsc\rscdisplayarsenal\insignia_ca.paa",
+    _perkCat,"Player Perks","\a3\ui_f\data\gui\rsc\rscdisplayarsenal\insignia_ca.paa",
     {
 
     },
@@ -117,7 +118,6 @@ private _action =
 ] call ace_interact_menu_fnc_createAction;
 
 ["CAManBase", 1, ["ACE_SelfActions","perk_select"], _action, true] call ace_interact_menu_fnc_addActionToClass;
-private _perkCat = "playerPerk_select";
 
 // Perk
 /*if (mjb_perkNameEnabled) then {
@@ -271,7 +271,7 @@ if (mjb_plateDropEnabled) then {
                     _pCrate allowDamage false;
                     _pCrate addItemCargoGlobal ["diw_armor_plates_main_plate", 9];
                     _pCrate addItemCargoGlobal ["FirstAidKit", 9];
-                    if ((_target getUnitTrait 'Medic') && {(mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors}) then { 
+                    if ((_target getUnitTrait 'Medic') && {(mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors}) then {
                         _pCrate addItemCargoGlobal ["diw_armor_plates_main_autoInjector", 1];
                         mjb_arsenal_injectorStash = mjb_arsenal_injectorStash + 1;
                     };
@@ -475,6 +475,40 @@ if (mjb_telestickEnabled) then {
         ["CAManBase", 1, ["ACE_SelfActions","perk_select",_perkCat,_perkName], _action, true] call ace_interact_menu_fnc_addActionToClass;
 };
 
+if (mjb_heartEnabled) then {
+    private _perkName = "heart";
+    private _action =
+    [
+        _perkName,"Heartbeat Sensor","\A3\ui_f\data\igui\cfg\actions\RadarOn_ca.paa",
+        {   params ["_target", "_player", "_actionParams"]; _actionParams params ["_perkName"];
+            if (_perkName in mjb_activePerks) exitWith {[_perkName] call mjb_perks_fnc_perkCleanup;};
+            // perk effects
+            missionNamespace setVariable [("mjb_" + _perkName + "Loop"),
+                [] spawn mjb_perks_fnc_heartLoop
+            ];
+            [_perkName] call mjb_perks_fnc_updatePerks;
+        },
+        { params ["_target", "_player", "_actionParams"]; _actionParams params ["_perkName"];
+            mjb_heartEnabled && {mjb_pP >= mjb_heartPoints || {_perkName in mjb_activePerks}}
+        },
+        { },
+        [_perkName],
+        [0,0,0],
+        3,
+        [false, true, false, false, true],
+        _disableMod
+    ] call ace_interact_menu_fnc_createAction;
+    ["CAManBase", 1, ["ACE_SelfActions","perk_select",_perkCat], _action, true] call ace_interact_menu_fnc_addActionToClass;
+        // Perk description
+        private _action =
+        [
+            (_perkName + "Desc"),format ["Detect units outside your group within a %1m radius on DUI radar.",mjb_heartRange],
+            "",{ },  { true },{ },[],[0,0,0],3,[false, true, false, false, true]
+        ] call ace_interact_menu_fnc_createAction;
+
+        ["CAManBase", 1, ["ACE_SelfActions","perk_select",_perkCat,_perkName], _action, true] call ace_interact_menu_fnc_addActionToClass;
+};
+
 if (mjb_eyesEnabled) then {
     private _perkName = "eyes";
     private _action =
@@ -517,9 +551,10 @@ if (mjb_eyesEnabled) then {
 };
 
 // Weapon Perks
+private _perkCat = "weaponPerk_select";
 private _action =
 [
-    "weaponPerk_select","Weapon Perks","\a3\ui_f\data\gui\rsc\rscdisplayarsenal\spaceArsenal_ca.paa",
+    _perkCat,"Weapon Perks","\a3\ui_f\data\gui\rsc\rscdisplayarsenal\spaceArsenal_ca.paa",
     {
 
     },
@@ -538,7 +573,6 @@ private _action =
 
 ["CAManBase", 1, ["ACE_SelfActions","perk_select"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 
-private _perkCat = "weaponPerk_select";
 
 if (mjb_packSlingEnabled) then {
     private _perkName = "packSling";
@@ -572,6 +606,11 @@ if (mjb_packSlingEnabled) then {
                 {},[],[0,0,0],3,[false, false, false, false, true],
                 {   params ["", "", "", "_actionData"];
                     if (!isNil "mjb_storedWeapon") then {
+                        if ((mjb_storedWeapon # 1) < 0) exitWith {
+                            private _class = typeOf (mjb_storedWeapon # 0);
+                            private _weapon = getText (configFile >> "CfgVehicles" >> _class >> "displayName");
+                            _actionData set [1, ("Equip/Swap to: " + _weapon)];
+                        };
                         private _class = ((mjb_storedWeapon # 0) # 0);
                         private _weapon = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
                         _actionData set [1, ("Equip/Swap to: " + _weapon)];
@@ -786,9 +825,10 @@ if (mjb_disChargeEnabled) then {
 
 
 // Vic Perks// main action
+private _perkCat = "vicperk_select";
 private _action =
 [
-    "vicperk_select","Vehicle Perks","\A3\ui_f\data\map\vehicleicons\iconAPC_ca.paa",
+    _perkCat,"Vehicle Perks","\A3\ui_f\data\map\vehicleicons\iconAPC_ca.paa",
     {
 
     },
@@ -807,7 +847,6 @@ private _action =
 
 ["CAManBase", 1, ["ACE_SelfActions","perk_select"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 
-_perkCat = "vicperk_select";
 
 if (mjb_techSuppEnabled) then {
     private _perkName = "techSupp";
@@ -931,42 +970,6 @@ if (mjb_familiarEnabled) then {
 
         ["CAManBase", 1, ["ACE_SelfActions","perk_select",_perkCat,_perkName], _action, true] call ace_interact_menu_fnc_addActionToClass;
 };
-/*
-    enableSummon = true;
-    player addAction [ "Summon Familiar", {
-        private _pos = [getPos player, 6, 20, 6, 0, 0.5, 0] call BIS_fnc_findSafePos;
-        if (_pos isEqualTo []) exitWith {systemChat "Suitable summon position not found."};
-        enableSummon = false;
-        private _isEizack = ((getPlayerUID player) isEqualTo "76561197965021702");
-        private _vicClass = ["CUP_B_Leopard2A6_HIL","CUP_B_M6LineBacker_NATO_T"] select _isEizack;
-        private _leopardo = ([_pos, getDir player, _vicClass, group player] call BIS_fnc_spawnVehicle);
-        private _crew = (_leopardo select 1);
-        _leopardo = (_leopardo select 0);
-        [[_leopardo, _crew,_isEizack], {  params ["_vic", "_crew", "_isEizack"];
-            _vic enableSimulationGlobal false;
-            _vic lockCargo true;
-            _vic lock true;
-            clearItemCargoGlobal _vic;
-            clearMagazineCargoGlobal _vic;
-            clearWeaponCargoGlobal _vic;
-            clearBackpackCargoGlobal _vic;
-            if (_isEizack) then {_vic lockCargo false;
-                [_vic, "RATS"] call BIS_fnc_initVehicle;
-                _vic addWeaponCargoGlobal ["mjb_arifle_C7Alpha", 14];
-                _vic addMagazineCargoGlobal ["CUP_30Rnd_556x45_Emag", 28];
-                _vic addMagazineCargoGlobal ["CUP_30Rnd_556x45_Emag_Tracer_Yellow", 28];
-            };
-            _vic enableSimulationGlobal true;
-            [{  params ["_vic","_crew"];
-                [[_vic,_crew], {  params ["_vic","_crew"];
-                    {[_x] remoteExec ["deleteVehicle", _x]; waitUntil {_x isEqualTo objNull};} forEach _crew;
-                    deleteVehicle _vic;
-                }] remoteExec ["spawn", _vic];
-            }, [_vic, _crew], 150] call CBA_fnc_waitAndExecute;
-        }] remoteExec ["call", 2];
-        [{enableSummon},{ enableSummon = true; }, [], 3600] call CBA_fnc_waitUntilAndExecute;
-    }, nil, 0, false, true, "", "enableSummon"];
-*/
 
 if (mjb_pitCrewEnabled) then {
     private _perkName = "pitCrew";
