@@ -18,7 +18,7 @@ params [["_player",player,[objNull]], ["_deleteOnDeath",true,[false]], ["_missio
 if (mjb_saveLoadout < 1 || {!hasInterface}) exitWith {};
 
 waitUntil {!isNull player};
-
+if (isNil "mjb_persistenceActive") then {missionNamespace setVariable ["mjb_persistenceActive", true, true];};
 
 mjb_deleteOnDeath = _deleteOnDeath;
 mjb_profOverride = _override;
@@ -27,44 +27,55 @@ mjb_pLoadName = _missionGroup;
 if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = (getText (missionConfigFile >> "missionGroup"));};
 if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = "mjb_loadout" + missionName;
 } else {mjb_pLoadName = "mjb_loadout" + mjb_pLoadName};
+
+mjb_persistEnd = (0 spawn {
+	waitUntil {sleep 1; (!isNil "tmf_common_ending") };
+	if (alive player) then {
+		private _loadout = ([player] call CBA_fnc_getLoadout);
+		if (isNil "_loadout") exitWith {false};
+		if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, _loadout]; saveProfileNamespace;};
+		missionProfileNamespace setVariable [mjb_pLoadName, _loadout];
+		saveMissionProfileNamespace;
+	};
+});
+
 private _varName = mjb_pLoadName;
 
 if !(isNil "mjb_persistDeathHandle") then {_player removeEventHandler ["Killed",mjb_persistDeathHandle]};
 mjb_persistDeathHandle = (_player addEventHandler ["Killed", {
-    params ["_unit"];
-    if (mjb_deleteOnDeath) then {
-        if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, nil]; saveProfileNamespace;};
-        missionProfileNamespace setVariable [mjb_pLoadName, nil];
-        saveMissionProfileNamespace;
-    };
-}]
-);
-
+	if (mjb_deleteOnDeath) then {
+		if (mjb_profOverride) exitWith { profileNamespace setVariable [mjb_pLoadName, nil]; saveProfileNamespace; };
+		missionProfileNamespace setVariable [mjb_pLoadName, nil];
+		saveMissionProfileNamespace;
+//systemChat "Persistent loadout lost.";
+	};
+}]);
+/*
 if (true) then { // was isServer, but does not get added due to this being run on clients only when dedicated
-        //addMissionEventHandler ["MPEnded", {
-            //{
-mjb_persistEndHandle = (0 spawn {
-    waitUntil { !isNull findDisplay 46 };
-    findDisplay 46 displayAddEventHandler ["Unload",
-    {
-                    if (alive player && { not (typeOf player in ["VirtualSpectator_F","ace_spectator_virtual","TMF_spectator_unit"]) } ) then {
-                        if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, ([_unit] call CBA_fnc_getLoadout)]; saveProfileNamespace;};
-						missionProfileNamespace setVariable [mjb_pLoadName, ([_unit] call CBA_fnc_getLoadout)];
-						saveMissionProfileNamespace; 
-					};
-    }];
-});
-            //} remoteExec ["call",([0,-2] select isDedicated)];
-        //}];
-};
+	mjb_persistEndHandle = (0 spawn {
+		waitUntil {sleep 1; !isNull findDisplay 46 };
+		findDisplay 46 displayAddEventHandler ["Unload",
+		{
+			if (alive player) then {
+				private _loadout = ([_unit] call CBA_fnc_getLoadout);
+				if (isNil "_loadout") exitWith {false};
+				if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, _loadout]; saveProfileNamespace;};
+				missionProfileNamespace setVariable [mjb_pLoadName, _loadout];
+				saveMissionProfileNamespace;
+			};
+		}];
+	});
+};*/
 
 if (mjb_saveLoadout in [1,3]) then {
     if !(isNil "mjb_persistInvHandle") then {_player removeEventHandler ["InventoryClosed",mjb_persistInvHandle]};
     mjb_persistInvHandle =  (_player addEventHandler ["InventoryClosed", {
         params ["_unit", ""];
         if (!alive _unit) exitWith {};
-        if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, ([_unit] call CBA_fnc_getLoadout)]; saveProfileNamespace;};
-        missionProfileNamespace setVariable [mjb_pLoadName, ([_unit] call CBA_fnc_getLoadout)];
+		private _loadout = ([_unit] call CBA_fnc_getLoadout);
+		if (isNil "_loadout") exitWith {false};
+        if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, _loadout]; saveProfileNamespace;};
+        missionProfileNamespace setVariable [mjb_pLoadName, _loadout];
         saveMissionProfileNamespace;
     }]);
 };
@@ -74,9 +85,11 @@ if (mjb_saveLoadout in [2,3]) then {
         params ["_unit","_varName"];
         sleep 300;
         while {alive _unit} do {
-            if (mjb_profOverride) exitWith {profileNamespace setVariable [_varName, ([_unit] call CBA_fnc_getLoadout)]; saveProfileNamespace;};
-            missionProfileNamespace setVariable [_varName, ([_unit] call CBA_fnc_getLoadout)];
-            saveMissionProfileNamespace;
+			private _loadout = ([_unit] call CBA_fnc_getLoadout);
+			if (isNil "_loadout") exitWith {false};
+			if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, _loadout]; saveProfileNamespace;};
+			missionProfileNamespace setVariable [mjb_pLoadName, _loadout];
+			saveMissionProfileNamespace;
             sleep 300;
         };
     });
@@ -84,8 +97,9 @@ if (mjb_saveLoadout in [2,3]) then {
 
 private _loadout = nil;
 if (_override) then {_loadout = (profileNamespace getVariable _varName);
-    } else {_loadout = (missionProfileNamespace getVariable _varName);};
-if !(isNil "_loadout") then {
+    } else {_loadout = (missionProfileNamespace getVariable _varName);
+};
+if !(isNil "_loadout") exitWith {
     sleep 0.5;
     [_player, _loadout, true] call CBA_fnc_setLoadout;
     if !(isNil "arsenal") then {
@@ -97,4 +111,6 @@ if !(isNil "_loadout") then {
             player addSecondaryWeaponItem _magazine;
         };
     };
+	systemChat "Persistent loadout loaded.";
 };
+systemChat "Persistent loadout not found.";

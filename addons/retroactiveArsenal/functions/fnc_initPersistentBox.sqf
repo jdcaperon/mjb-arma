@@ -12,6 +12,10 @@
 
 params [["_crate",objNull,[objNull]], ["_varName",nil,[""]]];
 
+systemChat str _this;
+
+if (_crate isEqualTo objNull) exitWith {false};
+
 _crate setVariable ["mjb_persistName", _varName];
 
 _crate addEventHandler ["ContainerClosed", {
@@ -21,18 +25,20 @@ _crate addEventHandler ["ContainerClosed", {
 
 if !(isServer) exitWith {};
 
-addMissionEventHandler ["Ended", {
-    [_container, (_container getVariable ["mjb_persistName",nil]) ] remoteExec ["mjb_arsenal_fnc_getPersistentBox", 2];
-}];
+[{!(isNil "tmf_common_ending")}, {
+	[_container, (_container getVariable ["mjb_persistName",nil]) ] remoteExec ["mjb_arsenal_fnc_getPersistentBox", 2];
+}] call cba_fnc_waitUntilAndExecute;
 
-
-[_crate, _varName] spawn {
-    params ["_unit","_varName"];
-    while {alive _unit} do {
-        sleep 300;
-		[_unit, (_unit getVariable ["mjb_persistName",nil]) ] remoteExec ["mjb_arsenal_fnc_getPersistentBox", 2];
-    };
-};
+_crate setVariable ["mjb_persistTimer", 
+	([_crate, _varName] spawn {
+		params ["_unit","_varName"];
+		sleep 300;
+		while {alive _unit} do {
+			[_unit, (_unit getVariable ["mjb_persistName",nil]) ] remoteExec ["mjb_arsenal_fnc_getPersistentBox", 2];
+			sleep 300;
+		};
+	})
+];
 
 // _crate allowDamage false;
 

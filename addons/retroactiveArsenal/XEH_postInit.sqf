@@ -1,32 +1,42 @@
 #include "settings.sqf"
+if (isServer) then {
+    if (mjb_slotSaverAI) then {
+		addMissionEventHandler ["HandleDisconnect", {
+			params ["_unit","_id","_uid"];
+			if (isCopilotEnabled vehicle _unit) then {_unit action ["UnlockVehicleControl", vehicle _unit];};
+			private _savedId = _unit getVariable ["mjb_steamIDrop",true];
+			if (_savedId isEqualTo _uid || {_savedId}) then {
+				_unit setVariable ["mjb_steamIDrop",_uid];
+				_unit addEventHandler ["Local", {
+					params ["_player"];
+					if (isServer) exitWith {
+						//_player setVariable ["mjb_startpos", (_player getVariable ["mjb_startpos", getPosASL player])];
+					};
+					if (_player getVariable ["mjb_steamIDrop",true] isEqualTo (getPlayerUID player)) exitWith {
+						_player removeEventHandler ["Local", _thisEventHandler];
+					};
+					systemChat "This unit was controlled by a player that disconnected, consider re-joining as a different slot.";
+					//_player spawn {
+					//    params ["_player"];
+					//    sleep 5;
+					//    _player setVariable ["startpos", (_player getVariable ["mjb_startpos", getPosASL player])];
+					//};
+				}];
+			};
+			//(group _unit) setVariable ["Vcm_Disable",true];        
+			[(group _unit), 2] remoteExec ["setGroupOwner", 2]; 
+			true
+		}];
+	};
 
-if (isServer && {mjb_slotSaverAI}) then {
-    addMissionEventHandler ["HandleDisconnect", {
-        params ["_unit","_id","_uid"];
-		if (isCopilotEnabled vehicle _unit) then {_unit action ["UnlockVehicleControl", vehicle _unit];};
-        private _savedId = _unit getVariable ["mjb_steamIDrop",true];
-        if (_savedId isEqualTo _uid || {_savedId}) then {
-            _unit setVariable ["mjb_steamIDrop",_uid];
-            _unit addEventHandler ["Local", {
-                params ["_player"];
-                if (isServer) exitWith {
-                    //_player setVariable ["mjb_startpos", (_player getVariable ["mjb_startpos", getPosASL player])];
-                };
-                if (_player getVariable ["mjb_steamIDrop",true] isEqualTo (getPlayerUID player)) exitWith {
-                    _player removeEventHandler ["Local", _thisEventHandler];
-                };
-                systemChat "This unit was controlled by a player that disconnected, consider re-joining as a different slot.";
-                //_player spawn {
-                //    params ["_player"];
-                //    sleep 5;
-                //    _player setVariable ["startpos", (_player getVariable ["mjb_startpos", getPosASL player])];
-                //};
-            }];
-        };
-        //(group _unit) setVariable ["Vcm_Disable",true];        
-        [(group _unit), 2] remoteExec ["setGroupOwner", 2]; 
-        true
-    }];
+	mjb_persistPls = 0 spawn {
+		sleep 5;
+		if !(isNil "mjb_persistenceActive") then {
+			[{!(isNil "tmf_common_ending")}, {
+				missionNamespace setVariable ["tmf_common_ending",true,true];
+			}] call cba_fnc_waitUntilAndExecute;
+		};
+	};
 };
 
 mjb_carryLocalHandle = ["mjb_carryLocal", {

@@ -1,4 +1,6 @@
-params ["_box", "_varName"];
+params [["_box",objNull,[objNull]], "_varName"];
+
+if (_box isEqualTo objNull) exitWith {false};
 
 private _boxitems = getItemCargo _box;
 private _boxweaps = weaponsItemsCargo _box;

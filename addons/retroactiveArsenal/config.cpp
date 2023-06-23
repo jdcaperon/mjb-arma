@@ -2,7 +2,7 @@ class CfgPatches {
   class mjb_arsenal {
 	ammo[] = {};
 	magazines[] = {};
-    units[] = {};//"mjb_moduleArsenal"
+    units[] = {"mjb_moduleArsenal","mjb_moduleEnd"};//
     weapons[] = {};
     requiredVersion = 0.1;
     author = "Alien314";
@@ -36,6 +36,16 @@ class Extended_PreStart_EventHandlers
 		init="call compileScript ['z\mjb\addons\arsenal\XEH_preStart.sqf']";
 	};
 };
+/*
+class CfgWorlds {
+	class DefaultWorld { class WaterExPars; };
+	class CAWorld : DefaultWorld {
+		class WaterExPars : WaterExPars {
+			fogColor[] = {0.3,0.07155,0.09045};
+		};
+	};
+};*/
+
 
 
 class CfgLoadouts
@@ -71,7 +81,7 @@ class ACEX_Fortify_Presets {
 		};
 	};
 };
-/*
+
 class CfgFactionClasses {
     class MJB {
         displayName = "MJB Arma";
@@ -83,9 +93,14 @@ class CfgFactionClasses {
 class CfgVehicles
 {
     class Module_F;
+	class ModuleEndMission_F;
+	//class ModuleEndMission_F : Module_F {
+		//function = "mjb_arsenal_fnc_moduleEnd";
+	//};
     class mjb_moduleBase : Module_F {
         author = "Alien314";
         category = "MJB";
+		curatorCost = 0;
         function = "";
         functionPriority = 1;
         isGlobal = 1;
@@ -99,4 +114,27 @@ class CfgVehicles
         function = "mjb_arsenal_fnc_moduleArsenal";
         icon = "\A3\ui_f\data\igui\cfg\weaponicons\MG_ca.paa";
     };
+	class mjb_moduleEnd : ModuleEndMission_F {
+        displayName = "End Scenario (No Music/MJB Persistence Save)";
+		function = "mjb_arsenal_fnc_moduleEnd";
+		icon = "\A3\ui_f\data\igui\cfg\Actions\Obsolete\ui_action_gear_ca.paa";
+		portrait = "\A3\ui_f\data\igui\cfg\Actions\Obsolete\ui_action_gear_ca.paa";
+		isTriggerActivated = 0;
+		scope = 1;
+	};
+};
+
+/*class RscDisplayAttributes;
+class RscCheckBox;
+
+class MJB_Display {
+	class mjb_rscDisplayAttributesModuleArsenal : RscDisplayAttributes {
+		onLoad = "[""onLoad"",_this,""mjb_rscDisplayAttributesModuleArsenal"",'CuratorDisplays'] call 	(uinamespace getvariable 'BIS_fnc_initDisplay')";
+		onUnload = "[""onUnload"",_this,""mjb_rscDisplayAttributesModuleArsenal"",'CuratorDisplays'] call 	(uinamespace getvariable 'BIS_fnc_initDisplay')";
+		scriptName = "mjb_rscDisplayAttributesModuleArsenal";
+		scriptPath = "CuratorDisplays"; // CfgScriptPaths
+		class Controls {
+			class CheckBoxJIP : RscCheckBox;
+		};
+	};
 };*/

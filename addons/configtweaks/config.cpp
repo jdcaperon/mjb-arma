@@ -661,15 +661,21 @@ class CfgWeapons {
     class ItemInfo : vestItem { \
       containerClass = "Supply140"; \
       class HitpointsProtectionInfo { \
-          class Abdomen {armor = 16; hitpointName = "HitAbdomen"; passThrough = 0.3;}; \
+          class Abdomen {armor = 20; hitpointName = "HitAbdomen"; passThrough = 0.2;}; \
           delete Arms; \
-          class Body {hitpointName = "HitBody"; passThrough = 0.3;}; \
-          class Chest {armor = 16; hitpointName = "HitChest"; passThrough = 0.3;}; \
-          class Diaphragm {armor = 16; hitpointName = "HitDiaphragm"; passThrough = 0.3;}; \
+          class Body {hitpointName = "HitBody"; passThrough = 0.2;}; \
+          class Chest {armor = 20; hitpointName = "HitChest"; passThrough = 0.2;}; \
+          class Diaphragm {armor = 20; hitpointName = "HitDiaphragm"; passThrough = 0.2;}; \
           delete Neck; \
       }; \
     }; \
   };
+          /*class Abdomen {armor = 16; hitpointName = "HitAbdomen"; passThrough = 0.3;}; \
+          delete Arms; \
+          class Body {delete armor; hitpointName = "HitBody"; passThrough = 0.3;}; \
+          class Chest {armor = 16; hitpointName = "HitChest"; passThrough = 0.3;}; \
+          class Diaphragm {armor = 16; hitpointName = "HitDiaphragm"; passThrough = 0.3;}; \
+          delete Neck; \*/
 
   #define VESTMED(NAME) \
   class ##NAME## : vest_camo_base { \
@@ -717,7 +723,21 @@ class CfgWeapons {
   };
 
   class vest_camo_base;
+  class Vest_NoCamo_Base;
   class vestItem;
+
+  VESTLGT(V_PlateCarrier1_blk);
+  class V_PlateCarrier1_rgr : Vest_NoCamo_Base {
+    class ItemInfo : vestItem {
+      containerClass = "Supply140";
+      class HitpointsProtectionInfo {
+          class Abdomen {armor = 20; hitpointName = "HitAbdomen"; passThrough = 0.2;};
+          class Body {hitpointName = "HitBody"; passThrough = 0.2;};
+          class Chest {armor = 20; hitpointName = "HitChest"; passThrough = 0.2;};
+          class Diaphragm {armor = 20; hitpointName = "HitDiaphragm"; passThrough = 0.2;};
+      };
+    };
+  };
 
   VESTMED(6B3_vest);
   VESTMED(6b5Flora);

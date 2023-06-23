@@ -10,8 +10,8 @@ while {true} do {
 		} forEach _tracking;
 		if (diwako_dui_special_track isEqualTo []) then {diwako_dui_special_track = nil};
 	};
-	private _list = ((player nearEntities [["CAManBase"],mjb_heartRange]) - units ([] call CBA_fnc_currentUnit));
-	{   if !(alive _x || {_x in _list}) then {
+	private _list = ((player nearEntities [["CAManBase"],mjb_heartRange]) - (units player));
+	{   if (!alive _x || {!(_x in _list)}) then {
 		    diwako_dui_special_track = diwako_dui_special_track - [_x];
 		    _tracking = _tracking - [_x];
 			_x setVariable ["diwako_dui_main_compass_color", nil];
@@ -20,12 +20,12 @@ while {true} do {
 		_x setVariable ["diwako_dui_main_compass_color", _trackingColor];
 	} forEach _tracking;
 	{
-		private _active = _x getVariable ["diwako_dui_main_compass_color", nil];
-		_active = !isNil "_active";
-		if (_active || {_x in diwako_dui_special_track}) then {continue};
+		//private _active = _x getVariable ["diwako_dui_main_compass_color", nil];
+		//_active = !isNil "_active";
+		if (_x in diwako_dui_special_track) then {continue}; //if (_active || {_x in diwako_dui_special_track}) then {continue};
 		diwako_dui_special_track = diwako_dui_special_track + [_x];
 		_tracking = _tracking + [_x];
-		_x setVariable ["diwako_dui_main_compass_color", _trackingColor];
+		//_x setVariable ["diwako_dui_main_compass_color", _trackingColor];
 	} forEach _list;
 	sleep 1;
 };
