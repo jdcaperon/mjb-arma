@@ -17,9 +17,6 @@ params [["_player",player,[objNull]], ["_deleteOnDeath",true,[false]], ["_missio
 
 if (mjb_saveLoadout < 1 || {!hasInterface}) exitWith {};
 
-waitUntil {!isNull player};
-if (isNil "mjb_persistenceActive") then {missionNamespace setVariable ["mjb_persistenceActive", true, true];};
-
 mjb_deleteOnDeath = _deleteOnDeath;
 mjb_profOverride = _override;
 
@@ -28,11 +25,16 @@ if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = (getText (missionConfigFil
 if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = "mjb_loadout" + missionName;
 } else {mjb_pLoadName = "mjb_loadout" + mjb_pLoadName};
 
-mjb_persistEnd = (0 spawn {
-	waitUntil {sleep 1; (!isNil "tmf_common_ending") };
-	if (alive player) then {
+if (isNil "mjb_persistenceActive") then {missionNamespace setVariable ["mjb_persistenceActive", true, true];};
+
+waitUntil {!isNull player};
+
+mjb_persistEnd = ([_player] spawn { params ["_unit"];
+	waitUntil { sleep 1; !alive _unit || {!(isNil "tmf_common_ending")} };
+	if (alive _unit) then {
 		private _loadout = ([player] call CBA_fnc_getLoadout);
 		if (isNil "_loadout") exitWith {false};
+		if (_loadout isEqualTo []) exitWith {false};
 		if (mjb_profOverride) exitWith {profileNamespace setVariable [mjb_pLoadName, _loadout]; saveProfileNamespace;};
 		missionProfileNamespace setVariable [mjb_pLoadName, _loadout];
 		saveMissionProfileNamespace;
@@ -96,21 +98,20 @@ if (mjb_saveLoadout in [2,3]) then {
 };
 
 private _loadout = nil;
-if (_override) then {_loadout = (profileNamespace getVariable _varName);
-    } else {_loadout = (missionProfileNamespace getVariable _varName);
+if (_override) then {_loadout = (profileNamespace getVariable [_varName,nil]);
+    } else {_loadout = (missionProfileNamespace getVariable [_varName,nil]);
 };
-if !(isNil "_loadout") exitWith {
-    sleep 0.5;
-    [_player, _loadout, true] call CBA_fnc_setLoadout;
-    if !(isNil "arsenal") then {
-        [arsenal, [primaryWeaponMagazine player, handgunMagazine player]] call ace_arsenal_fnc_addVirtualItems;
-    };
-    if (secondaryWeapon player != "") then {
-        if ((count (secondaryWeaponMagazine player)) < 1) then {
-            private _magazine = ((getArray (configFile >> "CfgWeapons" >> (secondaryWeapon player) >> "magazines")) select 0);
-            player addSecondaryWeaponItem _magazine;
-        };
-    };
-	systemChat "Persistent loadout loaded.";
+sleep 0.5;
+if (isNil "_loadout" ) exitWith {systemChat "Persistent loadout not found.";};
+if (_loadout isEqualTo []) exitWith {systemChat "Persistent loadout empty.";};
+[_player, _loadout, true] call CBA_fnc_setLoadout;
+if !(isNil "arsenal") then {
+	[arsenal, [primaryWeaponMagazine player, handgunMagazine player]] call ace_arsenal_fnc_addVirtualItems;
 };
-systemChat "Persistent loadout not found.";
+if (secondaryWeapon player != "") then {
+	if ((count (secondaryWeaponMagazine player)) < 1) then {
+		private _magazine = ((getArray (configFile >> "CfgWeapons" >> (secondaryWeapon player) >> "magazines")) select 0);
+		player addSecondaryWeaponItem _magazine;
+	};
+};
+systemChat "Persistent loadout loaded.";

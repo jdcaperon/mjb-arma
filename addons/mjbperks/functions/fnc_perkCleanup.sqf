@@ -2,18 +2,18 @@
     * Arguments:
       * 0: Name of the perk to remove
 
-    ex.: ["perkName"] call mjb_perks_fnc_perkCleanup;
+    ex.: ["perkName", player] call mjb_perks_fnc_perkCleanup;
 */
-params ["_remove"];
+params ["_remove", ["_target", player]];
 
-if !(canSuspend) exitWith {mjb_perkYeet = (_this spawn mjb_perks_fnc_perkCleanup);};
+if !(canSuspend) exitWith {if (isNil "mjb_perkYeet") then {mjb_perkYeet = (_this spawn mjb_perks_fnc_perkCleanup);}};
 
 if (_remove isEqualTo true) exitWith {
-	private _i = 0;
     {
-        missionNamespace setVariable [("mjb_perkYeet_" + str _i),([_x] spawn mjb_perks_fnc_perkCleanup)];
-		_i = _i + 1;
+		[_target, _target, [_x]] execVM ("z\mjb\addons\perks\functions\fnc_" + _x + ".sqf");
     } forEach mjb_activePerks;
+	sleep 1;
+	mjb_perkYeet = nil;
 };
 
 if (!isNil ("mjb_" + _remove + "Loop") ) then {
@@ -29,7 +29,8 @@ if (!isNil ("mjb_" + _remove + "Loop") ) then {
 if (!isNil ("mjb_" + _remove + "Handler") ) then {
     private _eventHandle = (missionNamespace getVariable [("mjb_" + _remove + "Handler"),nil]);
 //systemChat "removing handler";
-    player removeEventHandler _eventHandle;
+	if (!alive _target && {(_eventHandle select 0) isEqualTo "Killed"}) then {sleep 2;};
+    _target removeEventHandler _eventHandle;
     missionNamespace setVariable [("mjb_" + _remove + "Handler"), nil ];
 };
 
@@ -66,3 +67,5 @@ if (!isNil ("mjb_" + _remove + "Statemachine") ) then {
 mjb_activePerks = mjb_activePerks - [_remove];
 // !!!!! _target setVariable ["mjb_activePerks", mjb_activePerks, [owner _target, 2]];
 mjb_pP = mjb_pP + (missionNamespace getVariable [("mjb_" + _remove + "Points"),0]);
+sleep 1;
+mjb_perkYeet = nil;

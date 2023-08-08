@@ -60,7 +60,7 @@ if (_hasWeapon) exitWith {
 private _carried = (_target getVariable ["ace_dragging_carriedObject", objNull]);
 if (_carried isEqualTo objNull || {_carried isKindOf "CAManBase"}) exitWith {};
 private _slot = -1;
-private _muzzleMode = ["",""];
+private _muzzleMode = [typeOf _carried,""];
 private _packWeapon = [_target, _carried, _slot] call mjb_perks_fnc_slungWeapon;
 //_packWeapon setDamage [1,false];
 mjb_storedWeapon = [_carried, _slot, _packWeapon] + _muzzleMode;

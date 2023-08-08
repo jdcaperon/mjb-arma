@@ -1,8 +1,51 @@
 [
     "mjb_slotSaverAI",
     "CHECKBOX",
-    ["Enable AI control on disconnect", "When a player disconnects AI will take control, saving their slot."],
+    ["Enable AI control on disconnect", "When a player disconnects AI will be enabled to prevent death. They may still die due to a vanilla locality issue with the AI."],
     ["MJB Arma", "Disconnect handling"],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_slotSaverAIExt",
+    "CHECKBOX",
+    ["Enable Active Disconnect Protection", "The AI will be hidden and attached to group leader or subordinate, then become group leader to prevent locality change death. On returning they will be unhidden and detached."],
+    ["MJB Arma", "Disconnect handling"],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+
+/*[
+    "mjb_autoDeathSync",
+    "CHECKBOX",
+    ["Automaticlly fix de-sync'd player deaths", "Detects whether players appear dead to each other when they shouldn't and applies the fix automatically."],
+    ["MJB Arma", "Death Handling"],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;*/
+
+[
+    "mjb_resyncAction",
+    "CHECKBOX",
+    ["Enable Resync Action", "Self interact equipment action to check other players' states, and get server to apply the fix if desync'd."],
+    ["MJB Arma", "Death Handling"],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_zeusCompKilled",
+    "CHECKBOX",
+    ["Shift Zeus Comps", "Shift zeus local AI to the server on death, probably making them lootable."],
+    ["MJB Arma", "Death Handling"],
     true,
     true,
     { },
@@ -62,6 +105,17 @@
     ["MJB Arma","Loadout Persistence"],
     [[0, 1, 2, 3], ["Disable","Closing inventory","Five minute interval", "Both"], 3],
     0,
+    { },
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "mjb_dropPlate",
+    "CHECKBOX",
+    ["Move loot plates to quick loot", "When a unit dies move plates in storage to main inventory screen, allowing scroll action to take them."],
+    ["MJB Arma", "Plates"],
+    true,
+    true,
     { },
     true
 ] call CBA_fnc_addSetting;

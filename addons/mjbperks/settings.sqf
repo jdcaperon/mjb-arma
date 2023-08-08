@@ -39,7 +39,7 @@
     "mjb_perkNameEnabled",
     "CHECKBOX",
     ["Enable " + _perkName, "Perk that does x."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -49,7 +49,7 @@
     "mjb_perkNamePoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 1000, 0],
     true,
     {
@@ -58,13 +58,14 @@
     },
     true
 ] call CBA_fnc_addSetting;*/
+private _category = "Individual Perks";
 
 private _perkName = "Plate drop";
 [
     "mjb_plateDropEnabled",
     "CHECKBOX",
     [("Enable " + _perkName), "Allows player to call a drop of 9 plates on a 20 min. cooldown. Req. Medic/Leader"],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -74,7 +75,7 @@ private _perkName = "Plate drop";
     "mjb_plateDropPoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 500, 0],
     true,
     {
@@ -87,7 +88,7 @@ private _perkName = "Plate drop";
     "mjb_plateDropCd",
     "SLIDER",
     [_perkName + " coooldown", "How many seconds the cooldown of " + _perkName + " lasts."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 7200, 1200, 0],
     true,
     {
@@ -102,7 +103,7 @@ private _perkName = "Ammo drop";
     "mjb_ammoDropEnabled",
     "CHECKBOX",
     [("Enable " + _perkName), "Allows player to call a drop of rockets and an ammo arsenal on an X min. cooldown. Req. Leader"],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -112,7 +113,7 @@ private _perkName = "Ammo drop";
     "mjb_ammoDropPoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 500, 0],
     true,
     {
@@ -125,7 +126,7 @@ private _perkName = "Ammo drop";
     "mjb_ammoDropCd",
     "SLIDER",
     [_perkName + " coooldown", "How many seconds the cooldown of " + _perkName + " lasts."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 7200, 3600, 0],
     true,
     {
@@ -140,7 +141,7 @@ private _perkName = "Extra Conditioning";
     "mjb_extraHpEnabled",
     "CHECKBOX",
     [("Enable " + _perkName), "Player gets x% more max health."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -150,7 +151,7 @@ private _perkName = "Extra Conditioning";
     "mjb_extraHpPoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 500, 0],
     true,
     {
@@ -163,7 +164,7 @@ private _perkName = "Extra Conditioning";
     "mjb_extraHpMult",
     "SLIDER",
     [(_perkName + " HP Multiplier"), "Multiplied by default player or mission set max hp for new max HP with the perk active."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [1, 5, 1.50, 2],
     true,
     {
@@ -177,7 +178,7 @@ private _perkName = "Doorkicker";
     "mjb_flashDoorEnabled",
     "CHECKBOX",
     [("Enable " + _perkName), "Player can perform a flash and kick action (self-interact at a door, with ace flashbangs in inventory)."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -187,7 +188,7 @@ private _perkName = "Doorkicker";
     "mjb_flashDoorPoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 500, 0],
     true,
     {
@@ -197,37 +198,12 @@ private _perkName = "Doorkicker";
     true
 ] call CBA_fnc_addSetting;
 
-private _perkName = "Sneak Attack";
-[
-    "mjb_sneakAttackEnabled",
-    "CHECKBOX",
-    ["Enable " + _perkName, "Perk that make hits on less aware enemies do more damage."],
-    ["MJB Arma Perks", "Individual Perks"],
-    true,
-    true,
-    { },
-    true
-] call CBA_fnc_addSetting;
-[
-    "mjb_sneakAttackPoints",
-    "SLIDER",
-    [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
-    [0, 5000, 500, 0],
-    true,
-    {
-        params ["_value"];
-        mjb_sneakAttackPoints = round _value;
-    },
-    true
-] call CBA_fnc_addSetting;
-
 private _perkName = "Telestick";
 [
     "mjb_telestickEnabled",
     "CHECKBOX",
-    [("Enable" + _perkName), "Allows players to teleport with chemlights."],
-    ["MJB Arma Perks", "Individual Perks"],
+    [("Enable " + _perkName), "Allows players to teleport with chemlights."],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -237,7 +213,7 @@ private _perkName = "Telestick";
     "mjb_telestickPoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 500, 0],
     true,
     {
@@ -247,14 +223,12 @@ private _perkName = "Telestick";
     true
 ] call CBA_fnc_addSetting;
 
-//mjb_heartEnabled = false;
-//mjb_heartPoints = 0;//
 private _perkName = "Heartbeat Sensor";
 [
     "mjb_heartEnabled",
     "CHECKBOX",
-    [("Enable" + _perkName), "Allows players to see units outside their group on radar within a range."],
-    ["MJB Arma Perks", "Individual Perks"],
+    [("Enable " + _perkName), "Allows players to see units outside their group on radar within a range."],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -264,7 +238,7 @@ private _perkName = "Heartbeat Sensor";
     "mjb_heartPoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 500, 0],
     true,
     {
@@ -273,12 +247,11 @@ private _perkName = "Heartbeat Sensor";
     },
     true
 ] call CBA_fnc_addSetting;
-
 [
     "mjb_heartColor",
     "COLOR",
     ["Heartbeat Sensor color", "Units detected by heartbeat will flash between this color and the tracking color in DUI - Main."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [1.0, 0.48, 0.45],
     false
 ] call CBA_fnc_addSetting;
@@ -286,7 +259,7 @@ private _perkName = "Heartbeat Sensor";
     "mjb_heartRange",
     "SLIDER",
     [(_perkName + " Range"), "Range in meters where heartbeat sensor will detect units."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [1, 50, 20, 1],
     true,
     {
@@ -294,7 +267,43 @@ private _perkName = "Heartbeat Sensor";
         mjb_heartRange = (parseNumber (_value toFixed 1));
     }
 ] call CBA_fnc_addSetting;
-//*/
+[
+    "mjb_heartCenter",
+    "SLIDER",
+    [(_perkName + " Center"), "Distance in front of the user the detection radius will be centered on."],
+    ["MJB Arma Perks", _category],
+    [0, 50, 0, 1],
+    true,
+    {
+        params ["_value"];
+        mjb_heartCenter = (parseNumber (_value toFixed 1));
+    }
+] call CBA_fnc_addSetting;
+
+private _perkName = "Plate Up";
+[
+    "mjb_plateUpEnabled",
+    "CHECKBOX",
+    [("Enable " + _perkName), "Plate regen starts immediately."],
+    ["MJB Arma Perks", _category],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_plateUpPoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", _category],
+    [0, 5000, 500, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_plateUpPoints = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
 
 mjb_eyesEnabled = false;
 mjb_eyesPoints = 0;/*
@@ -303,7 +312,7 @@ private _perkName = "Hawk eyes";
     "mjb_eyesEnabled",
     "CHECKBOX",
     ["Enable Hawk eyes", "Perk that let's players zoomy eyes farther but not while aimed."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     true,
     true,
     { },
@@ -313,7 +322,7 @@ private _perkName = "Hawk eyes";
     "mjb_eyesPoints",
     "SLIDER",
     [_perkName + " cost", "How many points " + _perkName + " costs."],
-    ["MJB Arma Perks", "Individual Perks"],
+    ["MJB Arma Perks", _category],
     [0, 5000, 1000, 0],
     true,
     {
@@ -354,7 +363,7 @@ private _perkName = "Dragon's breath";
 [
     "mjb_dragonEnabled",
     "CHECKBOX",
-    [("Enable" + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
+    [("Enable " + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
     ["MJB Arma Perks", _category],
     true,
     true,
@@ -379,7 +388,7 @@ private _perkName = "Bullet Lottery";
 [
     "mjb_randEnabled",
     "CHECKBOX",
-    [("Enable" + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
+    [("Enable " + _perkName), "Perk that makes buckshot have a chance to ignite targets."],
     ["MJB Arma Perks", _category],
     true,
     true,
@@ -434,6 +443,31 @@ private _perkName = "Disposable Recharge";
     {
         params ["_value"];
         mjb_disChargeCd = round _value;
+    },
+    true
+] call CBA_fnc_addSetting;
+
+private _perkName = "Sneak Attack";
+[
+    "mjb_sneakAttackEnabled",
+    "CHECKBOX",
+    ["Enable " + _perkName, "Perk that make hits on less aware enemies do more damage."],
+    ["MJB Arma Perks", _category],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+[
+    "mjb_sneakAttackPoints",
+    "SLIDER",
+    [_perkName + " cost", "How many points " + _perkName + " costs."],
+    ["MJB Arma Perks", _category],
+    [0, 5000, 500, 0],
+    true,
+    {
+        params ["_value"];
+        mjb_sneakAttackPoints = round _value;
     },
     true
 ] call CBA_fnc_addSetting;

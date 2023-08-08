@@ -2,7 +2,7 @@ class CfgPatches {
   class mjb_arsenal {
 	ammo[] = {};
 	magazines[] = {};
-    units[] = {"mjb_moduleArsenal","mjb_moduleEnd"};//
+    units[] = {"mjb_moduleArsenal","mjb_moduleArsenalMission","mjb_moduleEnd","mjb_moduleResync"};//
     weapons[] = {};
     requiredVersion = 0.1;
     author = "Alien314";
@@ -114,6 +114,12 @@ class CfgVehicles
         function = "mjb_arsenal_fnc_moduleArsenal";
         icon = "\A3\ui_f\data\igui\cfg\weaponicons\MG_ca.paa";
     };
+    class mjb_moduleArsenalMission : mjb_moduleBase {
+        curatorCanAttach = 1;
+        displayName = "Retroactive Arsenal (Preserve Mission Arsenal)";
+        function = "mjb_arsenal_fnc_moduleArsenalMission";
+        icon = "\A3\ui_f\data\igui\cfg\weaponicons\MG_ca.paa";
+    };
 	class mjb_moduleEnd : ModuleEndMission_F {
         displayName = "End Scenario (No Music/MJB Persistence Save)";
 		function = "mjb_arsenal_fnc_moduleEnd";
@@ -121,6 +127,13 @@ class CfgVehicles
 		portrait = "\A3\ui_f\data\igui\cfg\Actions\Obsolete\ui_action_gear_ca.paa";
 		isTriggerActivated = 0;
 		scope = 1;
+	};
+	class mjb_moduleResync : mjb_moduleBase {
+        curatorCanAttach = 1;
+        displayName = "Re-Sync Player";
+		function = "mjb_arsenal_fnc_moduleResync";
+		icon = "\A3\ui_f\data\gui\cfg\Hints\Adjust_ca.paa";
+        isGlobal = 0;
 	};
 };
 

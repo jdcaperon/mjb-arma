@@ -12,7 +12,7 @@
 
 params [["_crate",objNull,[objNull]], ["_varName",nil,[""]]];
 
-systemChat str _this;
+//systemChat str _this;
 
 if (_crate isEqualTo objNull) exitWith {false};
 

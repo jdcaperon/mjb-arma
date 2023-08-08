@@ -25,5 +25,8 @@ waitUntil {sleep 8; !(isNil {_check = (isPlayer _player); _check}) && {_check}};
         player call diw_armor_plates_main_fnc_addPlayerHoldActions;
         [] call mjb_arsenal_fnc_initStuff;
         [] call mjb_perks_fnc_initStuff;
+		if !(isNil "mjb_persistenceActive") then {
+			([player, mjb_deleteOnDeath, mjb_pLoadName, mjb_profOverride]) call mjb_arsenal_fnc_initPersistentLoadout;
+		};
     };
 }] remoteExec ["call", _player];

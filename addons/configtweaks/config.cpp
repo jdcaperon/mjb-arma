@@ -436,7 +436,7 @@ class CfgWeapons {
   LIGHTCONF(rhsusf_acc_wmx,rhsusf_acc_M952V); 
   
   
-  // T1
+  /*/ T1
   LIGHTCONFT1(Tier1_10_LA5_M300C_FL,acc_pointer_IR);
   LIGHTCONFT1(Tier1_10_LA5_M600V_alt_FL,acc_pointer_IR);
   LIGHTCONFT1(Tier1_10_LA5_M600V_FL,acc_pointer_IR);
@@ -592,7 +592,7 @@ class CfgWeapons {
   
   LIGHTCONFT1(tier1_dbalpl_fl,ItemCore);
   LIGHTCONFT1(tier1_tlr1,ItemCore);
-  LIGHTCONFT1(Tier1_X300U,ItemCore);
+  LIGHTCONFT1(Tier1_X300U,ItemCore);*/
 
   class HeadgearItem;
   #define HATARMOR(NAME,PARENT) \

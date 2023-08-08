@@ -64,37 +64,48 @@
 
 class CfgMagazines
 {
-	class Default {};
-	class CA_Magazine: Default {};
-	class 30Rnd_556x45_Stanag: CA_Magazine {};
+	class Default;
+	class CA_Magazine : Default { 
+		//tracersEvery = 5; // might apply to too many things, vanilla locks down base mags with te0, could make new mags that apply to every gun of a caliber and add them to arsenal
+	};
+	class 30Rnd_556x45_Stanag : CA_Magazine {};
 
 	// MMG Tracer magazines rounds
-	class 130Rnd_338_Mag: CA_Magazine {};
+	class 130Rnd_338_Mag : CA_Magazine {};
 	class mjb_130Rnd_338_Mag_trc_gr: 130Rnd_338_Mag {
 		author = "Alien314";
 		ammo = "mjb_338_NM_trc_gr";
 		displayName = ".338 Norma Magnum 130Rnd Green Mixed Belt";
 		displayNameShort = "Mixed/Green";
 	};
-	class mjb_130Rnd_338_Mag_trc_ylw: mjb_130Rnd_338_Mag_trc_gr {
+	class mjb_130Rnd_338_Mag_trc_ylw : mjb_130Rnd_338_Mag_trc_gr {
 		ammo = "mjb_338_NM_trc_ylw";
 		displayName = ".338 Norma Magnum 130Rnd Yellow Mixed Belt";
 		displayNameShort = "Mixed/Yellow";
 	};
 	
-	class 150Rnd_93x64_Mag: CA_Magazine {};
-	class mjb_150Rnd_93x64_Mag_trc_red: 150Rnd_93x64_Mag { 
+	class 150Rnd_93x64_Mag : CA_Magazine {};
+	class mjb_150Rnd_93x64_Mag_trc_red : 150Rnd_93x64_Mag { 
 		author = "Alien314"; 
 		ammo = "mjb_93x64_trc_red";
 		displayName = "9.3mm 150Rnd Red Mixed Belt";
 		displayNameShort = "Mixed/Red";
 	};
-	class mjb_150Rnd_93x64_Mag_trc_ylw: mjb_150Rnd_93x64_Mag_trc_red {
+	class mjb_150Rnd_93x64_Mag_trc_ylw : mjb_150Rnd_93x64_Mag_trc_red {
 		ammo = "mjb_93x64_trc_ylw";
 		displayName = "9.3mm 150Rnd Yellow Mixed Belt";
 		displayNameShort = "Mixed/Yellow";
 	};
-	
+
+	// fix greenmag error
+	class 30Rnd_9x21_Mag;
+	class 30Rnd_45ACP_Mag_SMG_01_Tracer_Red : 30Rnd_9x21_Mag {
+		ammo = "B_45ACP_Ball_Red";
+		greenmag_basicammo = "greenmag_ammo_45ACP_basic_1Rnd";
+	};
+	class 30Rnd_45ACP_Mag_SMG_01_Tracer_Yellow : 30Rnd_9x21_Mag {
+		greenmag_basicammo = "greenmag_ammo_45ACP_basic_1Rnd";
+	};
 	
 // Quick and dirty 'Simple' sim complexity setting only Greenmag compatibility for CUP and RHS
     RND556X45(CUP_30Rnd_556x45_Stanag,CA_Magazine);
@@ -390,7 +401,7 @@ class CfgMagazines
 	class rhs_mag_30Rnd_556x45_Mk318_Stanag_Ranger;
 	class rhs_mag_30Rnd_556x45_Mk318_Stanag_Pull;
 	
-	// Tier 1
+	/*/ Tier 1
 	class Tier1_30Rnd_556x45_M855A1_EMag;
 	RND762X51(Tier1_20Rnd_762x51_M118_Special_SR25_Mag,CA_Magazine);
 	RND65X39(Tier1_20Rnd_65x48_Creedmoor_SR25_Mag,Tier1_20Rnd_762x51_M118_Special_SR25_Mag); // no cal
@@ -429,7 +440,7 @@ class CfgMagazines
 	RND9X19(Tier1_20Rnd_9x19_FMJ,CA_Magazine);
 	RND9X19(Tier1_21Rnd_9x19_P320_FMJ,CA_Magazine);
 	RND45ACP(Tier1_15Rnd_40SW_FMJ,CA_Magazine); // no cal
-	RND45ACP(Tier1_20Rnd_40SW_FMJ,CA_Magazine);
+	RND45ACP(Tier1_20Rnd_40SW_FMJ,CA_Magazine);*/
 	
 	// 3CB
 	

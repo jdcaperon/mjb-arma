@@ -1,3 +1,4 @@
+if (isNil "ace_interact_menu") exitWith {};
 if (!isDedicated && {mjb_perks}) then {
     call mjb_perks_fnc_perkSelect;
 };
