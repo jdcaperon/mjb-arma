@@ -106,7 +106,7 @@ if !(canSuspend) exitWith {_this spawn mjb_arsenal_fnc_arsenal};
             missionArsenal = arsenal;
             private _action =
             [
-                "mission_arsenal","Mission Arsenal","\A3\ui_f\data\igui\cfg\weaponicons\MG_ca.paa",
+                "mission_arsenal","Mission Arsenal","\A3\ui_f\data\igui\cfg\weaponicons\aa_ca.paa",
                 {
                     lockIdentity player;
                     [missionArsenal, _player] call ace_arsenal_fnc_openBox
@@ -566,10 +566,15 @@ private _itemMod =
     "rhsgref_sdn6_suppressor",
     "rhsusf_acc_ardec_m240",
 
-    "Tier1_Gemtech_Halo",
+    /*"Tier1_Gemtech_Halo",
     "Tier1_SOCOM762_2_DE",
     "Tier1_SOCOM762_2_Black",
-    "Tier1_kac_556_qdc_cqb_black",
+    "Tier1_kac_556_qdc_cqb_black",*/
+
+	"muzzle_snds_65_ti_blk_f", // for persistent stuff
+	"muzzle_snds_338_black",
+	"muzzle_snds_570",
+	"muzzle_snds_58_blk_f",
 
     //============================================================
     //Bipod & Foregrips
@@ -961,7 +966,8 @@ private _itemWeaponAmmo =
 
     //Make eyeballs hurt
     "ACE_M84",
-    "ACE_Chemlight_HiGreen"
+    "ACE_Chemlight_HiGreen",
+	"ACE_Chemlight_IR"
 ];
 
 private _itemWeaponTracerAmmo =

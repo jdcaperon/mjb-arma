@@ -3,19 +3,20 @@
 
     If you want persistence between multiple missions, put 'missionGroup = "missionGroupName";' in description.ext for each of the missions.
 
-    Put '[player] call mjb_arsenal_fnc_initPersistentLoadout;' in initPlayerLocal.sqf
+    Put '[player] spawn mjb_arsenal_fnc_initPersistentLoadout;' in initPlayerLocal.sqf
 
-    '[player, false] call mjb_arsenal_fnc_initPersistentLoadout;' if you want them to keep their saved loadout even if they die in a mission.
+    '[player, false] spawn mjb_arsenal_fnc_initPersistentLoadout;' if you want them to keep their saved loadout even if they die in a mission.
 
-    '[player, true, "yourLoadoutNameHere"] call mjb_arsenal_fnc_initPersistentLoadout;' to set a different loadout slot within the same missionGroup.
+    '[player, true, "yourLoadoutNameHere"] spawn mjb_arsenal_fnc_initPersistentLoadout;' to set a different loadout slot within the same missionGroup.
 
-    '[player, true, "yourLoadoutNameHere", true] call mjb_arsenal_fnc_initPersistentLoadout;' to use profileNamespace instead of missionProfileNamespace for player loadouts.
+    '[player, true, "yourLoadoutNameHere", true] spawn mjb_arsenal_fnc_initPersistentLoadout;' to use profileNamespace instead of missionProfileNamespace for player loadouts.
 */
 
 params [["_player",player,[objNull]], ["_deleteOnDeath",true,[false]], ["_missionGroup","",[""]], ["_override",false,[false]]];
 
 
-if (mjb_saveLoadout < 1 || {!hasInterface}) exitWith {};
+if ( !hasInterface || {mjb_saveLoadout < 1} ) exitWith {};
+if !(canSuspend) exitWith {_this spawn mjb_arsenal_fnc_initPersistentLoadout;};
 
 mjb_deleteOnDeath = _deleteOnDeath;
 mjb_profOverride = _override;
@@ -25,7 +26,18 @@ if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = (getText (missionConfigFil
 if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = "mjb_loadout" + missionName;
 } else {mjb_pLoadName = "mjb_loadout" + mjb_pLoadName};
 
-if (isNil "mjb_persistenceActive") then {missionNamespace setVariable ["mjb_persistenceActive", true, true];};
+if (isNil "mjb_persistenceActive") then {
+	missionNamespace setVariable ["mjb_persistenceActive", true, true];
+	[{ if (isNil "mjb_persistPls") then {
+		mjb_persistPls = 0 spawn {
+			sleep 5;
+			if !(isNil "mjb_persistenceActive") then {
+				[{!(isNil "tmf_common_ending")}, {
+					missionNamespace setVariable ["tmf_common_ending",true,true];
+				}] call cba_fnc_waitUntilAndExecute;
+			};
+		};}; }] remoteExec ["call", 2];
+};
 
 waitUntil {!isNull player};
 

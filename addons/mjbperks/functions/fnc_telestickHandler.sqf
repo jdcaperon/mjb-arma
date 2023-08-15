@@ -8,5 +8,9 @@ if ("hemlight" in _projClass) then {
     _projectile addEventHandler ["Explode", {
         params ["_projectile","_pos"];
         (_projectile getVariable ["mjb_tpUnit", objNull]) setPosASL _pos;
+		if (mjb_teleFix) then {
+			_projectile setVariable ["mjb_tpUnit", nil];
+			_projectile removeEventHandler [_thisEvent,_thisEventHandler];
+		};
     }];
 };

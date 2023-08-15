@@ -14,7 +14,7 @@ if !(didJIP) then {
 //Variables
 private _aceMedLoaded = isClass(configFile >> "CfgPatches" >> "ace_medical_engine"); //Store whether ace med is present
 
-private _rejoincheck = player getVariable "startpos";
+private _rejoincheck = (player getVariable "startpos");
 if (isNil "_rejoincheck") then {
     player setVariable ["startpos", getPosASL player, true];
 };

@@ -4,14 +4,6 @@ if (mjb_plateToughness) then {
         [cba_missionTime] spawn mjb_arsenal_fnc_toughLoop;
     }];
 };
-if (mjb_plateSteal) then {
-    ["ace_firedPlayer", { params["", "", "", "", "", "", "_projectile"];
-        [_projectile] call mjb_arsenal_fnc_projHandler;
-    }] call CBA_fnc_addEventHandler;
-    ["ace_firedPlayerVehicle", { params["", "", "", "", "", "", "_projectile"];
-        [_projectile] call mjb_arsenal_fnc_projHandler;
-    }] call CBA_fnc_addEventHandler;
-};
 
 if (mjb_EMfix) then {
 	player addEventHandler ["AnimStateChanged", {

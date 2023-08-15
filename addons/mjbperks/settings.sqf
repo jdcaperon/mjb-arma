@@ -222,6 +222,14 @@ private _perkName = "Telestick";
     },
     true
 ] call CBA_fnc_addSetting;
+[
+    "mjb_teleFix",
+    "CHECKBOX",
+    [(_perkName + " fix"), "Disables pick up and throw causing additional teleports."],
+    ["MJB Arma Perks", _category],
+    true,
+    true
+] call CBA_fnc_addSetting;
 
 private _perkName = "Heartbeat Sensor";
 [

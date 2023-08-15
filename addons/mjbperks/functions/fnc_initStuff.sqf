@@ -1,4 +1,6 @@
 if (isNil "ace_interact_menu") exitWith {};
+if (!isNil "mjb_perksInit") exitWith {};
+mjb_perksInit = true;
 if (!isDedicated && {mjb_perks}) then {
     call mjb_perks_fnc_perkSelect;
 };
@@ -11,7 +13,7 @@ if (mjb_enableFlags) then {
     private _flag = "\A3\ui_f\data\igui\cfg\actions\takeflag_ca.paa";
     private _statement = { };
     private _action = ["ratsFlags","Flags",_flag,_statement,_condition, { }, [_flag], [0,0,0], 3, [false, true, false, false, true]] call ace_interact_menu_fnc_createAction;
-    [(typeOf player), 1, ["ACE_SelfActions","ACE_Equipment"], _action] call ace_interact_menu_fnc_addActionToClass;
+    ["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 
     private _condition = {
         true
@@ -28,7 +30,7 @@ if (mjb_enableFlags) then {
         };
     };
     private _action = ["ratsFlag","Attach Canadian Flag",_flag,_statement,_condition, { }, [_flag], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
-    [(typeOf player), 1, ["ACE_SelfActions","ACE_Equipment","ratsFlags"], _action] call ace_interact_menu_fnc_addActionToClass;
+    [(typeOf player), 1, ["ACE_SelfActions","ACE_Equipment","ratsFlags"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 
     private _condition = {
         true
@@ -45,7 +47,7 @@ if (mjb_enableFlags) then {
         };
     };
     private _action = ["ratsFlag","Attach RATS Flag",_flag,_statement,_condition, { }, [_flag], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
-    [(typeOf player), 1, ["ACE_SelfActions","ACE_Equipment","ratsFlags"], _action] call ace_interact_menu_fnc_addActionToClass;
+    ["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment","ratsFlags"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 };
 
 private _condition = {
@@ -65,4 +67,4 @@ private _disableMod = {
     };
 };
 private _action = ["ratsAFK","AFK, allow ace carry","",_statement,_condition, { }, [], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
-[(typeOf player), 1, ["ACE_SelfActions","ACE_Equipment"], _action] call ace_interact_menu_fnc_addActionToClass;
+["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment"], _action, true] call ace_interact_menu_fnc_addActionToClass;

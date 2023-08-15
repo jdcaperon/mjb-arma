@@ -25,6 +25,11 @@ waitUntil {sleep 8; !(isNil {_check = (isPlayer _player); _check}) && {_check}};
         player call diw_armor_plates_main_fnc_addPlayerHoldActions;
         [] call mjb_arsenal_fnc_initStuff;
         [] call mjb_perks_fnc_initStuff;
+		if (mjb_resyncAction) then { 
+			[{  private _var = ("mjb_" + (((name player) splitString "([ ]/:){}") joinString ""));
+				["mjb_resyncPlayer",[player], _var] call CBA_fnc_globalEventJIP;
+			}, nil, 3] call cba_fnc_waitAndExecute;
+		};
 		if !(isNil "mjb_persistenceActive") then {
 			([player, mjb_deleteOnDeath, mjb_pLoadName, mjb_profOverride]) call mjb_arsenal_fnc_initPersistentLoadout;
 		};

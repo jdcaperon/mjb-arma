@@ -10,8 +10,12 @@ private _aDrop =
 	{   params ["_target"];
 		private _vic = vehicle _target;
 		[_vic, false] remoteExec ["allowDamage", _vic];
+		if (_vic isNotEqualTo player) then {
+			[{player allowDamage false}] remoteExec ["call", crew _vic];};
 		[{ params ["_vic"];
 			[_vic, true] remoteExec ["allowDamage", _vic];
+			if (_vic isNotEqualTo player) then {
+				[{player allowDamage true}] remoteExec ["call", crew _vic];};
 		}, [_vic], 10] call CBA_fnc_waitAndExecute;
 		mjb_shieldAvailable = false;
 		[{mjb_shieldAvailable}, {mjb_shieldAvailable = true;}, [], mjb_shieldCd, {mjb_shieldAvailable = true;}] call CBA_fnc_waitUntilAndExecute;
