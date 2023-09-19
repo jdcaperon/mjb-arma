@@ -9,7 +9,8 @@ class CfgPatches {
     name = "MJB Perks";
     requiredAddons[]=
 		{
-	   		"ace_interact_menu"
+	   		"ace_interact_menu",
+			"ace_finger"
 		};
 	};
 };

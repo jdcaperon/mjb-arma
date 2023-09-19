@@ -1,10 +1,14 @@
 params ["_target"];
-if (mjb_regDisposable # 0 isNotEqualTo "") then {
+private _class = secondaryWeapon _target;
+private _current = mjb_regDisposable # 0;
+if (_current isNotEqualTo "" && {_class isEqualTo ""}) then {
 	_target addWeaponGlobal (mjb_regDisposable # 0); _target addSecondaryWeaponItem (mjb_regDisposable # 1);
 } else {
-	private _rocket = secondaryWeaponMagazine _target;
-	if (_rocket isEqualTo []) then {_rocket = [""];};
-	mjb_regDisposable = [secondaryWeapon _target, (_rocket # 0)];
+	if (_class isNotEqualTo "") then {
+		private _rocket = secondaryWeaponMagazine _target;
+		if (_rocket isEqualTo []) then {_rocket = [""];};
+		mjb_regDisposable = [_class, (_rocket # 0)];
+	};
 };
 private _perkName = "disCharge";
 if (!isNil ("mjb_" + _perkName + "Statemachine") ) then {

@@ -35,3 +35,4 @@
 ["z\mjb\addons\perks\functions\fnc_repair.sqf", "mjb_perks_fnc_repair"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_rearm.sqf", "mjb_perks_fnc_rearm"] call CBA_fnc_compileFunction;
 ["z\mjb\addons\perks\functions\fnc_shield.sqf", "mjb_perks_fnc_shield"] call CBA_fnc_compileFunction;
+["z\mjb\addons\perks\functions\fnc_jam.sqf", "mjb_perks_fnc_jam"] call CBA_fnc_compileFunction;

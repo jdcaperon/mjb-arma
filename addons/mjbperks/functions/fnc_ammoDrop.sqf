@@ -12,7 +12,7 @@ private _aDrop =
 [
 	"aDrop","Ammo Call-in","\a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargoMagAll_ca.paa",
 	{   params ["_target"];
-		private _pCrate = "Box_Rats_Ammo" createVehicle (getPos _target);
+		private _pCrate = ("Box_Rats_Ammo" createVehicle (getPos _target));
 		private _height = 500;
 		if (getTerrainHeightASL (getPosATL _pCrate) <= 0) then {
 			_pCrate setPosASL [getPosASL _pCrate select 0, getPosASL _pCrate select 1, _height];
@@ -21,11 +21,10 @@ private _aDrop =
 		};
 		_pCrate allowDamage false;
 		_pCrate spawn { params ["_crate"];
-			while {(getPosATL _crate) # 2 > 1 && {(getPosASL _crate) # 2 > 3}} do {sleep 1;};
-			_crate setVelocity [0, 0, 0];
 			[_crate, false] remoteExec ["ace_dragging_fnc_setDraggable",0];
 			[_crate, false] remoteExec ["ace_dragging_fnc_setCarryable",0];
 			[_crate, 10] remoteExec ["ace_cargo_fnc_setSize",0];
+			[{(getPosATL _crate) # 2 > 1 && {(getPosASL _crate) # 2 > 3}}, {_crate setVelocity [0, 0, 0];}, [], 20, {_crate setVelocity [0, 0, 0];}] call CBA_fnc_waitUntilAndExecute;
 			[_crate, true] remoteExec ["allowDamage", _crate];
 			//mjb_ammoCalled = _crate;
 			[_crate, { params ["_crate"];

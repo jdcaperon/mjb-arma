@@ -80,7 +80,7 @@ if (mjb_timerRegain > 0) then { [] spawn {
 
 if (mjb_arsenal_maxLoadoutInjectors > 0) then { [] spawn {
 	waitUntil {!isNull player};
-	mjb_arsenal_injectorCount = mjb_arsenal_maxLoadoutInjectors;
+	if (isNil "mjb_arsenal_injectorCount") then {mjb_arsenal_injectorCount = 0;};	
 	mjb_arsenal_injectorStash = 0;
 
     ["diw_armor_plates_main_consumeInjectorUse", {mjb_arsenal_injectorCount = (mjb_arsenal_injectorCount - 1) max 0;}] call CBA_fnc_addEventHandler;
@@ -140,106 +140,10 @@ if (mjb_arsenal_maxLoadoutInjectors > 0) then { [] spawn {
 		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {player getUnitTrait "Medic"}) then {
 			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems; };
 		[{ if (isDedicated) exitWith {};
-mjb_arsenal_injectorCount = mjb_arsenal_injectorCount - 1; mjb_arsenal_injectorStash = mjb_arsenal_injectorStash + 1;
+		mjb_arsenal_injectorCount = mjb_arsenal_injectorCount - 1; mjb_arsenal_injectorStash = mjb_arsenal_injectorStash + 1;
 		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) >= mjb_arsenal_maxLoadoutInjectors) then {
 			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_removeVirtualItems; };
 		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {player getUnitTrait "Medic"}) then {
 			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems; };}] remoteExec ["call", owner _container]; // ???
 	}];
-
-	["ace_arsenal_onLoadoutLoad", {
-		params ["_loadout"];
-		private _count = 0;
-		private _fnc_count = {
-			params ["_items", "_amounts"];
-			{
-				if (_x in diw_armor_plates_main_injectorItems) then {
-					_count = _count + (_amounts select _forEachIndex);
-				};
-			} forEach _items;
-		};
-        private _unit = player;
-		(getItemCargo uniformContainer _unit) call _fnc_count;
-		(getItemCargo vestContainer _unit) call _fnc_count;
-		(getItemCargo backpackContainer _unit) call _fnc_count;
-		mjb_arsenal_injectorCount = _count;
-
-		if ((_count + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {!isNull arsenal && {player getUnitTrait "Medic"}}) exitWith {
-			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems;
-		};
-		[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_removeVirtualItems;
-
-        if (_count <= 0) exitWith {};
-		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) > mjb_arsenal_maxLoadoutInjectors) then {
-            private _remove = ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) - mjb_arsenal_maxLoadoutInjectors);
-			for "_l" from 1 to _remove do
-            {
-				["diw_armor_plates_main_consumeInjectorUse", [player]] call CBA_fnc_localEvent;
-                _count = _count - 1;
-                if (_count <= 0) exitWith {};
-            };
-		    mjb_arsenal_injectorCount = _count max 0;
-		};
-	}] call CBA_fnc_addEventHandler;
-
-	["ace_arsenal_displayOpened", {
-		private _count = 0;
-		private _fnc_count = {
-			params ["_items", "_amounts"];
-			{
-				if (_x in diw_armor_plates_main_injectorItems) then {
-					_count = _count + (_amounts select _forEachIndex);
-				};
-			} forEach _items;
-		};
-        private _unit = player;
-		(getItemCargo uniformContainer _unit) call _fnc_count;
-		(getItemCargo vestContainer _unit) call _fnc_count;
-		(getItemCargo backpackContainer _unit) call _fnc_count;
-		mjb_arsenal_injectorCount = _count;
-
-		if ((_count + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {!isNull arsenal && {player getUnitTrait "Medic"}}) exitWith {
-			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems;
-		};
-		[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_removeVirtualItems;
-	}] call CBA_fnc_addEventHandler;
-
-	["ace_arsenal_displayClosed", {
-		params ["_loadout"];
-		private _count = 0;
-		private _fnc_count = {
-			params ["_items", "_amounts"];
-			{
-				if (_x in diw_armor_plates_main_injectorItems) then {
-					_count = _count + (_amounts select _forEachIndex);
-				};
-			} forEach _items;
-		};
-        private _unit = player;
-		(getItemCargo uniformContainer _unit) call _fnc_count;
-		(getItemCargo vestContainer _unit) call _fnc_count;
-		(getItemCargo backpackContainer _unit) call _fnc_count;
-		mjb_arsenal_injectorCount = _count;
-
-		if ((_count + mjb_arsenal_injectorStash) > mjb_arsenal_maxLoadoutInjectors) then {
-            private _remove = (_count - mjb_arsenal_maxLoadoutInjectors);
-			for "_l" from 1 to _remove do {
-				["diw_armor_plates_main_consumeInjectorUse", [player]] call CBA_fnc_localEvent;
-                _count = _count - 1;
-                if (_count <= 0) exitWith {};
-            };
-		    mjb_arsenal_injectorCount = _count max 0;
-		};
-	}] call CBA_fnc_addEventHandler;
-
-	["ace_arsenal_cargoChanged", {
-		params ["_display", "_item", "_addRemove"];
-		if !(_item in diw_armor_plates_main_injectorItems) exitWith { };
-		if (_addRemove > 0) then {mjb_arsenal_injectorCount = mjb_arsenal_injectorCount + 1;
-		} else {mjb_arsenal_injectorCount = mjb_arsenal_injectorCount - 1;};
-		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) >= mjb_arsenal_maxLoadoutInjectors) then {
-			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_removeVirtualItems; };
-		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {player getUnitTrait "Medic"}) then {
-			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems; };
-	}] call CBA_fnc_addEventHandler;
 };};

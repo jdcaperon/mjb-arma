@@ -31,7 +31,7 @@ waitUntil {sleep 8; !(isNil {_check = (isPlayer _player); _check}) && {_check}};
 			}, nil, 3] call cba_fnc_waitAndExecute;
 		};
 		if !(isNil "mjb_persistenceActive") then {
-			([player, mjb_deleteOnDeath, mjb_pLoadName, mjb_profOverride]) call mjb_arsenal_fnc_initPersistentLoadout;
+			[player, mjb_deleteOnDeath, mjb_pLoadName, mjb_profOverride] call mjb_arsenal_fnc_initPersistentLoadout;
 		};
     };
 }] remoteExec ["call", _player];

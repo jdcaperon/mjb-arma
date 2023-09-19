@@ -24,7 +24,7 @@ mjb_profOverride = _override;
 mjb_pLoadName = _missionGroup;
 if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = (getText (missionConfigFile >> "missionGroup"));};
 if (mjb_pLoadName isEqualTo "") then {mjb_pLoadName = "mjb_loadout" + missionName;
-} else {mjb_pLoadName = "mjb_loadout" + mjb_pLoadName};
+} else {if !("mjb_loadout" in mjb_pLoadName) then {mjb_pLoadName = "mjb_loadout" + mjb_pLoadName;};};
 
 if (isNil "mjb_persistenceActive") then {
 	missionNamespace setVariable ["mjb_persistenceActive", true, true];

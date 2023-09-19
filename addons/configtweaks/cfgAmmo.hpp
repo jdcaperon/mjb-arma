@@ -15,6 +15,12 @@ class CfgAmmo
 	class mjb_93x64_trc_red: B_93x64_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_red"; };
 	class mjb_93x64_trc_ylw: B_93x64_Ball { model = "\A3\Weapons_f\Data\bullettracer\tracer_yellow"; };
 
+	class rhs_g_vog25;
+	class mjb_g_vogmdp : rhs_g_vog25 {
+		indirectHitRange = 4;
+		submunitionAmmo = "rhs_ammo_40mmHEDP_penetrator";
+	};
+
 
 
 	// Rocket use flags

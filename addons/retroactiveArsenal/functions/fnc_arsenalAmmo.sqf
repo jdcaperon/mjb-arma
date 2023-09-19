@@ -363,7 +363,9 @@ private _itemWeaponCQB =
     "greenmag_ammo_765x17_basic_60Rnd",
     "greenmag_ammo_9x39_ball_60Rnd",
     "greenmag_ammo_45ACP_basic_60Rnd",
-    "greenmag_ammo_9x19_basic_60Rnd"
+    "greenmag_ammo_9x19_basic_60Rnd",
+	"greenmag_ammo_12G_basic_12Rnd",
+	"greenmag_ammo_12G_basic_24Rnd"
 ];
 
 private _itemWeaponSFAR =
@@ -446,7 +448,8 @@ private _itemSniperAmmo = [
     "greenmag_ammo_127x108_basic_60Rnd",
     "greenmag_ammo_338_basic_30Rnd",
     "greenmag_ammo_338_basic_60Rnd",
-    "greenmag_ammo_46x30_basic_60Rnd"
+    "greenmag_ammo_46x30_basic_60Rnd",
+    "greenmag_ammo_93x64_basic_60Rnd"
 ];
 
 private _itemWeaponGL =
@@ -478,7 +481,9 @@ private _itemWeaponGL =
     "CUP_1Rnd_SmokeRed_GP25_M",
     "CUP_1Rnd_SmokeGreen_GP25_M",
     "rhs_VOG25",
-    "rhs_VG40TB"
+    "rhs_VG40TB",
+
+	"mjb_VOGMDP"
 ];
 
 private _itemWeaponSFSL =

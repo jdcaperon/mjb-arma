@@ -31,8 +31,7 @@ private _pDrop =
 			mjb_arsenal_injectorStash = mjb_arsenal_injectorStash + 1;
 		};
 		_pCrate spawn { params ["_crate"];
-			while {(getPosATL _crate) # 2 > 1 && {(getPosASL _crate) # 2 > 3}} do {sleep 1;};
-			_crate setVelocity [0, 0, 0];
+			[{(getPosATL _crate) # 2 > 1 && {(getPosASL _crate) # 2 > 3}}, {_crate setVelocity [0, 0, 0];}, [], 20, {_crate setVelocity [0, 0, 0];}] call CBA_fnc_waitUntilAndExecute;
 		};
 		mjb_plateDropAvailable = false;
 		[{mjb_plateDropAvailable}, {mjb_plateDropAvailable = true;}, [], mjb_plateDropCd, {mjb_plateDropAvailable = true;}] call CBA_fnc_waitUntilAndExecute;

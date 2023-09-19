@@ -20,7 +20,7 @@ if (isServer) then {
 					_unit allowDamage false;
 				};
 				private _ogGroup = (_unit getVariable ["mjb_ogGroup",grpNull]);
-				if (_ogGroup isNotEqualTo group _unit) then {
+				if (mjb_slotSaverAIExt && {_ogGroup isNotEqualTo group _unit}) then {
 					if (isNil "mjb_disconnects") then {mjb_disconnects = [];};
 					mjb_disconnects pushBack _uid;
 					mjb_groupDisconnectHandler = (addMissionEventHandler ["PlayerConnected", {
@@ -28,8 +28,9 @@ if (isServer) then {
 						if (_uid in mjb_disconnects) then {
 							private _units = playableUnits;
 							private _index = _units findIf {(_x getVariable ["mjb_steamIDrop",""]) isEqualTo _uid};
-							if (_index > -1 && {alive (_units select _index)}) then {
-								private _unit = (_units select _index);
+							if (_index < 0) exitWith {};
+							private _unit = (_units select _index);
+							if (alive _unit && {!(typeOf _unit in ["tmf_spectator","ace_spectator_virtual","virtualSpectator_F"])}) then {
 								private _targetID = owner (allPlayers select (allPlayers findIf {name _x isEqualTo _name}));
 								[_unit,_targetID,_uid] spawn {params ["_unit","_targetID","_uid"];
 									waitUntil {sleep 5; !isNull (_uid call BIS_fnc_getUnitByUID)};
@@ -37,7 +38,7 @@ if (isServer) then {
 									sleep 5;
 									[_unit,{
 										mjb_self = player; selectPlayer _this;
-										if (typeOf mjb_self isEqualTo "tmf_spectator") then { deleteVehicle mjb_self; };
+										if (typeOf mjb_self in ["tmf_spectator","ace_spectator_virtual","virtualSpectator_F"]) then { deleteVehicle mjb_self; };
 										(uiNamespace getVariable "RscDisplayInterrupt") closeDisplay 1;
 										while {dialog} do { closeDialog 0; };
 										player spawn mjb_arsenal_fnc_tmfSpawnFix;
@@ -55,7 +56,8 @@ if (isServer) then {
 				_unit addEventHandler ["Local", { params ["_player"];
 					if (isServer && {!local _player}) then {
 						[_player,{ params ["_player"];
-							sleep 2;
+							waitUntil {sleep 5; !isNull player};
+							sleep 5;
 							if (player isEqualTo _player) then {
 								if ((_player getVariable ["mjb_steamIDrop",true]) isEqualTo (getPlayerUID player)) then {
 									_player setVariable ["mjb_steamIDrop",nil,true];
@@ -144,39 +146,65 @@ if (isServer) then {
 };
 
 if (mjb_dropPlate) then {
-["CAManBase", "InitPost", {
-    params ["_unit"];
-	if (isPlayer _unit || { !local _unit}) exitWith {};
-    _unit spawn {  params ["_unit"];
-		sleep 6;
-		if !("diw_armor_plates_main_plate" in (_unit call ace_common_fnc_uniqueItems)) exitWith {};
-		[_unit, "Killed", {  params ["_unit"];
-			if (!isNull (objectParent _unit)) exitWith {};
-			_unit spawn {  params ["_unit"];
-				sleep 1;
-				private _count = 0;
-				while {[_unit, "diw_armor_plates_main_plate"] call CBA_fnc_removeItem} do {_count = _count + 1;};
-				private _deathBox = (_unit nearObjects ["WeaponHolderSimulated",2] select 0);
-				if (isNil "_deathBox") then {
-					_deathBox = createVehicle ["GroundWeaponHolder",_unit,[],0.6,"CAN_COLLIDE"];
-					private _dBoxPos = getPosATL _deathBox;
-					if !(surfaceIsWater _dBoxPos) exitWith {_deathBox setPosATL [(_dBoxPos # 0),(_dBoxPos # 1),0]};
-					_dBoxPos = getPosASL _deathBox;
-					private _height = ((getPosASL _unit) # 2);
-					_deathBox setPosASL [(_dBoxPos # 0),(_dBoxPos # 1),_height];
-					/*if (((getPosASL _deathBox) # 2) < 0) then {
+	["CAManBase", "InitPost", {
+		params ["_unit"];
+		if (isPlayer _unit || { !local _unit}) exitWith {};
+		_unit spawn {  params ["_unit"];
+			sleep 6;
+			if !("diw_armor_plates_main_plate" in (_unit call ace_common_fnc_uniqueItems)) exitWith {};
+			[_unit, "Killed", {  params ["_unit"];
+				if (!isNull (objectParent _unit)) exitWith {};
+				_unit spawn {  params ["_unit"];
+					sleep 1;
+					private _count = 0;
+					while {[_unit, "diw_armor_plates_main_plate"] call CBA_fnc_removeItem} do {_count = _count + 1;};
+					private _deathBox = (_unit nearObjects ["WeaponHolderSimulated",2] select 0);
+					if (isNil "_deathBox") then {
+						_deathBox = createVehicle ["GroundWeaponHolder",_unit,[],0.6,"CAN_COLLIDE"];
+						private _dBoxPos = getPosATL _deathBox;
+						if !(surfaceIsWater _dBoxPos) exitWith {_deathBox setPosATL [(_dBoxPos # 0),(_dBoxPos # 1),0]};
+						_dBoxPos = getPosASL _deathBox;
 						private _height = ((getPosASL _unit) # 2);
-						_deathBox setPosASL [((getPosASL _deathBox) select 0), ((getPosASL _deathBox) select 1), _height];
-						if (getPosATL _deathBox # 2 < 0) then {
-							_deathBox setPosATL [((getPosATL _deathBox) select 0), ((getPosATL _deathBox) select 1), 0];};
-					};*/
+						_deathBox setPosASL [(_dBoxPos # 0),(_dBoxPos # 1),_height];
+						/*if (((getPosASL _deathBox) # 2) < 0) then {
+							private _height = ((getPosASL _unit) # 2);
+							_deathBox setPosASL [((getPosASL _deathBox) select 0), ((getPosASL _deathBox) select 1), _height];
+							if (getPosATL _deathBox # 2 < 0) then {
+								_deathBox setPosATL [((getPosATL _deathBox) select 0), ((getPosATL _deathBox) select 1), 0];};
+						};*/
+					};
+					_deathBox addItemCargoGlobal ["diw_armor_plates_main_plate",_count];
+					if (!isServer) then { [_deathBox,2] remoteExec ["setOwner",2]};
 				};
-				_deathBox addItemCargoGlobal ["diw_armor_plates_main_plate",_count];
-				if (!isServer) then { [_deathBox,2] remoteExec ["setOwner",2]};
-			};
-		}, nil] call CBA_fnc_addBISEventHandler;
-	}
-}, true, [], true] call CBA_fnc_addClassEventHandler;
+			}, nil] call CBA_fnc_addBISEventHandler;
+		}
+	}, true, [], true] call CBA_fnc_addClassEventHandler;
+};
+
+if (mjb_disableGunnerBail) then {
+	[{  private _eventHash = (cba_events_eventHashes getVariable ["ace_vehicle_damage_bailOut", nil]);
+		private _eventId = [_eventHash, "#lastId"] call CBA_fnc_hashGet;
+		if (isServer && {_eventId > 0}) then {systemChat "PCA > Disable gunner bail being on may cause issues due to another mod besides ACE using the same event."};
+		["ace_vehicle_damage_bailOut", 0] call CBA_fnc_removeEventHandler;
+		["ace_vehicle_damage_bailOut", {
+			params ["_center", "_crewman", "_vehicle"];
+
+			if (isPlayer _crewman) exitWith {};
+			private _canShoot = (_vehicle getVariable ["ace_vehicle_damage_canShoot",true]);
+			if (!alive _crewman || { !( [_crewman] call ace_common_fnc_isAwake) || {_crewman isEqualTo (gunner _vehicle) && {_canShoot}}} ) exitWith {};
+
+			unassignVehicle _crewman;
+			if (!_canShoot) then {_crewman leaveVehicle _vehicle;};
+			doGetOut _crewman;
+
+			private _angle = floor (random 360);
+			private _dist = (30 + (random 10));
+			private _escape = _center getPos [_dist, _angle];
+
+			_crewman doMove _escape;
+			_crewman setSpeedMode "FULL";
+		}] call CBA_fnc_addEventHandler;
+	}, nil, 3] call cba_fnc_waitAndExecute;
 };
 
 if (isMultiplayer) then {
@@ -206,7 +234,7 @@ if (isMultiplayer) then {
 	};
 	if (mjb_resyncAction) then {
 		if (hasInterface) then {player createDiarySubject ["mjb_resync", "Resync"];};
-		mjb_resyncEH = ["mjb_resyncPlayer", { params ["_unit"];
+		mjb_resyncEH = (["mjb_resyncPlayer", { params ["_unit"];
 			_unit spawn { params ["_unit"]; waitUntil {sleep 5; isPlayer _unit};
 				sleep 1;
 				private _var = ("mjb_" + (((name _unit) splitString "([ ]/:){}") joinString ""));
@@ -215,10 +243,12 @@ if (isMultiplayer) then {
 				if (!hasInterface || {!isNil "_assign"}) exitWith {};
 				player createDiaryRecord  ["mjb_resync", [(name _unit),format ["<execute expression='if !(isNil ""mjb_syncCD"") exitWith {}; mjb_syncCD = false; [{mjb_syncCD = nil;},[],60] call CBA_fnc_waitAndExecute; [""mjb_resync"", %1] call CBA_fnc_serverEvent;'>[Re-sync State]</execute>",_var]]];
 			};
-		}] call CBA_fnc_addEventHandler;
-		[{  private _var = ("mjb_" + (((name player) splitString "([ ]/:){}") joinString ""));
+		}] call CBA_fnc_addEventHandler);
+		0 spawn { waitUntil {sleep 1; !isNull player};
+			sleep 3;
+			private _var = ("mjb_" + (((name player) splitString "([ ]/:){}") joinString ""));
 			["mjb_resyncPlayer",[player], _var] call CBA_fnc_globalEventJIP;
-		}, nil, 3] call cba_fnc_waitAndExecute;
+		};
 	};
 	if !(hasInterface) exitWith {};
 	if !(isNil "zen_remote_control") then {
@@ -252,6 +282,13 @@ if !(hasInterface) exitWith {};
 setTIParameter ["OutputRangeStart", mjb_thermalStart];
 setTIParameter ["OutputRangeWidth", mjb_thermalWidth];
 
+if (mjb_plateToughness) then {
+    ["ace_overpressure", {
+        player setVariable ["mjb_hitTime", cba_missionTime];
+        [cba_missionTime] spawn mjb_arsenal_fnc_toughLoop;
+    }] call CBA_fnc_addEventHandler;
+};
+
 if (!isNil "ace_interact_menu") then {
 	private _action = [
 		"mjb_uniformFix","Fix Uniform",
@@ -282,6 +319,13 @@ if (mjb_plateSteal) then {
 		if (_mode == -1) exitWith {}; [_mode] call ace_microdagr_fnc_openDisplay; };
     if ((_extradata getOrDefault ["mjb_gpsMode", false]) && {"ItemGPS" in (_unit call ace_common_fnc_uniqueItems)}) then {
 		openGPS true;};
+	[_unit,(_extradata getOrDefault ["mjb_goggles", ""])] spawn { params ["_unit","_goggs"]; sleep 1;
+//systemChat (_goggs + ", " + (goggles _unit) + ".");
+		if (_goggs isNotEqualTo "") then {
+			_unit addGoggles _goggs;
+//systemChat ((goggles _unit) + ".");
+		};
+	};
 }] call CBA_fnc_addEventHandler;
 
 ["CBA_loadoutGet", {
@@ -290,8 +334,110 @@ if (mjb_plateSteal) then {
     if (!isNil "_mode") then {
         _extradata set ["mjb_dagrMode", _mode];};
 	if (visibleGPS) then {_extradata set ["mjb_gpsMode", true];};
+	private _goggs = goggles _unit; 
+	if (_goggs isNotEqualTo "") then {
+		_extradata set ["mjb_goggles", _goggs];
+	};
 }] call CBA_fnc_addEventHandler;
 
 mjb_persistHandle = ["mjb_modulePersist", {
 	[player] spawn mjb_arsenal_fnc_initPersistentLoadout;
 }] call CBA_fnc_addEventHandler;
+
+
+if (mjb_arsenal_maxLoadoutInjectors > 0) then {
+	["CBA_loadoutSet", {
+		params ["_unit"];
+		if (isNil "arsenal") exitWith {};
+		private _count = 0;
+		private _fnc_count = {
+			params ["_items", "_amounts"];
+			{
+				if (_x in diw_armor_plates_main_injectorItems) then {
+					_count = _count + (_amounts select _forEachIndex);
+				};
+			} forEach _items;
+		};
+		(getItemCargo uniformContainer _unit) call _fnc_count;
+		(getItemCargo vestContainer _unit) call _fnc_count;
+		(getItemCargo backpackContainer _unit) call _fnc_count;
+		mjb_arsenal_injectorCount = _count;
+		if ((_count + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {!isNull arsenal && {player getUnitTrait "Medic"}}) exitWith {
+			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems;
+		};
+		[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_removeVirtualItems;
+
+        if (_count <= 0) exitWith {};
+		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) > mjb_arsenal_maxLoadoutInjectors) then {
+            private _remove = ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) - mjb_arsenal_maxLoadoutInjectors);
+			for "_l" from 1 to _remove do
+            {
+				["diw_armor_plates_main_consumeInjectorUse", [player]] call CBA_fnc_localEvent;
+                _count = _count - 1;
+                if (_count <= 0) exitWith {};
+            };
+		    mjb_arsenal_injectorCount = _count max 0;
+		};
+	}] call CBA_fnc_addEventHandler;
+
+	["ace_arsenal_displayOpened", {
+		private _count = 0;
+		private _fnc_count = {
+			params ["_items", "_amounts"];
+			{
+				if (_x in diw_armor_plates_main_injectorItems) then {
+					_count = _count + (_amounts select _forEachIndex);
+				};
+			} forEach _items;
+		};
+        private _unit = player;
+		(getItemCargo uniformContainer _unit) call _fnc_count;
+		(getItemCargo vestContainer _unit) call _fnc_count;
+		(getItemCargo backpackContainer _unit) call _fnc_count;
+		mjb_arsenal_injectorCount = _count;
+
+		if ((_count + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {!isNull arsenal && {player getUnitTrait "Medic"}}) exitWith {
+			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems;
+		};
+		[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_removeVirtualItems;
+	}] call CBA_fnc_addEventHandler;
+
+	["ace_arsenal_displayClosed", {
+		params ["_loadout"];
+		private _count = 0;
+		private _fnc_count = {
+			params ["_items", "_amounts"];
+			{
+				if (_x in diw_armor_plates_main_injectorItems) then {
+					_count = _count + (_amounts select _forEachIndex);
+				};
+			} forEach _items;
+		};
+        private _unit = player;
+		(getItemCargo uniformContainer _unit) call _fnc_count;
+		(getItemCargo vestContainer _unit) call _fnc_count;
+		(getItemCargo backpackContainer _unit) call _fnc_count;
+		mjb_arsenal_injectorCount = _count;
+
+		if ((_count + mjb_arsenal_injectorStash) > mjb_arsenal_maxLoadoutInjectors) then {
+            private _remove = (_count - mjb_arsenal_maxLoadoutInjectors);
+			for "_l" from 1 to _remove do {
+				["diw_armor_plates_main_consumeInjectorUse", [player]] call CBA_fnc_localEvent;
+                _count = _count - 1;
+                if (_count <= 0) exitWith {};
+            };
+		    mjb_arsenal_injectorCount = _count max 0;
+		};
+	}] call CBA_fnc_addEventHandler;
+
+	["ace_arsenal_cargoChanged", {
+		params ["_display", "_item", "_addRemove"];
+		if !(_item in diw_armor_plates_main_injectorItems) exitWith { };
+		if (_addRemove > 0) then {mjb_arsenal_injectorCount = mjb_arsenal_injectorCount + 1;
+		} else {mjb_arsenal_injectorCount = mjb_arsenal_injectorCount - 1;};
+		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) >= mjb_arsenal_maxLoadoutInjectors) then {
+			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_removeVirtualItems; };
+		if ((mjb_arsenal_injectorCount + mjb_arsenal_injectorStash) < mjb_arsenal_maxLoadoutInjectors && {player getUnitTrait "Medic"}) then {
+			[arsenal, diw_armor_plates_main_injectorItems] call ace_arsenal_fnc_addVirtualItems; };
+	}] call CBA_fnc_addEventHandler;
+};

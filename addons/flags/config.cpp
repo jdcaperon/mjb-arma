@@ -5,7 +5,7 @@ class CfgPatches {
     requiredVersion = 0.1;
     author = "Alien314, Flamebunny, MajorDanvers";
     name = "Flags";
-   requiredAddons[]=
+    requiredAddons[]=
 		{
 			"cba_main"
 		};
@@ -208,6 +208,7 @@ class CfgWeapons
   class CUP_arifle_M4A1;
   class mjb_arifle_C7Alpha : CUP_arifle_M4A1
   {
+	  baseWeapon = "mjb_arifle_C7Alpha";
 	  displayName = "C7Alpha";
 	  aimTransitionSpeed = 1.1;
 	  inertia = 0.5;
@@ -223,6 +224,7 @@ class CfgWeapons
   class CUP_arifle_Colt727_M203;
   class mjb_arifle_C7Bravo : CUP_arifle_Colt727_M203
   {
+	  baseWeapon = "mjb_arifle_C7Bravo";
 	  displayName = "C7Bravo";
 	  hiddenSelectionsTextures[] = {"z\mjb\addons\flags\data\c7a2_co.paa","CUP\Weapons\CUP_Weapons_M16\data\tigg_m203_m4_co.paa","z\mjb\addons\flags\data\colt727_furniture_co.paa","cup\weapons\cup_weapons_m16\data\tigg_m4barrel_co.paa","cup\weapons\cup_weapons_m16\data\m16a1_body_co.paa"};
   };

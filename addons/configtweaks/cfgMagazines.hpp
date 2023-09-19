@@ -61,6 +61,13 @@
 		greenmag_canSpeedload = 1; \
 		greenmag_needBelt = 0; \
 	};
+#define RND12G(NAME,PARENT) \
+	class ##NAME## : ##PARENT## \
+	{ \
+		greenmag_basicammo = "greenmag_ammo_12G_basic_1Rnd"; \
+		greenmag_canSpeedload = 1; \
+		greenmag_needBelt = 0; \
+	};
 
 class CfgMagazines
 {
@@ -106,6 +113,8 @@ class CfgMagazines
 	class 30Rnd_45ACP_Mag_SMG_01_Tracer_Yellow : 30Rnd_9x21_Mag {
 		greenmag_basicammo = "greenmag_ammo_45ACP_basic_1Rnd";
 	};
+
+	RND12G(2Rnd_12Gauge_Pellets,CA_Magazine);
 	
 // Quick and dirty 'Simple' sim complexity setting only Greenmag compatibility for CUP and RHS
     RND556X45(CUP_30Rnd_556x45_Stanag,CA_Magazine);
@@ -226,6 +235,14 @@ class CfgMagazines
 		greenmag_canSpeedload = 1;
 		greenmag_needBelt = 0;
 	};
+
+	RND12G(CUP_5Rnd_B_Saiga12_Buck_00,CA_Magazine);
+	RND12G(CUP_5Rnd_B_Saiga12_Slug,CA_Magazine);
+	RND12G(CUP_1Rnd_12Gauge_Pellets_No00_Buck,CA_Magazine);
+	RND12G(CUP_1Rnd_12Gauge_Slug,CA_Magazine);
+	RND12G(CUP_20Rnd_B_AA12_Buck_00,CA_Magazine);
+	RND12G(CUP_20Rnd_B_AA12_Slug,CA_Magazine);
+	RND12G(CUP_20Rnd_B_AA12_HE,CA_Magazine);
 	
 	/*/ Bizon class name fix, magwell at bottom
 	class CUP_64Rnd_9x19_Bizon_M : CA_Magazine
@@ -394,6 +411,8 @@ class CfgMagazines
 		greenmag_needBelt = 0;
 	};	
 	RND45ACP(rhsusf_mag_7x45acp_MHP,CA_Magazine);
+
+	RND12G(rhsusf_5Rnd_00Buck,CA_Magazine);
 	
 	class rhs_mag_30Rnd_556x45_M855A1_EPM;
 	class rhs_mag_30Rnd_556x45_M855A1_PMAG;
@@ -457,20 +476,40 @@ class CfgMagazines
 	// globmob compat tweak
 	//class gm_1Rnd_40mm_heat_pg7v_rpg7 : rhs_rpg7_PG7V_mag {};
 	//class gm_1Rnd_40mm_heat_pg7vl_rpg7 : rhs_rpg7_PG7VL_mag {};
+
+	class rhs_VOG25;
+	class mjb_vogmdp : rhs_vog25 {
+		ammo = "mjb_g_vogmdp";
+		displayName = "VOG-MDP";
+		descriptionshort = "Type: HEDP Grenade Round<br />Caliber: 40 mm<br />Rounds: 1<br />Used in: GP25";displaynameshort = "HEDP Grenade";
+	};
 };
 
 class CfgMagazineWells {
     class CBA_338NM_LINKS {
-        ADDON[] = {
-		"mjb_130Rnd_338_Mag_trc_gr",
-		"mjb_130Rnd_338_Mag_trc_ylw"
+        mjb_mags[] = {
+			"mjb_130Rnd_338_Mag_trc_gr",
+			"mjb_130Rnd_338_Mag_trc_ylw"
         };
     };
 	
     class CBA_93x64_LINKS {
-        ADDON[] = {
-		"mjb_150Rnd_93x64_Mag_trc_red",
-		"mjb_150Rnd_93x64_Mag_trc_ylw"
+        mjb_mags[] = {
+			"mjb_150Rnd_93x64_Mag_trc_red",
+			"mjb_150Rnd_93x64_Mag_trc_ylw"
+        };
+    };
+	
+    class CBA_40mm_GP {
+        mjb_mags[] = {
+			"mjb_vogmdp"
+        };
+		RHS_Magazines[] = {"rhs_VOG25","rhs_VOG25p","rhs_vg40tb","rhs_vg40sz","rhs_vg40op_white","rhs_vg40op_green","rhs_vg40op_red","rhs_GRD40_white","rhs_GRD40_green","rhs_GRD40_red","rhs_VG40MD","rhs_VG40MD_White","rhs_VG40MD_Green","rhs_VG40MD_Red","rhs_GDM40"};
+    };
+	
+    class VOG_40mm {
+        mjb_mags[] = {
+			"mjb_vogmdp"
         };
     };
 	

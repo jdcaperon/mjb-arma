@@ -7,7 +7,7 @@ class CfgPatches {
     requiredVersion = 0.1;
     author = "SuperJam, Camelith, Alien314";
     name = "Config Tweaks";
-   requiredAddons[]=
+	requiredAddons[]=
         {
             "ace_ballistics",
             "CUP_Creatures_People_LoadOrder",
@@ -29,7 +29,8 @@ class CfgPatches {
             "CUP_TrackedVehicles_LoadOrder",
             "CUP_WaterVehicles_LoadOrder",
             "CUP_WheeledVehicles_LoadOrder",
-			"PMC_Vest"
+			"PMC_Vest",
+			"ace_recoil"
         };
     };
 };
@@ -49,6 +50,19 @@ class CfgBrains {
 
 // No greenmag spaghetti tweak
 class CfgInventoryGlobalVariable { maxSoldierLoad = 9001; };
+
+class CfgRecoils {
+  class recoil_default;
+  class recoil_mk200 : recoil_default {
+	muzzleOuter[] = {"0.4*0.2","0.6*1", "0.4*1" ,"0.2*1"};
+  };
+  class recoil_zafir : recoil_default {
+	muzzleOuter[] = {"0.5*0.2","1*1", "0.5*1" ,"0.3*1"};
+  };
+};
+
+class Mode_SemiAuto;
+class Mode_FullAuto;
 
 class CfgWeapons {
   class Default;
@@ -233,6 +247,7 @@ class CfgWeapons {
     aiDispersionCoefY = 30;
   };
   
+  class Rifle_Base_F;
   // 3CB
   /* class UK3CB_PKT : rhs_weap_pkt {
     aiDispersionCoefX = 40.0;
@@ -240,12 +255,46 @@ class CfgWeapons {
   };
   
   // Bizon mag name fix
-  class Rifle_Base_F;
   class CUP_smg_bizon : Rifle_Base_F
   {
       magazineWell[] = {"CBA_9x18_PP19"};
   };
   */
+  // Meme MOA
+  class CUP_smg_SA61 : Rifle_Base_F {
+	class FullAuto : Mode_FullAuto {
+		dispersion = 0.02007;
+	};
+	class Single : Mode_SemiAuto {
+		dispersion = 0.02007;
+	};
+  };
+
+  class greenmag_ammo_127x54_basic_60Rnd;
+  class greenmag_ammo_93x64_basic_60Rnd : greenmag_ammo_127x54_basic_60Rnd {
+    displayName = "9.3x64mm - 60 Rnd";
+    greenmag_ammotype = "greenmag_ammo_93x64_basic_1Rnd";
+  };
+  class greenmag_ammo_12G_basic_24Rnd : greenmag_ammo_127x54_basic_60Rnd {
+    displayName = "12G - 24 Shell";
+    greenmag_ammotype = "greenmag_ammo_12G_basic_1Rnd";
+	greenmag_bullets = 24;
+  };
+  class greenmag_ammo_127x54_basic_30Rnd;
+  class greenmag_ammo_93x64_basic_30Rnd : greenmag_ammo_127x54_basic_30Rnd {
+    displayName = "9.3x64mm - 30 Rnd";
+    greenmag_ammotype = "greenmag_ammo_93x64_basic_1Rnd";
+  };
+  class greenmag_ammo_12G_basic_12Rnd : greenmag_ammo_127x54_basic_30Rnd {
+    displayName = "12G - 12 Shell";
+    greenmag_ammotype = "greenmag_ammo_12G_basic_1Rnd";
+	greenmag_bullets = 12;
+  };
+  class greenmag_ammo_127x108_basic_1Rnd;
+  class greenmag_ammo_12G_basic_1Rnd : greenmag_ammo_127x108_basic_1Rnd {
+    displayName = "12G - 1 Shell";
+    greenmag_ammotype = "greenmag_ammo_12G_basic_1Rnd";
+  };
   
   // Flashlights, special thanks G4rrus
   #define LIGHTCONF(NAME,PARENT) \
